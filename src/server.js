@@ -36,5 +36,5 @@ app.use(NotFound);
 app.use(ErrorHandler);
 
 server.listen(process.env.PORT, () => {
-  logger.info(`[API] Servidor iniciado na porta ${process.env.PORT}`);
+  conole.info(`[API] Servidor iniciado na porta ${process.env.PORT}`);
 });
