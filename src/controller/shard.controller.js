@@ -1,4 +1,4 @@
-const ShardStatus = require('../managers/ShardStatus');
+const ShardStatus = require('../util/ShardStatus');
 
 module.exports = class ShardStatusController {
   static async getShardStatus(_req, res) {
