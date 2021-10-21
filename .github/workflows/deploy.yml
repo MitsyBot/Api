@@ -36,8 +36,7 @@ jobs:
 
     - name: Buildar a imagem
       run: |
-        cd ..
-        docker build . --tag ghcr.io/mitsybot/api:latest
+        docker build -t ghcr.io/mitsybot/api:latest .
         docker run ghcr.io/mitsybot/api:latest
   
     - name: Enviar a imagem para o ghcr
