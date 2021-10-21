@@ -1,4 +1,4 @@
-const urls = require('../util/assetsUrls');
+const urls = require('../util/assetsUrl');
 
 module.exports = class AssetsController {
   static async getImageUrl(req, res) {
