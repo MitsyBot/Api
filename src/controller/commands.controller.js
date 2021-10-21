@@ -1,4 +1,4 @@
-const CommandsManager = require('../managers/CommandsManager');
+const CommandsManager = require('../util/CommandsManager');
 
 module.exports = class CommandsController {
   static async getCommands(_req, res) {
