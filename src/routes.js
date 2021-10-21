@@ -14,7 +14,7 @@ router.put('/shards', isAuth, ShardController.updateShardStatus);
 
 router.get('/commands', CommandsController.getCommands);
 router.post('/commands', isAuth, CommandsController.createCommands);
-router.patch('/commands/:name', isAuthorized, CommandsController.editMaintenance);
+router.patch('/commands/:name', isAuth, CommandsController.editMaintenance);
 
 router.get('/activity', ActivityController.random);
 router.get('/activity/all', ActivityController.all);
