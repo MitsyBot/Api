@@ -1,4 +1,4 @@
-const APIError = require('../util/APIError');
+const APIError = require('../util/ApiError');
 
 module.exports = (
   error,
