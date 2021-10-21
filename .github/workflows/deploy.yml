@@ -36,6 +36,7 @@ jobs:
 
     - name: Buildar a imagem
       run: |
+        cd ..
         docker build -t ghcr.io/mitsybot/api:latest .
         docker run ghcr.io/mitsybot/api:latest
   
