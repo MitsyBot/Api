@@ -1,6 +1,6 @@
 const APIError = require('../util/APIError');
 
-export default (
+module.exports = default (
   error,
   _req,
   res,
