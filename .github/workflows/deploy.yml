@@ -1,4 +1,4 @@
-name: Node.js CI
+name: Test and Deploy
 
 on:
   push:
@@ -24,7 +24,7 @@ jobs:
     - run: npm run start
     
   build_and_push:
-    name: Build, push, and deploy image to ghcr
+    name: Deploy para o ghcr
     runs-on: ubuntu-latest
     steps:
     - name: Logar no container registry do github
