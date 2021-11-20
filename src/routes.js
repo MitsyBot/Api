@@ -18,17 +18,17 @@ router.post('/commands', isAuth, CommandsController.createCommands);
 router.patch('/commands/:name', isAuth, CommandsController.editMaintenance);
 router.get('/activity', ActivityController.random);
 router.get('/activity/all', ActivityController.all);
-router.post('/activity', ActivityController.add);
-router.put('/activity', ActivityController.reset);
-router.delete('/activity', ActivityController.clear);
+router.post('/activity', isAuth, ActivityController.add);
+router.put('/activity', isAuth, ActivityController.reset);
+router.delete('/activity', isAuth, ActivityController.clear);
 router.get('/assets/:type', AssetsController.getImageUrl);
 
 // Usuarios para o website e dashboard
-router.get('/user/:id', UserController.GetUser)
-router.get('/user/:id/banners', UserController.GetUserBanners)
+router.get('/user/:id', isAuth, UserController.GetUser)
+router.get('/user/:id/banners', isAuth, UserController.GetUserBanners)
 
 // Servidor para dashboard
 
-router.get('/guild/:id', GuildController.GetGuild)
+router.get('/guild/:id', isAuth, GuildController.GetGuild)
 
 module.exports = router
