@@ -8,6 +8,8 @@ const ErrorHandler = require('./middlewares/ErrorHandler')
 const isAuthorized = require('./middlewares/isAuth')
 
 const ApiRoutes = require('./routes')
+const mongoose = require('mongoose');
+const mongourl = process.env.MONGO_URL
 
 const app = express()
 const server = http.createServer(app)
@@ -21,6 +23,7 @@ const limiter = rateLimit({
     },
 });
 
+
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -30,10 +33,19 @@ app.use((_, res, next) => {
   return next();
 });
 
-app.use('/', isAuthorized, ApiRoutes);
+app.use('/', ApiRoutes);
 
 app.use(NotFound);
 app.use(ErrorHandler);
+
+
+mongoose.connect(mongourl, { useNewUrlParser: true, useUnifiedTopology: true }, (err) => {
+  if (err) {
+    return console.log(`Não foi possível se conectar a database: ${err}`);
+  }
+
+  console.log('Conectado a database');
+});
 
 server.listen(process.env.PORT, () => {
   console.info(`[API] Servidor iniciado na porta ${process.env.PORT}`);
