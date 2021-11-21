@@ -24,11 +24,11 @@ router.delete('/activity', isAuth, ActivityController.clear);
 router.get('/assets/:type', AssetsController.getImageUrl);
 
 // Usuarios para o website e dashboard
-router.get('/user/:id', isAuth, UserController.GetUser)
-router.get('/user/:id/banners', isAuth, UserController.GetUserBanners)
+router.get('/user', UserController.GetUser)
+router.get('/user/:id/banners', UserController.GetUserBanners)
+router.get('/user/guilds', UserController.GetUserGuild)
 
 // Servidor para dashboard
-
-router.get('/guild/:id', isAuth, GuildController.GetGuild)
+router.get('/guild/:id', GuildController.GetGuild)
 
 module.exports = router
