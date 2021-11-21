@@ -52,7 +52,6 @@ module.exports = class UserController {
 
         const parentGuild = await Promise.all(userGuilds.map(async (guilds) => { 
           const dbGuilds = await database.fetchGuild(guilds.id);
-          console.log(dbGuilds)
           guilds.parent = Boolean(dbGuilds.id)
           guilds.canManage = Boolean(guilds.permissions & 0x0000000020)
           return guilds
