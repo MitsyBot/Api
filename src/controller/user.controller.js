@@ -56,10 +56,12 @@ module.exports = class UserController {
           guilds.canManage = Boolean(guilds.permissions & 0x0000000020)
           return guilds
         }))
-
-        res.json(parentGuild)
+        const manageableGuilds = parentGuild.filter(guilds => guilds.permissions & 0x0000000020)
+        res.json(manageableGuilds)
     }
 
+
+    // Provisorio
     static async GetUserBanners(req, res) {
         const user = await database.fetchUser(req.body.userID);
 
