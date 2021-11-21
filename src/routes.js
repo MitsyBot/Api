@@ -29,6 +29,6 @@ router.get('/user/:id/banners', UserController.GetUserBanners)
 router.get('/user/guilds', UserController.GetUserGuild)
 
 // Servidor para dashboard
-router.get('/guild/:id', GuildController.GetGuild)
+router.get('/configure/guild/', GuildController.GetGuild)
 
 module.exports = router

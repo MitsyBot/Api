@@ -38,7 +38,7 @@ module.exports = class UserController {
     }
 
     static async GetUserGuild(req, res) {
-    const userToken = req.body.userToken
+    const userToken = req.body.userToken || req.headers['authorization']; 
 
     const userGuilds = await (await fetch(`https://discord.com/api/users/@me/guilds`, {
             method: 'GET',
