@@ -38,6 +38,7 @@ module.exports = class UserController {
     }
 
     static async GetUserGuild(req, res) {
+
     const userToken = req.body.userToken || req.headers['authorization']; 
 
     const userGuilds = await (await fetch(`https://discord.com/api/users/@me/guilds`, {
@@ -47,8 +48,10 @@ module.exports = class UserController {
               'content-type': 'application/json'
             }
           })).json()
-        
+
         if (userGuilds.message === '401: Unauthorized') return res.status(200).json({ error: "Unauthorized" });
+        
+        if (userGuilds.message === 'You are being rate limited.') return res.json(userGuilds);
 
         const parentGuild = await Promise.all(userGuilds.map(async (guilds) => { 
           const dbGuilds = await database.fetchGuild(guilds.id);

@@ -11,16 +11,18 @@ module.exports = class GuildController {
               'content-type': 'application/json'
             }
           })).json()
-        if (userGuilds.error === 'Unauthorized') return res.end({ error: "Unauthorized" });
+        if (userGuilds.error === 'Unauthorized') return res.status(200).json({ error: "Unauthorized" });
+        if (userGuilds.message === 'You are being rate limited.') return res.json(userGuilds);
 
         const currentGuild = userGuilds.filter(guilds => guilds.id === req.headers['guild'])
 
-        if(!currentGuild[0]) return res.end({error: "You cannot manage this guild"})
+        if(!currentGuild[0]) return res.status(200).json({error: "You cannot manage this guild"})
 
-          if(guild.message === 'Servidor não encontrado') return res.status(200).json({ message: 'Servidor não encontrado' })
+        if(guild.message === 'Servidor não encontrado') return res.status(200).json({ message: 'Servidor não encontrado' })
 
-        if (!currentGuild[0].canManage) return res.end({ error: "Missing permissions" });
-        res.end({
+        if (!currentGuild[0].canManage) return res.status(200).json({ error: "Missing permissions" });
+
+        res.status(200).json({
           id: guild.id,
           icon: currentGuild[0].icon,
           name: currentGuild[0].name,

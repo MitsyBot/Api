@@ -12,6 +12,8 @@ module.exports = class GuildController {
             }
           })).json()
         if (userGuilds.error === 'Unauthorized') return res.status(200).json({ error: "Unauthorized" });
+        
+        if (userGuilds.message === 'You are being rate limited.') return res.json(userGuilds);
 
         const currentGuild = userGuilds.filter(guilds => guilds.id === req.headers['guild'])
 
