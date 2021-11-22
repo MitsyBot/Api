@@ -10,7 +10,7 @@ module.exports = class ActivityController {
       }
     
       static all(_req, res) {
-        return res.json(mitsyActivity.getInstance().getAllActivities());
+        return res.status(200).json(mitsyActivity.getInstance().getAllActivities());
       }
     
        static clear(_req, res) {

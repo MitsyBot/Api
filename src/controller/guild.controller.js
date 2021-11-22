@@ -2,8 +2,8 @@ const database = require('../database/mongo');
 const fetch = require('node-fetch')
 module.exports = class GuildController {
     static async GetGuild(req, res) {
-        const guild = await database.fetchGuild(req.body.guildID);
-        const userToken = req.body.userToken
+        const guild = await database.fetchGuild(req.headers['guild']);
+        const userToken = req.body.token || req.headers['authorization']
         const userGuilds = await (await fetch(`http://localhost:${process.env.PORT}/user/guilds`, {
             method: 'GET',
             headers: {
@@ -11,31 +11,22 @@ module.exports = class GuildController {
               'content-type': 'application/json'
             }
           })).json()
-        
-        if (userGuilds.error === 'Unauthorized') return res.json({ error: "Unauthorized" });
+        if (userGuilds.error === 'Unauthorized') return res.end({ error: "Unauthorized" });
 
-        const currentGuild = userGuilds.filter(guilds => guilds.id === req.body.guildID)
-        
-        if (!currentGuild[0].canManage) return res.json({ error: "Missing permissions" });
-        res.json({
+        const currentGuild = userGuilds.filter(guilds => guilds.id === req.headers['guild'])
+
+        if(!currentGuild[0]) return res.end({error: "You cannot manage this guild"})
+
+          if(guild.message === 'Servidor não encontrado') return res.status(200).json({ message: 'Servidor não encontrado' })
+
+        if (!currentGuild[0].canManage) return res.end({ error: "Missing permissions" });
+        res.end({
           id: guild.id,
-          avatar: currentGuild[0].avatar,
+          icon: currentGuild[0].icon,
           name: currentGuild[0].name,
-          reportChannel: guild.channelReport,
-          reportEnabled: guild.reportModule,
           isOwner: currentGuild[0].owner,
-          locale: guild.lang,
-          punishChannel: guild.punishChannel,
-          punishEnabled: guild.punishModule,
-          partner: guild.partner,
-          logChannel: guild.logChannel,
           blacklisted: guild.blacklist,
           blacklistReason: guild.blacklistReason,
-          isPremium: guild.isPremium,
-          premiumTier: guild.premiumLevel,
-          antiflood: guild.antiflood,
-          allowedChannel: guild.allowedChannel,
-          customCommands: guild.customCommands
         })
     }
   }

@@ -4,7 +4,7 @@ module.exports = class ShardStatusController {
   static async getShardStatus(_req, res) {
     const shards = ShardStatus.getInstance().getAllShards();
 
-    return res.json(shards);
+    return res.status(200).json(shards);
   }
 
   static updateShardStatus(req, res) {

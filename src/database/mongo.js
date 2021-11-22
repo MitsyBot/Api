@@ -9,7 +9,7 @@ module.exports.fetchUser = async function(user) {
 	}
 
     else {
-		return { message: 'Usuario não encontrador' }
+		return { message: 'Usuario não encontrado' }
 	}
 };
 
@@ -21,6 +21,6 @@ module.exports.fetchGuild = async function(guildid) {
 	}
 
 	else {
-		return { message: 'Servidor não encontrador' }
+		return { message: 'Servidor não encontrado' }
 	}
 };

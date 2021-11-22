@@ -10,7 +10,7 @@ module.exports = class AssetsController {
 
     if (url === 'NO-LINKS') return res.sendStatus(404);
 
-    return res.json({ url });
+    return res.status(200).json({ url });
   }
 
    static getAssetBasedOnTheType(type) {

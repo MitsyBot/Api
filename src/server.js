@@ -33,7 +33,7 @@ app.use((_, res, next) => {
   return next();
 });
 
-app.use('/', ApiRoutes);
+app.use('/', limiter, ApiRoutes);
 
 app.use(NotFound);
 app.use(ErrorHandler);

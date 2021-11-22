@@ -5,7 +5,7 @@ module.exports = class UserController {
     static async GetUser(req, res) {
         const user = await database.fetchUser(req.body.userID);
         if(user.backgroundList) {
-        res.json({
+        res.status(200).json({
           "id": user.id,
           "comets": user.comets,
           "xp": user.xp,
@@ -33,7 +33,7 @@ module.exports = class UserController {
           "staffLevel": user.staffLevel,
         })
         } else {
-            res.json({ message: 'Usuario não encontrado'})
+            res.status(200).json({ message: 'Usuario não encontrado'})
         }
     }
 
@@ -48,7 +48,7 @@ module.exports = class UserController {
             }
           })).json()
         
-        if (userGuilds.message === '401: Unauthorized') return res.json({ error: "Unauthorized" });
+        if (userGuilds.message === '401: Unauthorized') return res.status(200).json({ error: "Unauthorized" });
 
         const parentGuild = await Promise.all(userGuilds.map(async (guilds) => { 
           const dbGuilds = await database.fetchGuild(guilds.id);
@@ -57,7 +57,7 @@ module.exports = class UserController {
           return guilds
         }))
         const manageableGuilds = parentGuild.filter(guilds => guilds.permissions & 0x0000000020)
-        res.json(manageableGuilds)
+        res.status(200).json(manageableGuilds)
     }
 
 
@@ -67,9 +67,9 @@ module.exports = class UserController {
 
         if(user.backgroundList) {
 
-        res.json(user.backgroundList)
+        res.status(200).json(user.backgroundList)
         } else {
-            res.json({ message: 'Usuario não encontrado' })
+            res.status(200).json({ message: 'Usuario não encontrado' })
         }
     }
   }

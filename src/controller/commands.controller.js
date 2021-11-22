@@ -4,7 +4,7 @@ module.exports = class CommandsController {
   static async getCommands(_req, res) {
     const commands = CommandsManager.getInstance().getAllCommands();
 
-    return res.json(commands);
+    return res.status(200).json(commands);
   }
 
   static createCommands(req, res) {
