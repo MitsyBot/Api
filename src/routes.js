@@ -6,7 +6,6 @@ const ActivityController = require('./controller/activity.controller')
 const AssetsController = require('./controller/assets.controller')
 const UserController = require('./controller/user.controller')
 const IndexConfig = require('./controller/configure/index')
-const BaseGuildInfo = require('./controller/guild.controller')
 const isAuth = require('./middlewares/isAuth')
 
 const router = Router()
@@ -31,5 +30,4 @@ router.get('/user/guilds', UserController.GetUserGuild)
 
 // Servidor para dashboard
 router.get('/configure/guild/index', IndexConfig.GetIndexGuildConfig)
-router.get('/configure/guild', BaseGuildInfo.GetGuild)
 module.exports = router

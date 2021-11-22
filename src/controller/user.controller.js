@@ -37,9 +37,8 @@ module.exports = class UserController {
         }
     }
 
-    static async GetUserGuild(req, res) {
-
-    const userToken = req.body.userToken || req.headers['authorization']; 
+    static async GetUserGuild(req, res) {      
+      const userToken = req.body.userToken || req.headers['authorization']; 
 
     const userGuilds = await (await fetch(`https://discord.com/api/users/@me/guilds`, {
             method: 'GET',
@@ -61,7 +60,7 @@ module.exports = class UserController {
         }))
         const manageableGuilds = parentGuild.filter(guilds => guilds.permissions & 0x0000000020)
         res.status(200).json(manageableGuilds)
-    }
+      }
 
 
     // Provisorio
