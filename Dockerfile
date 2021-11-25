@@ -1,11 +1,17 @@
-FROM node:16-alpine
+FROM node:16-alpine as builder
+LABEL org.opencontainers.image.source="https://github.com/MitsyBot/Api"
 
+RUN mkdir -p /usr/src/api
 WORKDIR /usr/src/api
 
-COPY package*.json ./
+RUN apk update && apk upgrade
+RUN apk add git
 
+COPY . /usr/src/api/
 RUN npm install
 
-COPY . .
+FROM node:16-alpine as runner
+WORKDIR /usr/src/api
+COPY --from=builder /usr/src/api /usr/src/api
 
-LABEL org.opencontainers.image.source="https://github.com/MitsyBot/Api"
+CMD ["npm", "run", "start"]
