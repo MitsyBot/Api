@@ -23,16 +23,6 @@ module.exports = class GuildController {
 
         if (!currentGuild[0].canManage) return res.status(200).json({ error: "Missing permissions" });
 
-        const guildChannels = await (await fetch(`http://localhost:${process.env.PORT}/configure/guild/channels`, {
-          method: 'GET',
-          headers: {
-            Authorization: userToken,
-            guild: req.headers['guild'],
-            'content-type': 'application/json'
-          }
-        })).json()
-
-
         res.status(200).json({
           id: guild.id,
           icon: currentGuild[0].icon,
@@ -45,7 +35,6 @@ module.exports = class GuildController {
           premiumTier: guild.premiumLevel,
           locale: guild.lang,
           partner: guild.partner,
-          channels: guildChannels,
         })
     }
   }
