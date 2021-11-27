@@ -6,6 +6,10 @@ module.exports = class Activities {
               name: 'Yay',
               type: 'PLAYING',
             },
+            {
+              name: ':)',
+              type: 'PLAYING',
+            },
           ];
     }
     constructor() {
