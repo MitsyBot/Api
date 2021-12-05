@@ -26,10 +26,11 @@ module.exports = class GuildController {
         const guildChannels = await (await fetch(`https://discord.com/api/guilds/${req.headers['guild']}/channels`, {
             method: 'GET',
             headers: {
-              Authorization: `Bot ${process.env.BOT_TOKEN}`,
+              Authorization: userToken,
               'content-type': 'application/json'
             }
           })).json()
+
         const textChannels = guildChannels.filter(channels => channels.type === 0)
 
           res.status(200).json(textChannels)
