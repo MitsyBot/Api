@@ -8,8 +8,7 @@ module.exports = class CommandsController {
   }
 
   static createCommands(req, res) {
-    const { commands } = req.body.data;
-
+    const commands = req.body.data;
     if (!commands) return res.sendStatus(400);
     CommandsManager.getInstance().postCommands(commands);
 
