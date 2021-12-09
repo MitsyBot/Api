@@ -3,6 +3,12 @@ const fetch = require('node-fetch')
 const { MessageAttachment } = require('discord.js');
 module.exports = class SuggestionController {
   static async suggest(req, res) {
+
+    let attach = req.body.file
+
+    if(!attach === null && !attach.includes('https://')) {
+      attach = null
+    }
     fetch(`${process.env.SUGGESTION_WEBHOOK_URL}`, {
         method: 'post',
         headers: {
@@ -22,7 +28,7 @@ module.exports = class SuggestionController {
               title: req.body.title,
               description: req.body.description,
               image: {
-                url: req.body.file,
+                url: attach,
               },
               footer: {
                 text: `Enviado por ${req.body.username}`
