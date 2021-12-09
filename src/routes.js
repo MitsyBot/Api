@@ -9,6 +9,7 @@ const IndexConfig = require('./controller/configure/index')
 const GuildChannels = require('./controller/guild/channels.controller')
 const GuildRoles = require('./controller/guild/roles.controller')
 const Suggestion = require('./controller/suggestion.controller')
+const User = require('./controller/user/daily.controller')
 
 const isAuth = require('./middlewares/isAuth')
 
@@ -29,12 +30,15 @@ router.get('/assets/:type', AssetsController.getImageUrl);
 router.post('/suggestion', Suggestion.suggest);
 
 // Usuarios para o website e dashboard
-router.get('/user', UserController.GetUser)
-router.get('/user/:id/banners', UserController.GetUserBanners)
-router.get('/user/guilds', UserController.GetUserGuild)
+router.get('/user', UserController.GetUser);
+router.get('/user/:id/banners', UserController.GetUserBanners);
+router.get('/user/guilds', UserController.GetUserGuild);
+router.get('/user/:user/daily', User.getDailyInfos);
+router.post('/user/get/daily', User.postDaily)
 
 // Servidor para dashboard
-router.get('/configure/guild/index', IndexConfig.GetIndexGuildConfig)
-router.get('/configure/guild/channels', GuildChannels.getChannels)
-router.get('/configure/guild/roles', GuildRoles.getRoles)
+router.get('/configure/guild/index', IndexConfig.GetIndexGuildConfig);
+router.get('/configure/guild/channels', GuildChannels.getChannels);
+router.get('/configure/guild/roles', GuildRoles.getRoles);
+
 module.exports = router

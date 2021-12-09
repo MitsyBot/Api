@@ -15,4 +15,14 @@ module.exports = class CommandsController {
     return res.sendStatus(200);
   }
 
+  static async editMaintenance(req, res) {
+    const { name } = req.params;
+    const { disabled } = req.body.data;
+
+    if (typeof name === 'undefined' || typeof disabled === 'undefined') return res.sendStatus(400);
+
+    CommandsManager.getInstance().editMaintenance(name, disabled);
+
+    return res.sendStatus(200);
+  }
 }

@@ -17,6 +17,12 @@ module.exports = class CommandsManager {
     commands.forEach(a => this.commands.set(a.name, a));
   }
 
+  editMaintenance(commandName, disabled) {
+    const existingData = this.commands.get(commandName);
+    existingData.disabled = disabled;
+    this.commands.set(commandName, existingData);
+  }
+
   static getInstance() {
     if (!this.instance) {
       this.instance = new CommandsManager();
