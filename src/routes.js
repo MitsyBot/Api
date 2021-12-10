@@ -10,6 +10,7 @@ const GuildChannels = require('./controller/guild/channels.controller')
 const GuildRoles = require('./controller/guild/roles.controller')
 const Suggestion = require('./controller/suggestion.controller')
 const User = require('./controller/user/daily.controller')
+const Fanarts = require('./controller/fanart.controller')
 
 const isAuth = require('./middlewares/isAuth')
 
@@ -35,6 +36,9 @@ router.get('/user/:id/banners', UserController.GetUserBanners);
 router.get('/user/guilds', UserController.GetUserGuild);
 router.get('/user/:user/daily', User.getDailyInfos);
 router.post('/user/get/daily', User.postDaily)
+
+// Fanarts
+router.get('/fanarts/getAll', Fanarts.getArts)
 
 // Servidor para dashboard
 router.get('/configure/guild/index', IndexConfig.GetIndexGuildConfig);
