@@ -6,9 +6,6 @@ module.exports = class SuggestionController {
 
     let attach = req.body.file
 
-    if(!attach === null && !attach.includes('https://')) {
-      attach = null
-    }
     fetch(`${process.env.SUGGESTION_WEBHOOK_URL}`, {
         method: 'post',
         headers: {
