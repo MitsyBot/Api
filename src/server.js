@@ -2,17 +2,19 @@ const express = require('express')
 const cors = require('cors')
 const http = require('http')
 const rateLimit = require('express-rate-limit')
-
 const NotFound = require('./middlewares/NotFound')
 const ErrorHandler = require('./middlewares/ErrorHandler')
 const isAuthorized = require('./middlewares/isAuth')
-
+const MitsyWebsocket = require('./util/Websocket')
 const ApiRoutes = require('./routes')
 const mongoose = require('mongoose');
 const mongourl = process.env.MONGO_URL
 
 const app = express()
 const server = http.createServer(app)
+
+
+const mitsyWS = new MitsyWebsocket();
 
 const limiter = rateLimit({
     windowMs: 5 * 1000,
@@ -22,7 +24,6 @@ const limiter = rateLimit({
       res.status(429).send({ message: 'Suas ações estão sendo limitadas' });
     },
 });
-
 
 app.use(cors());
 app.use(express.json());
@@ -41,12 +42,13 @@ app.use(ErrorHandler);
 
 mongoose.connect(mongourl, { useNewUrlParser: true, useUnifiedTopology: true }, (err) => {
   if (err) {
-    return console.log(`Não foi possível se conectar a database: ${err}`);
+    return console.warn(`Não foi possível se conectar a database: ${err}`);
   }
 
-  console.log('Conectado a database');
+  console.info('Conectado a database');
 });
 
 server.listen(process.env.PORT, () => {
   console.info(`[API] Servidor iniciado na porta ${process.env.PORT}`);
+  mitsyWS.connect();
 });
