@@ -6,6 +6,8 @@ module.exports = class ActivityController {
     static random(req, res) {
         let { shard } = req.body;
         if (!shard) shard = 0;
+
+        console.log(mitsyActivity.getInstance())
         return res.send(mitsyActivity.getInstance().getRandomActivity(shard));
       }
     
