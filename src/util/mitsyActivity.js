@@ -38,7 +38,7 @@ module.exports = class Activities {
         return this.activities;
       }
 
-      getInstance() {
+      static getInstance() {
         if (!this.instance) {
           this.instance = new Activities();
         }
