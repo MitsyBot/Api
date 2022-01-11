@@ -14,7 +14,8 @@ module.exports = class CommandsManager {
 
   postCommands(commands) {
     this.clearCommands();
-    commands.data.commands.forEach(a => this.commands.set(a.name, a));
+    console.log(commands)
+    commands.forEach(a => this.commands.set(a.name, a));
   }
 
   editMaintenance(commandName, disabled) {
