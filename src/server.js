@@ -4,17 +4,37 @@ const http = require('http')
 const rateLimit = require('express-rate-limit')
 const NotFound = require('./middlewares/NotFound')
 const ErrorHandler = require('./middlewares/ErrorHandler')
-const isAuthorized = require('./middlewares/isAuth')
-const MitsyWebsocket = require('./util/Websocket')
 const ApiRoutes = require('./routes')
 const mongoose = require('mongoose');
 const mongourl = process.env.MONGO_URL
+const { Server } = require('ws')
 
 const app = express()
 const server = http.createServer(app)
 
 
-const mitsyWS = new MitsyWebsocket();
+const ws = new Server({ server: server });
+
+ws.on('connection', (socket, req) => {
+  console.log('[Websocket] Uma nova conexão foi realizada')
+  socket.id = url.parse(req.url, true).query.id ?? 0
+  socket.isAlive = true;
+  socket.uptime = Date.now()
+
+  socket.on('pong', (ms) => {
+    socket.isAlive = true;
+    socket.responseTime = Date.now() - ms.toString();
+  })
+})
+
+setInterval(() => {
+  ws.clients.forEach((skt) => {
+    if (skt.isAlive === false) return skt.terminate()
+
+    skt.isAlive = false;
+    skt.ping(Date.now())
+  })
+}, 15000)
 
 const limiter = rateLimit({
     windowMs: 5 * 1000,
@@ -50,5 +70,4 @@ mongoose.connect(mongourl, { useNewUrlParser: true, useUnifiedTopology: true }, 
 
 server.listen(process.env.PORT, () => {
   console.info(`[API] Servidor iniciado na porta ${process.env.PORT}`);
-  mitsyWS.connect();
 });
