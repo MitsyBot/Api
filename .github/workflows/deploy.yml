@@ -43,4 +43,4 @@ jobs:
           script: |
             docker pull ghcr.io/mitsybot/api:latest
             docker stop Api
-            docker run -it --rm -d --name Api ghcr.io/mitsybot/api:latest
+            docker run -it --rm -d -p 1234:1234 --name Api ghcr.io/mitsybot/api:latest
