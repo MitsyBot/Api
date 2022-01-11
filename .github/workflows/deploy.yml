@@ -32,3 +32,15 @@ jobs:
           file: Dockerfile
           push: true
           tags: ghcr.io/mitsybot/api:latest
+
+      - name: Enviar os arquivos para maquina da mitsy
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          port: ${{ secrets.PORT }}
+          script: |
+            docker pull ghcr.io/mitsybot/api:latest
+            docker stop Api
+            docker run -it --rm -d --name Api ghcr.io/mitsybot/api:latest
