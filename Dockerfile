@@ -12,5 +12,6 @@ RUN npm install
 FROM node:16-alpine as runner
 WORKDIR /usr/src/api
 COPY --from=builder /usr/src/api /usr/src/api
+EXPOSE 1234
 
 CMD ["npm", "run", "start"]
