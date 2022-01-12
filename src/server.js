@@ -6,11 +6,9 @@ const ErrorHandler = require('./middlewares/ErrorHandler')
 const ApiRoutes = require('./routes')
 const mongoose = require('mongoose');
 const mongourl = process.env.MONGO_URL
-const { getWs, InitializeServer } = require('./util/WebSocket')
+const { pingPage, InitializeServer } = require('./util/WebSocket')
 
 const app = express()
-
-const ws = getWs()
 
 const startTime = Date.now()
 
@@ -33,12 +31,7 @@ app.use((_, res, next) => {
   return next();
 });
 
-app.get('/ping', (_, res) => {
-  const clients = []
-  console.log(ws)
-  ws.clients.forEach(a => clients.push({ id: a.id, ping: a.responseTime, uptime: Date.now() - a.uptime }))
-  res.status(200).json({ http: { uptime: Date.now() - startTime }, ws: [...ws.clients.values()].map(a => ({ id: Number(a.id), ping: a.responseTime, uptime: Date.now() - a.uptime })) })
-})
+pingPage(app)
 
 app.use('/', limiter, ApiRoutes);
 

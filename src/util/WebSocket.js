@@ -1,12 +1,10 @@
 const { Server } = require('ws')
 const url = require('url')
 
-let ws = null
+var ws = null
 
 function InitializeServer(httpServer) {
     ws = new Server({ server: httpServer })
-
-    console.log(ws)
 
     ws.on('connection', (socket, req) => {
         console.log('Um novo cliente se conectou')
@@ -68,9 +66,13 @@ function makeRequest(toSend) {
     })
 }
 
-function getWs() {
-    console.log(ws)
-    return ws
+function pingPage(app) {
+    app.get('/ping', (_, res) => {
+        const clients = []
+
+        ws.clients.forEach(a => clients.push({ id: a.id, ping: a.responseTime, uptime: Date.now() - a.uptime }))
+        res.status(200).json({ http: { uptime: Date.now() - startTime }, ws: [...ws.clients.values()].map(a => ({ id: Number(a.id), ping: a.responseTime, uptime: Date.now() - a.uptime })) })
+      })
 }
 
-module.exports = { InitializeServer, getWs, makeRequest }
+module.exports = { InitializeServer, pingPage, makeRequest }
