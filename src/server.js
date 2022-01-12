@@ -6,8 +6,7 @@ const ErrorHandler = require('./middlewares/ErrorHandler')
 const ApiRoutes = require('./routes')
 const mongoose = require('mongoose');
 const mongourl = process.env.MONGO_URL
-const { Server } = require('ws')
-const url = require('url')
+const { ws, InitializeServer } = require('./util/WebSocket')
 
 const app = express()
 
@@ -56,26 +55,4 @@ const httpServer = app.listen(process.env.PORT, () => {
   console.info(`[API] Servidor iniciado na porta ${process.env.PORT}`);
 });
 
-const ws = new Server({ server: httpServer });
-
-
-ws.on('connection', (socket, req) => {
-  console.log('Um novo cliente se conectou')
-  socket.id = url.parse(req.url, true).query.id ?? 0
-  socket.isAlive = true;
-  socket.uptime = Date.now()
-
-  socket.on('pong', (ms) => {
-    socket.isAlive = true;
-    socket.responseTime = Date.now() - ms.toString();
-  })
-})
-
-setInterval(() => {
-  ws.clients.forEach((skt) => {
-    if (skt.isAlive === false) return skt.terminate()
-
-    skt.isAlive = false;
-    skt.ping(Date.now())
-  })
-}, 15000)
+InitializeServer(httpServer)
