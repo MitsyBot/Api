@@ -1,11 +1,13 @@
 const mitsyActivity = require('../util/mitsyActivity')
 const ApiError = require('../util/ApiError')
-
+const ws = require('ws')
 module.exports = class ActivityController {
 
     static random(req, res) {
         let { shard } = req.body;
         if (!shard) shard = 0;
+
+      console.log(ws)
 
         return res.send(mitsyActivity.getInstance().getRandomActivity(shard));
       }
