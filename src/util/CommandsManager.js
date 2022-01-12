@@ -14,7 +14,6 @@ module.exports = class CommandsManager {
 
   postCommands(commands) {
     this.clearCommands();
-    console.log(commands)
     commands.forEach(a => this.commands.set(a.name, a));
   }
 
