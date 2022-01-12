@@ -7,7 +7,30 @@ module.exports = class ActivityController {
         let { shard } = req.body;
         if (!shard) shard = 0;
 
-      console.log(ws)
+        ws.send({
+          id: 1,
+          type: 'guild',
+          data: { guildId: '775328200044838922' },
+        });
+
+
+        const resolveSuccess = (receivedData) => {
+          clearTimeout(timeout);
+          this.ws?.removeListener('message', handler);
+          return res(receivedData);
+        };
+  
+        const handler = (msg) => {
+          const parsedData = JSON.parse(msg.toString());
+  
+          if (!parsedData?.id) return;
+          if (parsedData.id !== toSend.id) return;
+          if (!parsedData?.res) return resolveError();
+  
+          return resolveSuccess({ data: Buffer.from(parsedData.res) });
+        };
+  
+        ws.on('message', handler);
 
         return res.send(mitsyActivity.getInstance().getRandomActivity(shard));
       }
