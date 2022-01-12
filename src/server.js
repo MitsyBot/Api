@@ -33,6 +33,7 @@ app.use((_, res, next) => {
 
 app.get('/ping', (_, res) => {
   const clients = []
+  console.log(ws)
   ws.clients.forEach(a => clients.push({ id: a.id, ping: a.responseTime, uptime: Date.now() - a.uptime }))
   res.status(200).json({ http: { uptime: Date.now() - startTime }, ws: [...ws.clients.values()].map(a => ({ id: Number(a.id), ping: a.responseTime, uptime: Date.now() - a.uptime })) })
 })
