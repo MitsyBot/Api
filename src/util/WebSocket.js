@@ -1,7 +1,7 @@
 const { Server } = require('ws')
 const url = require('url')
 
-let ws = null
+var ws = null
 
 function InitializeServer(httpServer) {
     ws = new Server({ server: httpServer })
@@ -31,7 +31,7 @@ function InitializeServer(httpServer) {
 function makeRequest(toSend) {
 
     if (!ws) return { err: true };
-
+    console.log(ws)
     ws.send(JSON.stringify(toSend));
 
     return new Promise((res) => {
