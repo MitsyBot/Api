@@ -1,6 +1,5 @@
 const express = require('express')
 const cors = require('cors')
-const http = require('http')
 const rateLimit = require('express-rate-limit')
 const NotFound = require('./middlewares/NotFound')
 const ErrorHandler = require('./middlewares/ErrorHandler')
@@ -8,9 +7,9 @@ const ApiRoutes = require('./routes')
 const mongoose = require('mongoose');
 const mongourl = process.env.MONGO_URL
 const { Server } = require('ws')
+const url = require('url')
 
 const app = express()
-const server = http.createServer(app)
 
 const limiter = rateLimit({
     windowMs: 5 * 1000,
