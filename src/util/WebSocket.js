@@ -2,8 +2,11 @@ const { Server } = require('ws')
 const url = require('url')
 
 var ws = null
+var startTime = null
 
 function InitializeServer(httpServer) {
+    startTime = Date.now()
+
     ws = new Server({ server: httpServer })
 
     ws.on('connection', (socket, req) => {
