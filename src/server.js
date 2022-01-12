@@ -20,6 +20,7 @@ const limiter = rateLimit({
     },
 });
 
+
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -28,6 +29,12 @@ app.use((_, res, next) => {
   res.contentType('application/json');
   return next();
 });
+
+app.get('/ping', (_, res) => {
+  const clients = []
+  ws.clients.forEach(a => clients.push({ id: a.id, ping: a.responseTime, uptime: Date.now() - a.uptime }))
+  res.status(200).json({ http: { uptime: Date.now() - startTime }, ws: [...ws.clients.values()].map(a => ({ id: Number(a.id), ping: a.responseTime, uptime: Date.now() - a.uptime })) })
+})
 
 app.use('/', limiter, ApiRoutes);
 
@@ -49,11 +56,6 @@ const httpServer = app.listen(process.env.PORT, () => {
 
 const ws = new Server({ server: httpServer });
 
-app.get('/ping', (_, res) => {
-  const clients = []
-  ws.clients.forEach(a => clients.push({ id: a.id, ping: a.responseTime, uptime: Date.now() - a.uptime }))
-  res.status(200).json({ http: { uptime: Date.now() - startTime }, ws: [...ws.clients.values()].map(a => ({ id: Number(a.id), ping: a.responseTime, uptime: Date.now() - a.uptime })) })
-})
 
 ws.on('connection', (socket, req) => {
   console.log('Um novo cliente se conectou')
