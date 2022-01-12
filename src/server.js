@@ -49,6 +49,12 @@ const httpServer = app.listen(process.env.PORT, () => {
 
 const ws = new Server({ server: httpServer });
 
+app.get('/ping', (_, res) => {
+  const clients = []
+  ws.clients.forEach(a => clients.push({ id: a.id, ping: a.responseTime, uptime: Date.now() - a.uptime }))
+  res.status(200).json({ http: { uptime: Date.now() - startTime }, ws: [...ws.clients.values()].map(a => ({ id: Number(a.id), ping: a.responseTime, uptime: Date.now() - a.uptime })) })
+})
+
 ws.on('connection', (socket, req) => {
   console.log('Um novo cliente se conectou')
   socket.id = url.parse(req.url, true).query.id ?? 0
@@ -59,12 +65,6 @@ ws.on('connection', (socket, req) => {
     socket.isAlive = true;
     socket.responseTime = Date.now() - ms.toString();
   })
-})
-
-app.use('/ping', (_, res) => {
-  const clients = []
-  ws.clients.forEach(a => clients.push({ id: a.id, ping: a.responseTime, uptime: Date.now() - a.uptime }))
-  res.status(200).json({ http: { uptime: Date.now() - startTime }, ws: [...ws.clients.values()].map(a => ({ id: Number(a.id), ping: a.responseTime, uptime: Date.now() - a.uptime })) })
 })
 
 setInterval(() => {
