@@ -11,6 +11,8 @@ const url = require('url')
 
 const app = express()
 
+const startTime = Date.now()
+
 const limiter = rateLimit({
     windowMs: 5 * 1000,
     max: 15,
