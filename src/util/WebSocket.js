@@ -3,14 +3,10 @@ const url = require('url')
 
 var ws = null
 
-function GetWS() {
-    return ws
-}
-
 function InitializeServer(httpServer) {
     ws = new Server({ server: httpServer })
 
-    GetWS().on('connection', (socket, req) => {
+    ws.on('connection', (socket, req) => {
         console.log('Um novo cliente se conectou')
         socket.id = url.parse(req.url, true).query.id ?? 0
         socket.isAlive = true;
@@ -23,7 +19,7 @@ function InitializeServer(httpServer) {
       })
       
       setInterval(() => {
-        GetWS().clients.forEach((skt) => {
+        ws.clients.forEach((skt) => {
           if (skt.isAlive === false) return skt.terminate()
       
           skt.isAlive = false;
@@ -34,25 +30,25 @@ function InitializeServer(httpServer) {
 
 function makeRequest(toSend) {
 
-    if (!GetWS()) return { err: true };
+    if (!ws) return { err: true };
 
-    GetWS().send(JSON.stringify(toSend));
+    ws.send(JSON.stringify(toSend));
 
     return new Promise((res) => {
-      if (!GetWS()) return res({ err: true });
+      if (!ws) return res({ err: true });
       const timeout = setTimeout(() => {
         res({ err: true });
       }, 5000);
 
       const resolveError = () => {
         clearTimeout(timeout);
-        GetWS().removeListener('message', handler);
+        ws.removeListener('message', handler);
         return res({ err: true });
       };
 
       const resolveSuccess = (receivedData) => {
         clearTimeout(timeout);
-        GetWS().removeListener('message', handler);
+        ws.removeListener('message', handler);
         return res(receivedData);
       };
 
@@ -66,7 +62,7 @@ function makeRequest(toSend) {
         return resolveSuccess({ data: Buffer.from(parsedData.res) });
       };
 
-      GetWS().on('message', handler);
+      ws.on('message', handler);
     })
 }
 
