@@ -31,7 +31,7 @@ function InitializeServer(httpServer) {
 function makeRequest(toSend) {
 
     if (!ws) return { err: true };
-    console.log(ws)
+
     ws.send(JSON.stringify(toSend));
 
     return new Promise((res) => {
