@@ -69,8 +69,8 @@ function makeRequest(toSend) {
 }
 
 function getWs() {
-    const websocket = ws
-    return websocket
+    console.log(ws)
+    return ws
 }
 
 module.exports = { InitializeServer, getWs, makeRequest }
