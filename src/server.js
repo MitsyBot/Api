@@ -12,30 +12,6 @@ const { Server } = require('ws')
 const app = express()
 const server = http.createServer(app)
 
-
-const ws = new Server({ server: server });
-
-ws.on('connection', (socket, req) => {
-  console.log('[Websocket] Uma nova conexão foi realizada')
-  socket.id = url.parse(req.url, true).query.id ?? 0
-  socket.isAlive = true;
-  socket.uptime = Date.now()
-
-  socket.on('pong', (ms) => {
-    socket.isAlive = true;
-    socket.responseTime = Date.now() - ms.toString();
-  })
-})
-
-setInterval(() => {
-  ws.clients.forEach((skt) => {
-    if (skt.isAlive === false) return skt.terminate()
-
-    skt.isAlive = false;
-    skt.ping(Date.now())
-  })
-}, 15000)
-
 const limiter = rateLimit({
     windowMs: 5 * 1000,
     max: 15,
@@ -68,6 +44,35 @@ mongoose.connect(mongourl, { useNewUrlParser: true, useUnifiedTopology: true }, 
   console.info('Conectado a database');
 });
 
-server.listen(process.env.PORT, () => {
+const httpServer = app.listen(process.env.PORT, () => {
   console.info(`[API] Servidor iniciado na porta ${process.env.PORT}`);
 });
+
+const ws = new Server({ server: httpServer });
+
+ws.on('connection', (socket, req) => {
+  console.log('Um novo cliente se conectou')
+  socket.id = url.parse(req.url, true).query.id ?? 0
+  socket.isAlive = true;
+  socket.uptime = Date.now()
+
+  socket.on('pong', (ms) => {
+    socket.isAlive = true;
+    socket.responseTime = Date.now() - ms.toString();
+  })
+})
+
+app.get('/ping', (_, res) => {
+  const clients = []
+  ws.clients.forEach(a => clients.push({ id: a.id, ping: a.responseTime, uptime: Date.now() - a.uptime }))
+  res.status(200).json({ http: { uptime: Date.now() - startTime }, ws: [...ws.clients.values()].map(a => ({ id: Number(a.id), ping: a.responseTime, uptime: Date.now() - a.uptime })) })
+})
+
+setInterval(() => {
+  ws.clients.forEach((skt) => {
+    if (skt.isAlive === false) return skt.terminate()
+
+    skt.isAlive = false;
+    skt.ping(Date.now())
+  })
+}, 15000)
