@@ -6,9 +6,11 @@ const ErrorHandler = require('./middlewares/ErrorHandler')
 const ApiRoutes = require('./routes')
 const mongoose = require('mongoose');
 const mongourl = process.env.MONGO_URL
-const { ws, InitializeServer } = require('./util/WebSocket')
+const { getWs, InitializeServer } = require('./util/WebSocket')
 
 const app = express()
+
+const ws = getWs()
 
 const startTime = Date.now()
 

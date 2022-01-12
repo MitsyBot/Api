@@ -1,10 +1,12 @@
 const { Server } = require('ws')
 const url = require('url')
 
-var ws = null
+let ws = null
 
 function InitializeServer(httpServer) {
     ws = new Server({ server: httpServer })
+
+    console.log(ws)
 
     ws.on('connection', (socket, req) => {
         console.log('Um novo cliente se conectou')
@@ -66,4 +68,9 @@ function makeRequest(toSend) {
     })
 }
 
-module.exports = { InitializeServer, ws, makeRequest }
+function getWs() {
+    const websocket = ws
+    return websocket
+}
+
+module.exports = { InitializeServer, getWs, makeRequest }
