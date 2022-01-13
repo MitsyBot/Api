@@ -17,6 +17,7 @@ function InitializeServer(httpServer) {
         
         socket.on('message', (raw) => {
         if(raw.client_type){
+        console.log('Aqui' + raw)
         socket.client = data.client_type
         }
         })
