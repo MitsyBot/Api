@@ -78,7 +78,7 @@ function makeRequest(client, toSend) {
         if (parsedData.id !== toSend.id) return;
         if (!parsedData.res) return resolveError();
 
-        return res(msg);
+        return resolveSuccess({ data: Buffer.from(parsedData.res) });
       };
 
       bocket.on('message', handler);
