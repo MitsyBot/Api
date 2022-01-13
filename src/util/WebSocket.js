@@ -72,6 +72,12 @@ function makeRequest(client, toSend) {
       };
 
       const handler = (msg) => {
+        const parsedData = JSON.parse(msg.toString());
+        
+        if (!parsedData.id) return;
+        if (parsedData.id !== toSend.id) return;
+        if (!parsedData.res) return resolveError();
+
         return res(msg);
       };
 
