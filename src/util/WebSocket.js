@@ -54,20 +54,20 @@ function makeRequest(client, toSend) {
     bocket.send(JSON.stringify(toSend));
 
     return new Promise((res) => {
-      if (!ws) return res({ err: true });
+      if (!bocket) return res({ err: true });
       const timeout = setTimeout(() => {
         res({ err: true });
       }, 20000);
 
       const resolveError = () => {
         clearTimeout(timeout);
-        ws.removeListener('message', handler);
+        bocket.removeListener('message', handler);
         return res({ err: true });
       };
 
       const resolveSuccess = (receivedData) => {
         clearTimeout(timeout);
-        ws.removeListener('message', handler);
+        bocket.removeListener('message', handler);
         return res(receivedData);
       };
 
@@ -81,7 +81,7 @@ function makeRequest(client, toSend) {
         return resolveSuccess({ data: Buffer.from(parsedData.res) });
       };
 
-      ws.on('message', handler);
+      bocket.on('message', handler);
     })
 }
 
