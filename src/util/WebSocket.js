@@ -44,13 +44,9 @@ function makeRequest(client, toSend) {
 
     if (!ws) return { err: true };
 
-    const socket = ws.clients.filter((skt) => {
-      return skt.client.includes(client)
-      })
+    const socket = ws.clients
       
     console.log(socket)
-
-    socket.send(JSON.stringify(toSend));
 
     return new Promise((res) => {
       if (!ws) return res({ err: true });
