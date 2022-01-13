@@ -50,6 +50,7 @@ function makeRequest(client, toSend) {
 
     const bocket = socket[0]
 
+    if(!bocket) return { err: true };
       
     bocket.send(JSON.stringify(toSend));
 
