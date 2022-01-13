@@ -44,11 +44,14 @@ function makeRequest(client, toSend) {
 
     if (!ws) return { err: true };
 
-    const bocket = Array.from(ws.clients.values()).filter((skt) => {
+    const socket = Array.from(ws.clients.values()).filter((skt) => {
       return skt.client.includes(client)
       })
 
-    console.log(bocket)
+    const bocket = socket[0]
+
+      
+    bocket.send(JSON.stringify(toSend));
 
     return new Promise((res) => {
       if (!ws) return res({ err: true });
