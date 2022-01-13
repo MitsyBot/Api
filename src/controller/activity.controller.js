@@ -2,11 +2,11 @@ const mitsyActivity = require('../util/mitsyActivity')
 const { makeRequest } = require('../util/WebSocket')
 module.exports = class ActivityController {
 
-    static random(req, res) {
+    static async random(req, res) {
         let { shard } = req.body;
         if (!shard) shard = 0;
 
-      const alo = makeRequest('mitsy', 
+      const alo = await makeRequest('mitsy', 
       {
         id: 1,
         type: 'guild',
