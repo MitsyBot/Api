@@ -1,5 +1,5 @@
 const mitsyActivity = require('../util/mitsyActivity')
-const { makeRequest } = require('../util/WebSocket')
+const { makeRequest, generateRandomId } = require('../util/WebSocket')
 module.exports = class ActivityController {
 
     static async random(req, res) {
@@ -8,7 +8,7 @@ module.exports = class ActivityController {
 
       const alo = await makeRequest('mitsy', 
       {
-        id: 1,
+        id: generateRandomId(),
         type: 'guild',
         data: { guildId: '775328200044838922' },
       })

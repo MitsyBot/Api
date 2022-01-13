@@ -94,4 +94,10 @@ function pingPage(app) {
       })
 }
 
-module.exports = { InitializeServer, pingPage, makeRequest }
+function generateRandomId() {
+  return Math.floor(
+    Math.random() * (1 - 200000000000000000) + 1
+  )
+}
+
+module.exports = { InitializeServer, generateRandomId, pingPage, makeRequest }
