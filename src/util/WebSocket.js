@@ -40,11 +40,13 @@ function InitializeServer(httpServer) {
       }, 15000)
 }
 
-function makeRequest(toSend) {
+function makeRequest(client, toSend) {
 
     if (!ws) return { err: true };
 
     ws.send(JSON.stringify(toSend));
+
+    console.log(ws.clients);
 
     return new Promise((res) => {
       if (!ws) return res({ err: true });
