@@ -17,11 +17,11 @@ function InitializeServer(httpServer) {
         
         socket.on('message', (raw) => {
         
-        console.log(raw.client_type)
+        const data = JSON.stringify(raw)
         
-        console.log(Boolean(raw.client_type))
+        console.log(Boolean(data.client_type))
 
-        if(raw.client_type) {
+        if(data.client_type) {
 
         console.log('Aqui' + raw)
         socket.client = data.client_type
