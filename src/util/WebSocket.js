@@ -16,7 +16,10 @@ function InitializeServer(httpServer) {
         socket.uptime = Date.now()
         
         socket.on('message', (raw) => {
-        if(raw.client_type){
+        console.log(Boolean(raw.client_type))
+
+        if(raw.client_type) {
+
         console.log('Aqui' + raw)
         socket.client = data.client_type
         }
