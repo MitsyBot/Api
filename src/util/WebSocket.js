@@ -57,7 +57,7 @@ function makeRequest(client, toSend) {
       if (!ws) return res({ err: true });
       const timeout = setTimeout(() => {
         res({ err: true });
-      }, 5000);
+      }, 20000);
 
       const resolveError = () => {
         clearTimeout(timeout);
@@ -74,7 +74,11 @@ function makeRequest(client, toSend) {
       const handler = (msg) => {
         const parsedData = JSON.parse(msg.toString());
         
-        return parsedData
+        if (!parsedData.id) return;
+        if (parsedData.id !== toSend.id) return;
+        if (!parsedData.res) return resolveError();
+
+        return resolveSuccess({ data: Buffer.from(parsedData.res) });
       };
 
       ws.on('message', handler);
