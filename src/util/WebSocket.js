@@ -17,7 +17,7 @@ function InitializeServer(httpServer) {
         
         socket.on('message', (raw) => {
         
-        console.log(raw)
+        console.log(raw.client_type)
         
         console.log(Boolean(raw.client_type))
 
