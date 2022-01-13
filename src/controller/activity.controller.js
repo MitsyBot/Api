@@ -1,18 +1,10 @@
 const mitsyActivity = require('../util/mitsyActivity')
-const { makeRequest, generateRandomId } = require('../util/WebSocket')
 module.exports = class ActivityController {
 
     static async random(req, res) {
         let { shard } = req.body;
         if (!shard) shard = 0;
 
-      const alo = await makeRequest('mitsy', 
-      {
-        id: generateRandomId(),
-        type: 'guild',
-        data: { guildId: '775328200044838922' },
-      })
-      console.log(alo)
         return res.send(mitsyActivity.getInstance().getRandomActivity(shard));
       }
     
