@@ -73,15 +73,8 @@ function makeRequest(client, toSend) {
 
       const handler = (msg) => {
         const parsedData = JSON.parse(msg.toString());
-
-        console.log(msg)
-        console.log(parsedData);
-
-        if (!parsedData.id) return;
-        if (parsedData.id !== toSend.id) return;
-        if (!parsedData.res) return resolveError();
-
-        return resolveSuccess({ data: Buffer.from(parsedData.res) });
+        
+        return parsedData
       };
 
       ws.on('message', handler);
