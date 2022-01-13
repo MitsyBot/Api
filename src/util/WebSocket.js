@@ -16,6 +16,7 @@ function InitializeServer(httpServer) {
         socket.uptime = Date.now()
         
         socket.on('message', (raw) => {
+          console.log(raw)
         const { data } = JSON.parse(raw.toString());
         if(data.client_type){
         socket.client = data.client_type
@@ -79,9 +80,6 @@ function makeRequest(toSend) {
 function pingPage(app) {
     app.get('/ping', (_, res) => {
         const clients = []
-
-        console.log(ws.clients)
-
         ws.clients.forEach(a => clients.push({ id: a.id, ping: a.responseTime, uptime: Date.now() - a.uptime }))
         res.status(200).json({ http: { uptime: Date.now() - startTime }, ws: [...ws.clients.values()].map(a => ({ id: Number(a.id), client: a.client, ping: a.responseTime, uptime: Date.now() - a.uptime })) })
       })
