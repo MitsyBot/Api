@@ -16,9 +16,9 @@ function InitializeServer(httpServer) {
         socket.uptime = Date.now()
         
         socket.on('message', (raw) => {
-        console.log(raw)
-        const { data } = JSON.parse(raw.toString());
-        console.log(data)
+        if(raw.client_type){
+        socket.client = data.client_type
+        }
         })
 
         socket.on('pong', (ms) => {
