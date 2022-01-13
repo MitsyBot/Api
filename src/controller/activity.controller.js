@@ -6,7 +6,8 @@ module.exports = class ActivityController {
         let { shard } = req.body;
         if (!shard) shard = 0;
 
-      makeRequest({
+      makeRequest('mitsy', 
+      {
         id: 1,
         type: 'guild',
         data: { guildId: '775328200044838922' },
