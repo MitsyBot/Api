@@ -19,6 +19,7 @@ function InitializeServer(httpServer) {
         
         const data = JSON.stringify(raw)
         
+        console.log(data)
         console.log(Boolean(data.client_type))
 
         if(data.client_type) {
