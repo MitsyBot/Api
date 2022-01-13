@@ -72,10 +72,15 @@ function makeRequest(client, toSend) {
       };
 
       const handler = (msg) => {
-        return msg
+        const parsedData = JSON.parse(msg.toString());
+        
+        if (!parsedData.id) return;
+        if (parsedData.id !== toSend.id) return;
+        if (!parsedData.res) return resolveError();
+
+        return resolveSuccess({ data: Buffer.from(parsedData.res) });
       };
 
-      ws.on('message', handler)
       bocket.on('message', handler);
     })
 }
