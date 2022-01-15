@@ -8,7 +8,7 @@ module.exports = class ShardStatusController {
   }
 
   static updateShardStatus(req, res) {
-    const shards = req.body.data;
+    const { shards } = req.body.data;
 
     shards.forEach((shard) => {
       const { memoryUsed, uptime, guilds, unavailable, ping, lastPingAt, members, id } = shard;
