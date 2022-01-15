@@ -6,6 +6,7 @@ const ModuleSchema = new mongoose.Schema({
 });
 
 const Guilds = new mongoose.Schema({
+	_id: String,
 	id: { type: String, index: { unique: true } },
 	prefix: { type: String, default: process.env.BOT_PREFIX },
 	lang: { type: String, default: 'pt-BR' },

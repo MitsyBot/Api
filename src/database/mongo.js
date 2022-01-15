@@ -11,6 +11,7 @@ module.exports.fetchUser = async function(user) {
 
     else {
 		member = new userSchema({
+			_id: user,
 			id: user,
 		});
 
@@ -28,6 +29,7 @@ module.exports.fetchGuild = async function(guildid) {
 
 	else {
 		guild = new guildSchema({
+			_id: guildid,
 			id: guildid,
 		});
 
