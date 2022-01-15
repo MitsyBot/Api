@@ -10,7 +10,12 @@ module.exports.fetchUser = async function(user) {
 	}
 
     else {
-		return { message: 'Usuario não encontrado' }
+		member = new userSchema({
+			id: user,
+		});
+
+		await member.save();
+		return member;
 	}
 };
 
@@ -22,8 +27,13 @@ module.exports.fetchGuild = async function(guildid) {
 	}
 
 	else {
-		return { message: 'Servidor não encontrado' }
-	}
+		guild = new guildSchema({
+			id: guildid,
+		});
+
+		await guild.save();
+		return guild;
+		}
 };
 
 module.exports.fetchFanart = async function(fanartid) {
