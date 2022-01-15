@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const ModuleSchema = new Schema({
+const ModuleSchema = new mongoose.Schema({
 	active: { type: Boolean, required: true },
 	values: {},
 });

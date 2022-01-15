@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
 
-const BlacklistedSchema = new Schema({
+const BlacklistedSchema = new mongoose.Schema({
 	reason: { type: String, required: true },
 	blacklister: { type: String, required: true },
 });
 
-const UserConnection = new Schema({
+const UserConnection = new mongoose.Schema({
 	name: String,
 	tokens: Object,
 	config: Object,
