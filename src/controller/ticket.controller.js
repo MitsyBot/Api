@@ -1,6 +1,6 @@
 const { makeRequest, generateRandomId } = require('../util/WebSocket')
 
-module.exports = class ActivityController {
+module.exports = class TicketController {
 
     static async open(req, res) {
       const body = req.body

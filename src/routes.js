@@ -11,7 +11,7 @@ const GuildRoles = require('./controller/guild/roles.controller')
 const Suggestion = require('./controller/suggestion.controller')
 const User = require('./controller/user/daily.controller')
 const Fanarts = require('./controller/fanart.controller')
-
+const Ticket = require('./controller/ticket.controller')
 const isAuth = require('./middlewares/isAuth')
 
 const router = Router()
@@ -36,6 +36,9 @@ router.get('/user/:id/banners', UserController.GetUserBanners);
 router.get('/user/guilds', UserController.GetUserGuild);
 router.get('/user/:user/daily', User.getDailyInfos);
 router.post('/user/get/daily', User.postDaily)
+
+// Ticket
+router.post('/ticket/create', Ticket.open)
 
 // Fanarts
 router.get('/fanarts/getAll', Fanarts.getArts)
