@@ -13,8 +13,7 @@ module.exports = class TicketController {
           type: 'ticket',
           data: body,
         })
-        console.log(request)
-        return res.status(200).json(request);
+        return res.status(200).json(request.res);
       }
     
 }
