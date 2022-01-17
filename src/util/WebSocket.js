@@ -4,9 +4,9 @@ const url = require('url')
 var ws = null
 var startTime = null
 
-function random() {  
+function random(min, max) {  
   return Math.floor(
-    Math.random() * (1 - 10) + 1
+    Math.random() * (max - min) + min
   )
 }
 
@@ -17,7 +17,7 @@ function InitializeServer(httpServer) {
 
     ws.on('connection', (socket, req) => {
         console.log('Um novo cliente se conectou')
-        socket.id = random() 
+        socket.id = random('1', '10') 
         socket.isAlive = true;
         socket.uptime = Date.now()
         
