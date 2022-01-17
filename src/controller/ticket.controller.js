@@ -8,7 +8,6 @@ module.exports = class TicketController {
 
       const request = await makeRequest('helper', 
         {
-          id: 1,
           id: generateRandomId(),
           type: 'ticket',
           data: body,
