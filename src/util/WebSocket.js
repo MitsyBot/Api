@@ -4,6 +4,12 @@ const url = require('url')
 var ws = null
 var startTime = null
 
+function random() {  
+  return Math.floor(
+    Math.random() * (1 - 10) + 1
+  )
+}
+
 function InitializeServer(httpServer) {
     startTime = Date.now()
 
@@ -11,7 +17,7 @@ function InitializeServer(httpServer) {
 
     ws.on('connection', (socket, req) => {
         console.log('Um novo cliente se conectou')
-        socket.id = url.parse(req.url, true).query.id ?? 0
+        socket.id = random() 
         socket.isAlive = true;
         socket.uptime = Date.now()
         
