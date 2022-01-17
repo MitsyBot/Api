@@ -42,6 +42,7 @@ jobs:
           port: ${{ secrets.PORT }}
           script: |
             docker stop Api
+            docker rm Api
             docker image rm ghcr.io/mitsybot/api:latest
             docker pull ghcr.io/mitsybot/api:latest
-            docker run -it --rm -d -p 1234:1234 --name Api ghcr.io/mitsybot/api:latest
+            docker run -it -d -p 1234:1234 --name Api ghcr.io/mitsybot/api:latest
