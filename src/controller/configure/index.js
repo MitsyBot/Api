@@ -13,6 +13,7 @@ module.exports = class GuildController {
             userId: user
           },
         })
+
         request.blacklisted = guild.blacklist
         request.blacklistReason = guild.blacklistReason
         request.isPremium = guild.isPremium,
