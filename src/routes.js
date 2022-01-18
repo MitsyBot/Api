@@ -44,7 +44,7 @@ router.post('/ticket/create', Ticket.open)
 router.get('/fanarts/getAll', Fanarts.getArts)
 
 // Servidor para dashboard
-router.get('/configure/guild/index', IndexConfig.GetIndexGuildConfig);
+router.get('/configure/guild/', IndexConfig.GetIndexGuildConfig);
 router.get('/configure/guild/channels', GuildChannels.getChannels);
 router.get('/configure/guild/roles', GuildRoles.getRoles);
 
