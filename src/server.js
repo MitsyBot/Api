@@ -20,8 +20,12 @@ const limiter = rateLimit({
 });
 
 
-app.use(cors({origin: 'https://mitsy.xyz'}))
+app.use(cors({
+  origin: "https://mitsy.xyz",
+}));
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.set('trust proxy', 1);
 app.use((_, res, next) => {
   res.contentType('application/json');
   return next();
