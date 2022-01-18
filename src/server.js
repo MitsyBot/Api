@@ -10,8 +10,6 @@ const { pingPage, InitializeServer } = require('./util/WebSocket')
 
 const app = express()
 
-const startTime = Date.now()
-
 const limiter = rateLimit({
     windowMs: 5 * 1000,
     max: 15,
@@ -22,10 +20,8 @@ const limiter = rateLimit({
 });
 
 
-app.use(cors());
+app.use(cors({origin: 'https://mitsy.xyz'}))
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.set('trust proxy', 1);
 app.use((_, res, next) => {
   res.contentType('application/json');
   return next();
