@@ -21,10 +21,6 @@ const limiter = rateLimit({
     },
 });
 
-
-app.use(cors({
-  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
-}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.set('trust proxy', 1);
