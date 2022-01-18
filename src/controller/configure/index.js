@@ -22,6 +22,6 @@ module.exports = class GuildController {
         request.data.locale = dbGuild.lang,
         request.data.partner = dbGuild.partner,
 
-        res.status(200).json(request.data)
+        res.send(request.data)
+      }
     }
-  }
