@@ -1,5 +1,5 @@
 const database = require('../../database/mongo');
-const { makeRequest, generateRandomId } = require('../util/WebSocket')
+const { makeRequest, generateRandomId } = require('../../util/WebSocket')
 module.exports = class GuildController {
     static async GetIndexGuildConfig(req, res) {
         const guild = await database.fetchGuild(req.headers['guild']);
