@@ -22,7 +22,9 @@ const limiter = rateLimit({
 });
 
 
-app.use(cors());
+app.use(cors({
+  origin: 'https://mitsy.xyz'
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.set('trust proxy', 1);
