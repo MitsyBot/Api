@@ -23,7 +23,10 @@ const limiter = rateLimit({
 
 
 app.use(cors({
-  origin: "*"
+  credentials: true,
+  preflightContinue: true,
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+  origin: true
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
