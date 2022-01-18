@@ -3,10 +3,7 @@ const { makeRequest, generateRandomId } = require('../../util/WebSocket')
 module.exports = class GuildController {
     static async GetIndexGuildConfig(req, res) {
         const guild = await database.fetchGuild(req.headers['guild']);
-        const token = req.headers['Authorization']
         const user = req.headers['User']
-
-        if(!token) return res.status(400).send({ err: true })
         
         const request = await makeRequest('mitsy', 
         {
