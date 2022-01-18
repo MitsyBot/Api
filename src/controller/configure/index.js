@@ -14,13 +14,13 @@ module.exports = class GuildController {
           },
         })
 
-        request.blacklisted = guild.blacklist
-        request.blacklistReason = guild.blacklistReason
-        request.isPremium = guild.isPremium,
-        request.premiumTier = guild.premiumLevel,
-        request.locale = guild.lang,
-        request.partner = guild.partner,
+        request.data.blacklisted = guild.blacklist
+        request.data.blacklistReason = guild.blacklistReason
+        request.data.isPremium = guild.isPremium,
+        request.data.premiumTier = guild.premiumLevel,
+        request.data.locale = guild.lang,
+        request.data.partner = guild.partner,
 
-        res.status(200).json(request)
+        res.status(200).json(request.data)
     }
   }
