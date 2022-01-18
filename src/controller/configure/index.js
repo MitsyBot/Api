@@ -4,7 +4,6 @@ module.exports = class GuildController {
     static async GetIndexGuildConfig(req, res) {
         const guild = await database.fetchGuild(req.headers['guild']);
         const user = req.headers['user']
-        console.log(user)
         const request = await makeRequest('mitsy', 
         {
           id: generateRandomId(),
@@ -14,19 +13,13 @@ module.exports = class GuildController {
             userId: user
           },
         })
+        request.blacklisted = guild.blacklist
+        request.blacklistReason = guild.blacklistReason
+        request.isPremium = guild.isPremium,
+        request.premiumTier = guild.premiumLevel,
+        request.locale = guild.lang,
+        request.partner = guild.partner,
+
         res.status(200).json(request)
-        // res.status(200).json({
-          //id: guild.id,
-          //icon: currentGuild[0].icon,
-          //name: currentGuild[0].name,
-          //isOwner: currentGuild[0].owner,
-          //blacklisted: guild.blacklist,
-          //blacklistReason: guild.blacklistReason,
-          // Informações usadas
-          //isPremium: guild.isPremium,
-          //premiumTier: guild.premiumLevel,
-          //locale: guild.lang,
-          //partner: guild.partner,
-        //})
     }
   }
