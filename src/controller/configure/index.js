@@ -8,7 +8,7 @@ module.exports = class GuildController {
 
         if(!token) return res.status(400).send({ err: true })
         
-        const request = await makeRequest('helper', 
+        const request = await makeRequest('mitsy', 
         {
           id: generateRandomId(),
           type: 'guild',
