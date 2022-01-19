@@ -4,11 +4,11 @@ const database = require('../database/mongo');
 module.exports = class ShopController {
    
     constructor() {
-     this.backgrounds = new Map();
+     this.backgrounds = [];
    }
  
     getBackgrounds() {
-     const back = this.backgrounds;
+     const back = this.backgrounds
  
      return back
    }
