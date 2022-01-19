@@ -31,8 +31,6 @@ app.use((_, res, next) => {
   return next();
 });
 
-ShopController.getInstance().init();
-
 
 pingPage(app)
 
@@ -48,6 +46,7 @@ mongoose.connect(mongourl, { useNewUrlParser: true, useUnifiedTopology: true }, 
   }
 
   console.info('Conectado a database');
+  ShopController.getInstance().init();
 });
 
 const httpServer = app.listen(process.env.PORT, () => {
