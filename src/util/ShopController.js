@@ -14,10 +14,8 @@ module.exports = class ShopController {
    }
  
    async init() {
-    const dbBackgrounds = await database.getAllArts();
+    const dbBackgrounds = await database.getAllBackgrounds();
 
-    console.log(dbBackgrounds);
-    console.log('Aletorios ' + random(dbBackgrounds, 3));
     this.backgrounds = random(dbBackgrounds, 3);
 
     const job = new CronJob('0 */24 * * *', async () => {
