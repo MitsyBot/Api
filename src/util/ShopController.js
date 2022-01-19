@@ -13,7 +13,7 @@ module.exports = class ShopController {
      return back
    }
  
-   init() {
+   async init() {
     const dbBackgrounds = await database.getAllArts();
 
 
