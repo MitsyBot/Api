@@ -13,7 +13,7 @@ const User = require('./controller/user/daily.controller')
 const Fanarts = require('./controller/fanart.controller')
 const Ticket = require('./controller/ticket.controller')
 const isAuth = require('./middlewares/isAuth')
-
+const Shop = require('./controller/shop.controller')
 const router = Router()
 
 router.get('/status/shards', ShardController.getShardStatus);
@@ -36,6 +36,9 @@ router.get('/user/:id/banners', UserController.GetUserBanners);
 router.get('/user/guilds', UserController.GetUserGuild);
 router.get('/user/:user/daily', User.getDailyInfos);
 router.post('/user/get/daily', User.postDaily)
+
+// Daily shop
+router.get('/shop/backgrounds', Shop.getRandomBackgrounds)
 
 // Ticket
 router.post('/ticket/create', Ticket.open)

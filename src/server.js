@@ -7,7 +7,7 @@ const ApiRoutes = require('./routes')
 const mongoose = require('mongoose');
 const mongourl = process.env.MONGO_URL
 const { pingPage, InitializeServer } = require('./util/WebSocket')
-
+const ShopController = require('./util/ShopController')
 const app = express()
 
 const limiter = rateLimit({
@@ -30,6 +30,9 @@ app.use((_, res, next) => {
   res.contentType('application/json');
   return next();
 });
+
+ShopController.getInstance().init();
+
 
 pingPage(app)
 

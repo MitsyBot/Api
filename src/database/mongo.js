@@ -1,6 +1,7 @@
 const userSchema = require('./schemas/User');
 const guildSchema = require('./schemas/Guild');
 const fanartSchema = require('./schemas/Fanarts');
+const backgroundSchema = require('./schemas/Backgrounds')
 
 module.exports.fetchUser = async function(user) {
 	let member = await userSchema.findOne({ id: user });
@@ -59,5 +60,17 @@ module.exports.getAllArts = async function() {
 
 	else {
 		return { message: 'Nenhuma fanart registrada' }
+	}
+};
+
+module.exports.getAllBackgrounds = async function() {
+	let backgrounds = await backgroundSchema.find();
+
+	if (backgrounds) {
+		return backgrounds;
+	}
+
+	else {
+		return { message: 'Nenhum background encontrado' }
 	}
 };
