@@ -8,7 +8,7 @@ module.exports = class ShopController {
    }
  
     getBackgrounds() {
-     const back = Array.from(this.backgrounds.values());
+     const back = this.backgrounds;
  
      return back
    }
