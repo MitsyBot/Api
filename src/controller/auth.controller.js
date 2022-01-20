@@ -23,7 +23,8 @@ module.exports = class ActivityController {
                   expiresAt: Date.now() + expiresIn * 1000,
                   tokenType,
                   scope
-                }, process.env.JWT_SECRET)
+                }, process.env.JWT_SECRET),
+                expires_in
               })
             } catch (e) {
               console.log(e)
