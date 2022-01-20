@@ -1,6 +1,6 @@
 const fetch = require('node-fetch')
 const API_URL = 'https://discordapp.com/api'
-const { makeRequest, generateRandomId } = require('../../util/WebSocket')
+const { makeRequest, generateRandomId } = require('./WebSocket')
 
 function fetchUser (token) {
     return requestDiscord('/users/@me', token)
