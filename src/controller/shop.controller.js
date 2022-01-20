@@ -12,12 +12,7 @@ module.exports = class SimpleShop {
     const { banner, userid } = req.body
     const user = await database.fetchUser(userid);
 
-    const dailyShop = await (await fetch('https://mitsy.xyz/shop/backgrounds', {
-      method: 'GET',
-      headers: {
-        'content-type': 'application/json'
-      }
-    })).json()
+    const dailyShop = await (await fetch('https://mitsy.xyz/shop/backgrounds')).json()
 
     if(user.comets < banner.cost) return res.send({ sucess: false, message: 'Você não tem cometinhas para comprar este background'})
 
