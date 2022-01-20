@@ -1,12 +1,11 @@
 
 const fetch = require('node-fetch')
-const FormData = require('form-data')
+const { URLSearchParams } = require('url')
 
 const API_URL = 'https://discordapp.com/api'
 
 
 function exchangeCode (code) {
-    console.log(code)
     return tokenRequest(code)
   }
 
@@ -18,12 +17,10 @@ function exchangeCode (code) {
     data.append('redirect_uri', 'https://mitsy.xyz/oauth/callback/dashboard')
     data.append('scope', 'identify')
     data.append('code', code)
-
-    return fetch(`${API_URL}/oauth2/token`, {
+    return await (await fetch('https://discord.com/api/oauth2/token', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       body: data
-    }).then(res => res.ok ? res.json() : Promise.reject(res))
+    })).json()
   }
 
 module.exports = { exchangeCode }
