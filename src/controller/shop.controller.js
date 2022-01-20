@@ -16,9 +16,13 @@ module.exports = class SimpleShop {
 
     if(user.comets < Number(banner.cost)) return res.send({ sucess: false, message: 'Você não tem cometinhas para comprar este background'})
 
-    const background = dailyShop.find(shop => shop.id === banner.id);
+    const background = dailyShop.filter((shop) => {
+      return shop.id.includes(banner.id)
+    })
 
-    if(background){
+    console.log(dailyShop + 'Sla' + background)
+
+    if(background[0]){
     user.comet -= Number(banner.cost)
     user.backgroundList.push(banner.id)
     user.save()
