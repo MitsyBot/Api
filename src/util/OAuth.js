@@ -1,6 +1,6 @@
 
 const fetch = require('node-fetch')
-const { URLSearchParams } = require('url')
+const FormData = require('form-data')
 
 const API_URL = 'https://discordapp.com/api'
 
