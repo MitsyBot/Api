@@ -17,10 +17,12 @@ function exchangeCode (code) {
     data.append('redirect_uri', 'https://mitsy.xyz/oauth/callback/dashboard')
     data.append('scope', 'identify')
     data.append('code', code)
-    return await fetch('https://discord.com/api/oauth2/token', {
-      method: 'POST',
-      body: data
-    }).json()
+    const json = await (await fetch('https://discord.com/api/oauth2/token', {
+            method: 'POST',
+            body: data
+          })).json()
+
+    return json
   }
 
 module.exports = { exchangeCode }
