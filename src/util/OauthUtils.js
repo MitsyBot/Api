@@ -10,20 +10,24 @@ async function fetchGuilds (token) {
     const gs =  await requestDiscord('/users/@me/guilds', token)
     
     const commons = gs.map(g => {
-        const common = await makeRequest('mitsy', 
-        {
-          id: generateRandomId(),
-          type: 'common',
-          data: {
-            guild: g.id
-          },
-        })
+        const common = commonGuilds(g.id)
         console.log(common)
         g.common = common.data.common
       return g
     })
 
     return commons
+  }
+
+  async function commonGuilds(id) {
+    return await makeRequest('mitsy', 
+    {
+      id: generateRandomId(),
+      type: 'common',
+      data: {
+        guild: id
+      },
+    })
   }
 
 function requestDiscord (endpoint, token) {
