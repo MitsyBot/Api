@@ -1,5 +1,7 @@
 const ShopController = require('../util/ShopController');
 const database = require('../database/mongo');
+const fetch = require('node-fetch')
+
 module.exports = class SimpleShop {
   static async getRandomBackgrounds(_req, res) {
     const backgrounds = ShopController.getInstance().getBackgrounds();
