@@ -15,23 +15,13 @@ module.exports = class SimpleShop {
     const dailyShop = await axios.get('https://api.mitsy.xyz/shop/backgrounds')
 
     if(user.comets < Number(banner.cost)) return res.send({ sucess: false, message: 'Você não tem cometinhas para comprar este background'})
+    
+    console.log(dailyShop)
 
-    const background = dailyShop.filter((shop) => {
-      return shop.id.includes(banner.id)
-    })
-
-    console.log(dailyShop + 'Sla' + background)
-
-    if(background[0]){
     user.comet -= Number(banner.cost)
     user.backgroundList.push(banner.id)
     user.save()
 
     res.send({ sucess: true, message: 'Background comprado com sucesso' })
-    } else {
-
-      res.send({ sucess: false, message: 'Este background não esta disponivel na loja diaria'})
-
-    }
   }
 }
