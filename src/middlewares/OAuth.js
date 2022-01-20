@@ -6,6 +6,7 @@ module.exports = class EndpointUtils {
     static authenticate (adminOnly = false, fetchGuilds = false) {
         return async (req, res, next) => {
             const token = req.get('Authorization');
+            console.log(token)
             if (token) {
                 if (!token) return res.status(400).json({ ok: false })
                 
