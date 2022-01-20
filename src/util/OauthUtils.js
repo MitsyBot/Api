@@ -8,7 +8,7 @@ function fetchUser (token) {
 
 async function fetchGuilds (token) {
     return await requestDiscord('/users/@me/guilds', token).then(gs => gs.map(g => {
-        const common = await makeRequest('mitsy', 
+        const common = makeRequest('mitsy', 
         {
           id: generateRandomId(),
           type: 'common',
