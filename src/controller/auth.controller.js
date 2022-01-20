@@ -26,6 +26,7 @@ module.exports = class ActivityController {
                 }, process.env.JWT_SECRET)
               })
             } catch (e) {
+              console.log(e)
               res.status(403).json({ error: 'Não foi possivel validar a autenticação!' })
             }
           } else {
