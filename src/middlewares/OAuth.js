@@ -30,7 +30,7 @@ module.exports = class EndpointUtils {
             return requestDiscord('/users/@me', token)
           }
 
-        static async fetchGuilds (client, token) {
+        static async fetchGuilds (token) {
             return await requestDiscord('/users/@me/guilds', token).then(gs => gs.map(g => {
                 const common = makeRequest('mitsy', 
                 {
