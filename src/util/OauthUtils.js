@@ -1,7 +1,7 @@
 const axios = require('axios')
 const API_URL = 'https://discordapp.com/api'
 
-function fetchUser (token) {
+async function fetchUser (token) {
     const res = await axios.get(`${API_URL}/users/@me`, {
         headers: {
             'Authorization': `Bearer ${token}`
