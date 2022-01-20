@@ -1,5 +1,6 @@
 const fetch = require('node-fetch')
 const API_URL = 'https://discordapp.com/api'
+const { makeRequest, generateRandomId } = require('../../util/WebSocket')
 
 function fetchUser (token) {
     return requestDiscord('/users/@me', token)
@@ -7,7 +8,7 @@ function fetchUser (token) {
 
 async function fetchGuilds (token) {
     return await requestDiscord('/users/@me/guilds', token).then(gs => gs.map(g => {
-        const common = makeRequest('mitsy', 
+        const common = await makeRequest('mitsy', 
         {
           id: generateRandomId(),
           type: 'common',
