@@ -7,8 +7,10 @@ function fetchUser (token) {
   }
 
 async function fetchGuilds (token) {
-    return await requestDiscord('/users/@me/guilds', token).then(gs => gs.map(g => {
-        const common = makeRequest('mitsy', 
+    const gs =  await requestDiscord('/users/@me/guilds', token)
+    
+    const commons = gs.map(g => {
+        const common = await makeRequest('mitsy', 
         {
           id: generateRandomId(),
           type: 'common',
@@ -19,7 +21,9 @@ async function fetchGuilds (token) {
         console.log(common)
         g.common = common.data.common
       return g
-    }))
+    })
+
+    return commons
   }
 
 function requestDiscord (endpoint, token) {
