@@ -1,4 +1,5 @@
 const { Router } = require('express')
+const Oauth = require('./middlewares/OAuth')
 
 const ShardController = require('./controller/shard.controller')
 const CommandsController = require('./controller/commands.controller')
@@ -14,6 +15,7 @@ const Fanarts = require('./controller/fanart.controller')
 const Ticket = require('./controller/ticket.controller')
 const isAuth = require('./middlewares/isAuth')
 const Shop = require('./controller/shop.controller')
+const auth = require('./controller/auth.controller')
 const router = Router()
 
 router.get('/status/shards', ShardController.getShardStatus);
@@ -30,10 +32,12 @@ router.delete('/activity', isAuth, ActivityController.clear);
 router.get('/assets/:type', AssetsController.getImageUrl);
 router.post('/suggestion', Suggestion.suggest);
 
+// Discord auth
+router.get('/user/@me', Oauth.authenticate(false, true), auth.me)
+router.get('/user/login', auth.login)
+
 // Usuarios para o website e dashboard
-router.get('/user', UserController.GetUser);
 router.get('/user/:id/banners', UserController.GetUserBanners);
-router.get('/user/guilds', UserController.GetUserGuild);
 router.get('/user/:user/daily', User.getDailyInfos);
 router.post('/user/get/daily', User.postDaily)
 

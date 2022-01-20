@@ -2,68 +2,6 @@ const database = require('../database/mongo');
 const fetch = require('node-fetch')
 
 module.exports = class UserController {
-    static async GetUser(req, res) {
-        const user = await database.fetchUser(req.body.userID);
-        if(user.backgroundList) {
-        res.status(200).json({
-          "id": user.id,
-          "comets": user.comets,
-          "xp": user.xp,
-          "level": user.level,
-          "timeDaily": user.timeDaily,
-          "afk": user.afk,
-          "afkReason": user.afkReason,
-          "blacklist": user.blacklist,
-          "blacklistReason": user.blacklistReason,
-          "aboutme": user.aboutme,
-          "profileColor": user.profileColor,
-          "isMarry": user.isMarry,
-          "marryWith": user.marryWith,
-          "repCount": user.repCount,
-          "repTime": user.repTime,
-          "repLog": user.repLog,
-          "shipValue": user.shipValue,
-          "background": user.background,
-          "profileType": user.profileType,
-          "backgroundList": user.backgroundList,
-          "profileList": user.profileList,
-          "isPremium": user.isPremium,
-          "premiumLevel": user.premiumLevel,
-          "isStaff": user.isStaff,
-          "staffLevel": user.staffLevel,
-        })
-        } else {
-            res.status(200).json({ message: 'Usuario não encontrado'})
-        }
-    }
-
-    static async GetUserGuild(req, res) {      
-      const userToken = req.body.userToken || req.headers['authorization']; 
-
-    const userGuilds = await (await fetch(`https://discord.com/api/users/@me/guilds`, {
-            method: 'GET',
-            headers: {
-              Authorization: userToken,
-              'content-type': 'application/json'
-            }
-          })).json()
-
-        if (userGuilds.message === '401: Unauthorized') return res.status(200).json({ error: "Unauthorized" });
-        
-        if (userGuilds.message === 'You are being rate limited.') return res.json(userGuilds);
-
-        const parentGuild = await Promise.all(userGuilds.map(async (guilds) => { 
-          const dbGuilds = await database.fetchGuild(guilds.id);
-          guilds.parent = Boolean(dbGuilds.id)
-          guilds.canManage = Boolean(guilds.permissions & 0x0000000020)
-          return guilds
-        }))
-        const manageableGuilds = parentGuild.filter(guilds => guilds.permissions & 0x0000000020)
-        res.status(200).json(manageableGuilds)
-      }
-
-
-    // Provisorio
     static async GetUserBanners(req, res) {
         const user = await database.fetchUser(req.body.userID);
 
