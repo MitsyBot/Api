@@ -7,9 +7,7 @@ async function fetchUser (token) {
             'Authorization': `Bearer ${token}`
         }
     });
-
-    console.log(res)
-    return res.data
+    return res
 }
 
 async function fetchGuilds (token) {
@@ -19,7 +17,7 @@ async function fetchGuilds (token) {
         }
     });
     console.log(res)
-    return res.data
+    return res
 }
 
   module.exports = { fetchGuilds, fetchUser }
