@@ -3,11 +3,16 @@ const API_URL = 'https://discordapp.com/api'
 const { makeRequest, generateRandomId } = require('./WebSocket')
 
 function fetchUser (token) {
-    return requestDiscord('/users/@me', token)
+    const acessToken = token
+    console.log(acessToken)
+    return requestDiscord('/users/@me', acessToken)
   }
 
 async function fetchGuilds (token) {
-    return await requestDiscord('/users/@me/guilds', token)
+
+    const acessToken = token
+    console.log(acessToken)
+    return await requestDiscord('/users/@me/guilds', acessToken)
     
   }
 
