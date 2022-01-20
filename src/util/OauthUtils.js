@@ -16,6 +16,7 @@ async function fetchGuilds (token) {
             guild: g.id
           },
         })
+        console.log(common)
         g.common = common.data.common
       return g
     }))
