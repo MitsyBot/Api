@@ -6,6 +6,7 @@ const API_URL = 'https://discordapp.com/api'
 
 
 function exchangeCode (code) {
+    console.log(code)
     return tokenRequest(code)
   }
 
@@ -20,6 +21,7 @@ function exchangeCode (code) {
 
     return fetch(`${API_URL}/oauth2/token`, {
       method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       body: data
     }).then(res => res.ok ? res.json() : Promise.reject(res))
   }
