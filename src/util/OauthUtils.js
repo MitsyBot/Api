@@ -17,7 +17,13 @@ async function fetchGuilds (token) {
             'Authorization': `Bearer ${token}`
         }
     });
-    return res.data
+
+    const parentGuild = await Promise.all(res.data.map(async (guilds) => { 
+        guilds.canManage = Boolean(guilds.permissions & 0x0000000020)
+        return guilds
+      }))
+    const manageableGuilds = parentGuild.filter(guilds => guilds.permissions & 0x0000000020)
+    return manageableGuilds
 }
 
   module.exports = { fetchGuilds, fetchUser }
