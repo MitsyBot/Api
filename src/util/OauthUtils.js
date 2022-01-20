@@ -1,19 +1,25 @@
-const fetch = require('node-fetch')
+const axios = require('axios')
 const API_URL = 'https://discordapp.com/api'
 
 function fetchUser (token) {
-    console.log(token)
-    return fetch(`${API_URL}/users/@me`, {
-      headers: { Authorization: `Bearer ${token}` }
-    }).then(res => res.ok ? res.json() : Promise.reject(res))
+    const res = await axios.get(`${API_URL}/users/@me`, {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    });
+
+    console.log(res)
+    return res.data
 }
 
 async function fetchGuilds (token) {
-    console.log(token)
-    return fetch(`${API_URL}/users/@me/guilds`, {
-      headers: { Authorization: `Bearer ${token}` }
-    }).then(res => res.ok ? res.json() : Promise.reject(res))
-    
+    const res = await axios.get(`${API_URL}/users/@me/guilds`, {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    });
+    console.log(res)
+    return res.data
 }
 
   module.exports = { fetchGuilds, fetchUser }
