@@ -39,7 +39,7 @@ router.post('/user/get/daily', User.postDaily)
 
 // Daily shop
 router.get('/shop/backgrounds', Shop.getRandomBackgrounds)
-
+router.post('/shop/background/buy', Shop.buyBackground)
 // Ticket
 router.post('/ticket/create', Ticket.open)
 
