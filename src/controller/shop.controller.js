@@ -1,6 +1,6 @@
 const ShopController = require('../util/ShopController');
 const database = require('../database/mongo');
-const fetch = require('node-fetch')
+const axios = require('axios');
 
 module.exports = class SimpleShop {
   static async getRandomBackgrounds(_req, res) {
@@ -12,7 +12,7 @@ module.exports = class SimpleShop {
     const { banner, userid } = req.body
     const user = await database.fetchUser(userid);
 
-    const dailyShop = await (await fetch('https://mitsy.xyz/shop/backgrounds')).json()
+    const dailyShop = await axios.get('https://mitsy.xyz/shop/backgrounds')
 
     if(user.comets < banner.cost) return res.send({ sucess: false, message: 'Você não tem cometinhas para comprar este background'})
 
