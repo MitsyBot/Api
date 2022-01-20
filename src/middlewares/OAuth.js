@@ -5,9 +5,8 @@ const API_URL = 'https://discordapp.com/api'
 module.exports = class EndpointUtils {
     static authenticate (adminOnly = false, fetchGuilds = false) {
         return async (req, res, next) => {
-            const jwt = req.headers['authorization']
-            const token = jwt.token
-            console.log(token)
+            const jwt = req.headers['Authorization']
+            console.log(jwt)
             if (token) {
                 if (!token) return res.status(400).json({ ok: false })
                 
