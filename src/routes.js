@@ -6,9 +6,7 @@ const CommandsController = require('./controller/commands.controller')
 const ActivityController = require('./controller/activity.controller')
 const AssetsController = require('./controller/assets.controller')
 const UserController = require('./controller/user.controller')
-const IndexConfig = require('./controller/configure/index')
-const GuildChannels = require('./controller/guild/channels.controller')
-const GuildRoles = require('./controller/guild/roles.controller')
+const GuildController = require('./controller/guild.controller')
 const Suggestion = require('./controller/suggestion.controller')
 const User = require('./controller/user/daily.controller')
 const Fanarts = require('./controller/fanart.controller')
@@ -44,6 +42,7 @@ router.post('/user/get/daily', Oauth.authenticate(false, false), User.postDaily)
 // Daily shop
 router.get('/shop/backgrounds', Shop.getRandomBackgrounds)
 router.post('/shop/background/buy', Oauth.authenticate(false, false), Shop.buyBackground)
+
 // Ticket
 router.post('/ticket/create', Oauth.authenticate(false, false), Ticket.open)
 
@@ -51,8 +50,6 @@ router.post('/ticket/create', Oauth.authenticate(false, false), Ticket.open)
 router.get('/fanarts/getAll', Fanarts.getArts)
 
 // Servidor para dashboard
-router.get('/configure/guild', IndexConfig.GetIndexGuildConfig);
-router.get('/configure/guild/channels', GuildChannels.getChannels);
-router.get('/configure/guild/roles', GuildRoles.getRoles);
+router.get('/configure/guild', GuildController.GetIndexGuildConfig);
 
 module.exports = router
