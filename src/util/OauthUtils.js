@@ -36,8 +36,8 @@ async function fetchGuilds (token) {
         return g
       }))
     
-    console.log(Promise.all(commons))
-    return Promise.all(commons)
+    await console.log(Promise.all(commons))
+    return await Promise.all(commons)
 }
 
   module.exports = { fetchGuilds, fetchUser }
