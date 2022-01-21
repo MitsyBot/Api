@@ -36,7 +36,7 @@ async function fetchGuilds (token) {
         return g
       }))
     
-    await console.log(Promise.all(commons))
+    await console.log(await Promise.all(commons))
     return await Promise.all(commons)
 }
 
