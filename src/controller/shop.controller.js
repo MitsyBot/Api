@@ -9,15 +9,13 @@ module.exports = class SimpleShop {
     return res.status(200).json(backgrounds);
   }
   static async buyBackground(req, res) {
-    const { banner, userid } = req.body
-    const user = await database.fetchUser(userid);
+    const { banner } = req.body
+    const user = await database.fetchUser(req.user.id);
 
     const dailyShop = await axios.get('https://api.mitsy.xyz/shop/backgrounds')
 
     if(user.comets < Number(banner.cost)) return res.send({ sucess: false, message: 'Você não tem cometinhas para comprar este background'})
     
-    console.log(dailyShop)
-
     user.comet -= Number(banner.cost)
     user.backgroundList.push(banner.id)
     user.save()

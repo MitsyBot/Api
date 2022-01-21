@@ -3,16 +3,15 @@ const database = require('../../database/mongo');
 module.exports = class DailyController {
 
   static async getDailyInfos(req, res) {
-    const user = await database.fetchUser(req.params.user);
+    const user = await database.fetchUser(req.user.id);
   res.status(200).json({
       canDaily: Boolean(parseInt(user.timeDaily) < Date.now()),
-      userId: req.params.user,
       isPremium: user.isPremium 
   })
     }
 
   static async postDaily(req, res) {
-    const user = await database.fetchUser(req.body.user);
+    const user = await database.fetchUser(req.user.id);
 
     if (parseInt(user.timeDaily) > Date.now()) {
         return res.status(200).json({

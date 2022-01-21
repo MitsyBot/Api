@@ -30,7 +30,7 @@ router.post('/activity', isAuth, ActivityController.add);
 router.put('/activity', isAuth, ActivityController.reset);
 router.delete('/activity', isAuth, ActivityController.clear);
 router.get('/assets/:type', AssetsController.getImageUrl);
-router.post('/suggestion', Suggestion.suggest);
+router.post('/suggestion', Oauth.authenticate(false, false), Suggestion.suggest);
 
 // Discord auth
 router.get('/user/@me', Oauth.authenticate(false, true), auth.me)
@@ -38,14 +38,14 @@ router.get('/user/login', auth.login)
 
 // Usuarios para o website e dashboard
 router.get('/user/:id/banners', UserController.GetUserBanners);
-router.get('/user/:user/daily', User.getDailyInfos);
-router.post('/user/get/daily', User.postDaily)
+router.get('/user/daily', Oauth.authenticate(false, false), User.getDailyInfos);
+router.post('/user/get/daily', Oauth.authenticate(false, false), User.postDaily)
 
 // Daily shop
 router.get('/shop/backgrounds', Shop.getRandomBackgrounds)
-router.post('/shop/background/buy', Shop.buyBackground)
+router.post('/shop/background/buy', Oauth.authenticate(false, false), Shop.buyBackground)
 // Ticket
-router.post('/ticket/create', Ticket.open)
+router.post('/ticket/create', Oauth.authenticate(false, false), Ticket.open)
 
 // Fanarts
 router.get('/fanarts/getAll', Fanarts.getArts)
