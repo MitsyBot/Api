@@ -35,8 +35,6 @@ async function fetchGuilds (token) {
         g.common = common.data.common
         return g
       }))
-
-    console.log(commons)
     return commons
 }
 
