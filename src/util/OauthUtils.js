@@ -32,7 +32,7 @@ async function fetchGuilds (token) {
             guild: g.id
           },
         })
-        g.common = await common
+        g.common = common
         return g
       }))
     console.log(commons)
