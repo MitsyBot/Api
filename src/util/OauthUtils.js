@@ -23,8 +23,8 @@ async function fetchGuilds (token) {
         return guilds
       }))
     const manageableGuilds = parentGuild.filter(guilds => guilds.permissions & 0x0000000020)
-    const commons = await Promise.all(manageableGuilds.map(g => {
-        const common = makeRequest('mitsy', 
+    const commons = async () => manageableGuilds.map(async (g) => {
+        const common = await makeRequest('mitsy', 
         {
           id: generateRandomId(),
           type: 'common',
@@ -34,7 +34,8 @@ async function fetchGuilds (token) {
         })
         g.common = common
         return g
-      }))
+      })
+
     console.log(commons)
     return commons
 }
