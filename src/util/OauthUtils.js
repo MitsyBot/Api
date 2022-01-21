@@ -22,7 +22,17 @@ async function fetchGuilds (token) {
         return guilds
       }))
     const manageableGuilds = parentGuild.filter(guilds => guilds.permissions & 0x0000000020)
-    return manageableGuilds
+    return Promise.all(manageableGuilds.map(g => {
+        const common = Promise.all(makeRequest('mitsy', 
+        {
+          id: generateRandomId(),
+          type: 'common',
+          data: {
+            guild: g.id
+          },
+        }))
+        return common
+      }))
 }
 
   module.exports = { fetchGuilds, fetchUser }
