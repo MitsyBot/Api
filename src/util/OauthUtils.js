@@ -1,6 +1,6 @@
 const axios = require('axios')
 const API_URL = 'https://discordapp.com/api'
-const { makeRequest, generateRandomId } = require('../../util/WebSocket')
+const { makeRequest, generateRandomId } = require('./WebSocket')
 
 async function fetchUser (token) {
     const res = await axios.get(`${API_URL}/users/@me`, {
