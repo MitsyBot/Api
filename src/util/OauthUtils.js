@@ -7,7 +7,6 @@ async function fetchUser (token) {
             'Authorization': `Bearer ${token}`
         }
     });
-    console.log(res.data)
     return res.data
 }
 
