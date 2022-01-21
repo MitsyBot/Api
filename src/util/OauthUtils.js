@@ -24,7 +24,7 @@ async function fetchGuilds (token) {
       }))
     const manageableGuilds = parentGuild.filter(guilds => guilds.permissions & 0x0000000020)
     const commons = await Promise.all(manageableGuilds.map(g => {
-        const common = makeRequest('mitsy', 
+        const common = await makeRequest('mitsy', 
         {
           id: generateRandomId(),
           type: 'common',
