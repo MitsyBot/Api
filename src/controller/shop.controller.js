@@ -11,8 +11,10 @@ module.exports = class SimpleShop {
   static async buyBackground(req, res) {
     const { banner } = req.body
     const user = await database.fetchUser(req.user.id);
-
-    if(user.backgroundList.includes(banner.id)) {
+    const backgrounds = await user.backgroundList
+    if(backgrounds.includes(banner.id)) return res.send({ sucess: false, message: 'Você ja tem este banner' })
+    console.log(banner)
+    console.log(backgrounds.includes(banner.id))
     if(user.comets < Number(banner.cost)) return res.send({ sucess: false, message: 'Você não tem cometinhas para comprar este background'})
     
     user.comet -= Number(banner.cost)
@@ -20,8 +22,5 @@ module.exports = class SimpleShop {
     user.save()
 
     res.send({ sucess: true, message: 'Background comprado com sucesso' })
-    } else {
-      res.send({ sucess: false, message: 'Você ja tem este banner' })
-    }
   }
 }
