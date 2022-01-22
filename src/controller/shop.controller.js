@@ -15,7 +15,7 @@ module.exports = class SimpleShop {
     if(backgrounds.includes(banner.id)) return res.send({ sucess: false, message: 'Você ja tem este banner' })
     if(user.comets < Number(banner.cost)) return res.send({ sucess: false, message: 'Você não tem cometinhas para comprar este background'})
     
-    user.comet -= Number(banner.cost)
+    user.comets -= banner.cost;
     user.backgroundList.push(banner.id)
     user.save()
 
