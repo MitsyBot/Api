@@ -89,11 +89,8 @@ module.exports.createNewPremium = async function(user, tier) {
 
 	  member.premium.time = Date.now();
 	  member.premium.tier = tier
+	  member.premium.keys.push(key)
 	  member.save()
-	  await userSchema.updateOne(
-		{ _id: user },
-		{ $push: { 'premium.keys': key } }
-	 )
 
 	 return { message: 'Key e premium ativados' }
 }
