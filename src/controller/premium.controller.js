@@ -10,15 +10,15 @@ module.exports = class PremiumController {
             if(req.price = 89.99) return 3
             if(req.price = 119.99) return 4
         }
-        console.log(tier)
+        console.log(tier())
         const body = {
             userid: req.body.userid,
             price: req.body.price,
-            tier: 1,
+            tier: tier(),
             ref: req.body.ref
         }
 
-      database.createNewPremium(req.body.userid, tier)
+      database.createNewPremium(req.body.userid, tier())
 
       const request = await makeRequest('mitsy', 
       {
