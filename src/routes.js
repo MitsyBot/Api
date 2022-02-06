@@ -14,11 +14,11 @@ const Ticket = require('./controller/ticket.controller')
 const isAuth = require('./middlewares/isAuth')
 const Shop = require('./controller/shop.controller')
 const auth = require('./controller/auth.controller')
+const premium = require('./controller/premium.controller')
 const router = Router()
 
 router.get('/status/shards', ShardController.getShardStatus);
 router.put('/shards', isAuth, ShardController.updateShardStatus);
-
 router.get('/commands', CommandsController.getCommands);
 router.post('/commands', isAuth, CommandsController.createCommands);
 router.patch('/commands/:name', isAuth, CommandsController.editMaintenance);
@@ -51,5 +51,8 @@ router.get('/fanarts/getAll', Fanarts.getArts)
 
 // Servidor para dashboard
 router.get('/configure/guild', GuildController.GetIndexGuildConfig);
+
+//Premium
+router.post('/premium/buy', isAuth, premium.createPremium);
 
 module.exports = router

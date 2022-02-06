@@ -74,3 +74,26 @@ module.exports.getAllBackgrounds = async function() {
 		return { message: 'Nenhum background encontrado' }
 	}
 };
+
+
+module.exports.createNewPremium = async function(user, tier) {
+	let member = await userSchema.findOne({ id: user });
+	const keyid = `MITSY-PREMIUM-KEY-${Math.floor(Math.random() * 10000000000)}`
+
+	const key = {
+		id: keyid,
+		enabled: false,
+		guild: '',
+		level: tier
+	  }
+
+	  member.premium.time = Date.now();
+	  member.premium.tier = tier
+	  member.save()
+	  await userSchema.updateOne(
+		{ _id: user },
+		{ $push: { 'premium.keys': key } }
+	 )
+
+	 return { message: 'Key e premium ativados' }
+}

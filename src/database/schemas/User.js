@@ -11,6 +11,13 @@ const UserConnection = new mongoose.Schema({
 	config: Object,
 });
 
+const KeySchema = new mongoose.Schema({
+	id: String,
+	enabled: Boolean,
+	guild: String,
+	level: Number
+});
+
 const Users = new mongoose.Schema({
 	_id: String,
 	id: { type: String, index: { unique: true } },
@@ -34,11 +41,15 @@ const Users = new mongoose.Schema({
 	backgroundList: { type: Array, default: ['mitsy_1'] },
 	profileList: { type: Array, default: ['default'] },
 	isPremium: { type: Boolean, default: false },
-	premiumLevel: { type: Number, default: 0 },
 	isStaff: { type: Boolean, default: false },
 	staffLevel: { type: Number, default: 0 },
 	blacklisted: BlacklistedSchema,
 	connections: [UserConnection],
+	premium: {
+		time: { type: Number, default: 0 },
+		tier: { type: Number, default: 0 },
+		keys: [KeySchema],
+	},
 });
 
 module.exports = mongoose.model('Users', Users);
