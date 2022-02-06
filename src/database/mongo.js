@@ -78,7 +78,9 @@ module.exports.getAllBackgrounds = async function() {
 
 module.exports.createNewPremium = async function(user, tier) {
 	let member = await userSchema.findOne({ id: user });
-	const keyid = `MITSY-PREMIUM-KEY-${Math.floor(Math.random() * 10000000000)}`
+
+	if (member) {
+		const keyid = `MITSY-PREMIUM-KEY-${Math.floor(Math.random() * 10000000000)}`
 
 	const key = {
 		id: keyid,
@@ -93,4 +95,28 @@ module.exports.createNewPremium = async function(user, tier) {
 	  member.save()
 
 	 return { message: 'Key e premium ativados' }
+	}
+
+    else {
+		member = new userSchema({
+			_id: user,
+			id: user,
+		});
+		const keyid = `MITSY-PREMIUM-KEY-${Math.floor(Math.random() * 10000000000)}`
+
+		const key = {
+			id: keyid,
+			enabled: false,
+			guild: '',
+			level: tier
+		  }
+	
+		  member.premium.time = Date.now();
+		  member.premium.tier = tier
+		  member.premium.keys.push(key)
+		  member.save()
+	
+		 return { message: 'Key e premium ativados' }
+		await member.save();
+	}
 }
