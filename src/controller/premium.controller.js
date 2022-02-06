@@ -10,7 +10,6 @@ module.exports = class PremiumController {
             if(req.price = 89.99) return 3
             if(req.price = 119.99) return 4
         }
-        console.log(tier())
         const body = {
             userid: req.body.userid,
             price: req.body.price,
