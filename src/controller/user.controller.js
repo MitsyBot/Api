@@ -11,4 +11,8 @@ module.exports = class UserController {
             res.status(200).json({ message: 'Usuario não encontrado' })
         }
     }
+    static async getUserKeys(req, res) {
+        const user = await database.fetchUser(req.user.id);
+        res.send({ keys: user.premium.keys })
+    }
   }
