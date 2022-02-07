@@ -37,6 +37,7 @@ router.get('/user/login', auth.login)
 // Usuarios para o website e dashboard
 router.get('/user/backgrounds', Oauth.authenticate(false, false), UserController.GetUserBanners);
 router.get('/user/keys', Oauth.authenticate(false, false), UserController.getUserKeys);
+router.post('/user/keys/enable', Oauth.authenticate(false, false), premium.activateKey()), 
 router.get('/user/daily', Oauth.authenticate(false, false), User.getDailyInfos);
 router.post('/user/get/daily', Oauth.authenticate(false, false), User.postDaily)
 
