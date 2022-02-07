@@ -9,7 +9,10 @@ const mongourl = process.env.MONGO_URL
 const { pingPage, InitializeServer } = require('./util/WebSocket')
 const ShopController = require('./util/ShopController')
 const app = express()
+const emitter = new EventEmitter()
 
+
+emitter.setMaxListeners(0)
 const limiter = rateLimit({
     windowMs: 5 * 1000,
     max: 15,
