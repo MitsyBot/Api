@@ -117,7 +117,6 @@ module.exports.createNewPremium = async function(user, tier) {
 		  member.save()
 	
 		 return { message: 'Key e premium ativados' }
-		await member.save();
 	}
 }
 
