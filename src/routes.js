@@ -38,6 +38,7 @@ router.get('/user/login', auth.login)
 router.get('/user/backgrounds', Oauth.authenticate(false, false), UserController.GetUserBanners);
 router.get('/user/keys', Oauth.authenticate(false, false), UserController.getUserKeys);
 router.post('/user/keys/enable', Oauth.authenticate(false, false), premium.activateKey), 
+router.post('/user/keys/disable', Oauth.authenticate(false, false), premium.deactivateKey), 
 router.get('/user/daily', Oauth.authenticate(false, false), User.getDailyInfos);
 router.post('/user/get/daily', Oauth.authenticate(false, false), User.postDaily)
 

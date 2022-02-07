@@ -34,4 +34,9 @@ module.exports = class PremiumController {
       const mes = database.updateKeyStatus(req, keyid, guildid)
       res.send({ message: mes })
     }
+    static async deactivateKey(req, res) {
+      const { keyid } = req.body
+      const mes = database.deactivateKey(req, keyid)
+      res.send({ message: mes })
+    }
 }

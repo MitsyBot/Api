@@ -129,3 +129,13 @@ module.exports.updateKeyStatus = async function (req, keyid, guildid) {
       await userSchema.updateOne(query, updateDocument);
 	  return { message: 'Chave ativada com sucesso' }
 }
+
+module.exports.deactivateKey = async function (req, keyid) {
+	const query = { id: req.user.id, "premium.keys.id": keyid };
+      const updateDocument = {
+        $set: { "premium.keys.$.enabled": false,
+				"premium.keys.$.guild": '' },
+      };
+      await userSchema.updateOne(query, updateDocument);
+	  return { message: 'Chave desativada com sucesso' }
+}
