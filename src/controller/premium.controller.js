@@ -56,8 +56,8 @@ module.exports = class PremiumController {
     }
 
     static async teste(req, res) {
-      const coisa = database.getKeyGuild(req.body.key, req.body.userid)
+      const coisa = await database.getKeyGuild(req.body.key, req.body.userid)
       console.log(coisa)
-      res.send(coisa)
+      res.send({ ses: coisa })
     }
 }
