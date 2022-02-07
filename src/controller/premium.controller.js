@@ -47,8 +47,8 @@ module.exports = class PremiumController {
       const { keyid } = req.body
       
       const getKey = await database.getKeyGuild(keyid, req.user.id)
-      getKey.guild.isPremium = true
-      getKey.guild.premiumLevel = getKey.key.level
+      getKey.guild.isPremium = false
+      getKey.guild.premiumLevel = 0
       getKey.guild.save()
 
       const msg = database.deactivateKey(req, keyid)
