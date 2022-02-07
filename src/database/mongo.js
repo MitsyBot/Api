@@ -124,8 +124,8 @@ module.exports.createNewPremium = async function(user, tier) {
 module.exports.updateKeyStatus = async function (req, keyid, guildid) {
 	const query = { id: req.user.id, "premium.keys.id": keyid };
       const updateDocument = {
-        $set: { "premium.keys.$.enabled": true },
-        $set: { "premium.keys.$.guild": guildid }
+        $set: { "premium.keys.$.enabled": true,
+				"premium.keys.$.guild": guildid },
       };
       await userSchema.updateOne(query, updateDocument);
 	  return { message: 'Chave ativada com sucesso' }
