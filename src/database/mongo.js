@@ -141,7 +141,6 @@ module.exports.deactivateKey = async function (req, keyid) {
 }
 
 module.exports.checkIfGuildHaveKey = async function (guildid) {
-	const query = { "premium.keys.guild": guildid };
-	let key = await userSchema.findOne(query);
+	let key = await userSchema.find({ "premium.keys.guild": guildid });
 	return key
 }
