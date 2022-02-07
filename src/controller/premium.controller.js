@@ -54,9 +54,4 @@ module.exports = class PremiumController {
       const msg = database.deactivateKey(req, keyid)
       res.send({ message: msg })
     }
-
-    static async teste(req, res) {
-      const coisa = database.getKeyGuild(req.body.key, req.body.userid)
-      res.send(coisa)
-    }
 }

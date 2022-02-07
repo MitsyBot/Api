@@ -58,6 +58,4 @@ router.get('/configure/guild', GuildController.GetIndexGuildConfig);
 //Premium
 router.post('/premium/buy', isAuth, premium.createPremium);
 
-router.get('/teste', isAuth, premium.teste);
-
 module.exports = router

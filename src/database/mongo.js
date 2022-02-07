@@ -147,7 +147,26 @@ module.exports.checkIfGuildHaveKey = async function (guildid) {
 
 module.exports.getKeyGuild = async function (keyid, userid) {
 	const userkey = await userSchema.findOne({ id: userid, "premium.keys.id": keyid });
-	const key = userkey.premium.keys
-	console.log(key)
-	return { key }
+	let key = userkey.premium.keys
+	
+	key = key.filter((key) => {
+		return key.id === keyid
+	  })
+	key = key[0]
+
+	const guild = await guildSchema.findOne({ id: key.guild });
+
+	if (guild) {
+		return { guild, key }
+	}
+
+	else {
+		guild = new guildSchema({
+			_id: key.guild,
+			id: key.guild,
+		});
+
+		await guild.save();
+		return { guild, key }
+	}
 }
