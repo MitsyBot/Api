@@ -154,7 +154,7 @@ module.exports.getKeyGuild = async function (keyid, userid) {
 	  })
 	key = key[0]
 
-	const guild = await guildSchema.findOne({ id: key.guild });
+	let guild = await guildSchema.findOne({ id: key.guild });
 
 	if (guild) {
 		return { guild, key }

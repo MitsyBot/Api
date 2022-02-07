@@ -38,7 +38,7 @@ module.exports = class PremiumController {
       const getKey = await database.getKeyGuild(keyid, req.user.id)
       getKey.guild.isPremium = true
       getKey.guild.premiumLevel = getKey.key.level
-      guild.save()
+      getKey.guild.save()
 
       const mes = database.updateKeyStatus(req, keyid, guildid)
       res.send({ message: mes })
