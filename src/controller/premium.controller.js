@@ -28,4 +28,10 @@ module.exports = class PremiumController {
 
       res.send(request)
     }
+
+    static async activateKey(req, res) {
+      const { keyid, keyguild } = req.body
+      const mes = database.updateKeyStatus(req, keyid, keyguild)
+      res.send({ message: mes })
+    }
 }
