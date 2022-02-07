@@ -144,3 +144,9 @@ module.exports.checkIfGuildHaveKey = async function (guildid) {
 	const key = await userSchema.findOne({ "premium.keys.guild": guildid });
 	return Boolean(key)
 }
+
+module.exports.getKeyGuild = async function (keyid, userid) {
+	const key = await userSchema.findOne({ id: userid, "premium.keys.id": keyid });
+	console.log(key)
+	return key
+}

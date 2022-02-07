@@ -35,12 +35,28 @@ module.exports = class PremiumController {
       const isUnique = await database.checkIfGuildHaveKey(guildid)
       if(isUnique) return res.send({ err: true })
 
+      const getKey = database.getKeyGuild(keyid, req.user.id)
+      getKey.guild.isPremium = true
+      getKey.guild.premiumLevel = getKey.key.level
+      guild.save()
+
       const mes = database.updateKeyStatus(req, keyid, guildid)
       res.send({ message: mes })
     }
     static async deactivateKey(req, res) {
       const { keyid } = req.body
-      const mes = database.deactivateKey(req, keyid)
-      res.send({ message: mes })
+      
+      const getKey = database.getKeyGuild(keyid, req.user.id)
+      getKey.guild.isPremium = true
+      getKey.guild.premiumLevel = getKey.key.level
+      guild.save()
+
+      const msg = database.deactivateKey(req, keyid)
+      res.send({ message: msg })
+    }
+
+    static async teste(req, res) {
+      const coisa = database.getKeyGuild(req.body.key, req.body.userid)
+      res.send(coisa)
     }
 }
