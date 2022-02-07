@@ -142,5 +142,5 @@ module.exports.deactivateKey = async function (req, keyid) {
 
 module.exports.checkIfGuildHaveKey = async function (guildid) {
 	const key = await userSchema.findOne({ "premium.keys.guild": guildid });
-	return key
+	return Boolean(key)
 }

@@ -42,9 +42,8 @@ module.exports = class PremiumController {
 
     static async teste(req, res) {
       const { guildid } = req.body
-      const resp = database.checkIfGuildHaveKey(guildid)
+      const resp = await database.checkIfGuildHaveKey(guildid)
       console.log(resp)
-      console.log(Boolean(resp))
       res.send({ resp })
     }
 }
