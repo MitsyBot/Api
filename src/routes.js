@@ -42,8 +42,6 @@ router.post('/user/keys/disable', Oauth.authenticate(false, false), premium.deac
 router.get('/user/daily', Oauth.authenticate(false, false), User.getDailyInfos);
 router.post('/user/get/daily', Oauth.authenticate(false, false), User.postDaily)
 
-router.get('/teste', premium.teste)
-
 // Daily shop
 router.get('/shop/backgrounds', Shop.getRandomBackgrounds)
 router.post('/shop/background/buy', Oauth.authenticate(false, false), Shop.buyBackground)

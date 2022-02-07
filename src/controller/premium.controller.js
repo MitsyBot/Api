@@ -31,6 +31,10 @@ module.exports = class PremiumController {
 
     static async activateKey(req, res) {
       const { keyid, guildid } = req.body
+
+      const isUnique = await database.checkIfGuildHaveKey(guildid)
+      if(isUnique) return res.send({ err: true })
+
       const mes = database.updateKeyStatus(req, keyid, guildid)
       res.send({ message: mes })
     }
@@ -38,12 +42,5 @@ module.exports = class PremiumController {
       const { keyid } = req.body
       const mes = database.deactivateKey(req, keyid)
       res.send({ message: mes })
-    }
-
-    static async teste(req, res) {
-      const { guildid } = req.body
-      const resp = await database.checkIfGuildHaveKey(guildid)
-      console.log(resp)
-      res.send({ resp })
     }
 }
