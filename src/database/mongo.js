@@ -140,7 +140,7 @@ module.exports.deactivateKey = async function (req, keyid) {
 	  return { message: 'Chave desativada com sucesso' }
 }
 
-module.exports.checkIfGuildHaveKey = async function (guildid) {
-	let key = await userSchema.find({ "premium.keys.guild": guildid });
+module.exports.checkIfGuildHaveKey = async function () {
+	let key = await userSchema.find({ "premium.keys.guild": "762067337913565204" });
 	return key
 }
