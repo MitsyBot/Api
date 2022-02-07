@@ -39,4 +39,9 @@ module.exports = class PremiumController {
       const mes = database.deactivateKey(req, keyid)
       res.send({ message: mes })
     }
+
+    static async teste(req, res) {
+      const { guildid } = req.body
+      res.send(database.checkIfGuildHaveKey(guildid))
+    }
 }
