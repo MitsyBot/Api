@@ -55,6 +55,9 @@ router.get('/fanarts/getAll', Fanarts.getArts)
 // Servidor para dashboard
 router.get('/configure/guild', Oauth.authenticate(false, false), GuildController.GetIndexGuildConfig);
 
+// Definir config
+router.post('/configure/guild/index', Oauth.authenticate(false, false), GuildController.SetIndexGuildConfig)
+
 //Premium
 router.post('/premium/buy', isAuth, premium.createPremium);
 

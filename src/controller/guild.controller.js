@@ -22,4 +22,10 @@ module.exports = class GuildController {
       request.data.blacklistedChannels = guild.blacklistedChannels
       res.send(request.data)
       }
+      static async SetIndexGuildConfig(req, res) {
+        const guild = await database.fetchGuild(req.body.guildid);
+
+        guild.blacklistedChannels = req.body.blacklisted
+        guild.lang = req.body.lang
+      }
     }
