@@ -32,8 +32,6 @@ module.exports = class GuildController {
         guild.blacklistedChannels = blacklisted
         guild.lang = req.body.lang
         guild.save()
-
-        console.log(req.body)
         res.send({ message: 'Configuração salva' })
       }
     }
