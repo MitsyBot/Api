@@ -19,7 +19,7 @@ module.exports = class GuildController {
       request.data.premiumTier = guild.premiumLevel,
       request.data.locale = guild.lang,
       request.data.partner = guild.partner,
-
+      request.data.blacklistedChannels = guild.blacklistedChannels
       res.send(request.data)
       }
     }
