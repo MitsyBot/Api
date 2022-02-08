@@ -53,7 +53,7 @@ router.post('/ticket/create', Oauth.authenticate(false, false), Ticket.open)
 router.get('/fanarts/getAll', Fanarts.getArts)
 
 // Servidor para dashboard
-router.get('/configure/guild', GuildController.GetIndexGuildConfig);
+router.get('/configure/guild', Oauth.authenticate(false, true), GuildController.GetIndexGuildConfig);
 
 //Premium
 router.post('/premium/buy', isAuth, premium.createPremium);
