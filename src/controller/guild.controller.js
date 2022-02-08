@@ -27,5 +27,6 @@ module.exports = class GuildController {
 
         guild.blacklistedChannels = req.body.blacklisted
         guild.lang = req.body.lang
+        guild.save()
       }
     }
