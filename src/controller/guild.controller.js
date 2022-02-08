@@ -25,7 +25,10 @@ module.exports = class GuildController {
       static async SetIndexGuildConfig(req, res) {
         const guild = await database.fetchGuild(req.body.guildid);
 
-        guild.blacklistedChannels = req.body.blacklisted
+        let blacklisted = req.body.blacklisted
+        blacklisted.channels = blacklisted.channels.map((channel) => { return channel.id })
+
+        guild.blacklistedChannels = blacklisted
         guild.lang = req.body.lang
         guild.save()
 
