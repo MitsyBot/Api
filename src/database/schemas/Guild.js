@@ -19,8 +19,8 @@ const Guilds = new mongoose.Schema({
 	customCommands: { type: Array },
 	blacklist: { type: Boolean, default: false },
 	blacklistReason: { type: String, default: '' },
-	allowedChannel: { type: Object, default: { roles: [], channels: [] } },
 	isPremium: { type: Boolean, default: false },
+	blacklistedChannels: { type: Object, default: { channels: [], warn: false }	},
 	premiumLevel: { type: Number, default: 0 },
 });
 
