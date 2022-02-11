@@ -4,7 +4,7 @@ const fanartSchema = require('./schemas/Fanarts');
 const backgroundSchema = require('./schemas/Backgrounds')
 
 module.exports.fetchUser = async function(user) {
-	let member = await userSchema.findOne({ id: user });
+	let member = await userSchema.findOne({ _id: user });
 
 	if (member) {
 		return member;
@@ -13,7 +13,6 @@ module.exports.fetchUser = async function(user) {
     else {
 		member = new userSchema({
 			_id: user,
-			id: user,
 		});
 
 		await member.save();
@@ -22,7 +21,7 @@ module.exports.fetchUser = async function(user) {
 };
 
 module.exports.fetchGuild = async function(guildid) {
-	let guild = await guildSchema.findOne({ id: guildid });
+	let guild = await guildSchema.findOne({ _id: guildid });
 
 	if (guild) {
 		return guild;
@@ -31,7 +30,6 @@ module.exports.fetchGuild = async function(guildid) {
 	else {
 		guild = new guildSchema({
 			_id: guildid,
-			id: guildid,
 		});
 
 		await guild.save();
@@ -77,7 +75,7 @@ module.exports.getAllBackgrounds = async function() {
 
 
 module.exports.createNewPremium = async function(user, tier) {
-	let member = await userSchema.findOne({ id: user });
+	let member = await userSchema.findOne({ _id: user });
 
 	if (member) {
 		const keyid = `MITSY-PREMIUM-KEY-${Math.floor(Math.random() * 10000000000)}`
@@ -100,7 +98,6 @@ module.exports.createNewPremium = async function(user, tier) {
     else {
 		member = new userSchema({
 			_id: user,
-			id: user,
 		});
 		const keyid = `MITSY-PREMIUM-KEY-${Math.floor(Math.random() * 10000000000)}`
 
