@@ -28,11 +28,13 @@ module.exports = class UserController {
       return null
     })
     const toReq = banners.map((banner) => {
-      const includes = Boolean(equipedBanner === banner.id)
-      banner.enabled = includes
+      if(banner.id === equipedBanner) {
+      banner.enabled = true
+      } else {
+        banner.enabled = false
+      }
       return banner
     })
-    console.log(toReq)
     res.send({ backgrounds: toReq })
     }
 
