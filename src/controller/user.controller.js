@@ -18,20 +18,19 @@ module.exports = class UserController {
 
     static async getListWithActiveBanner(req, res) {
         const user = await database.fetchUser(req.user.id);
-        const backgrounds = await database.getAllBackgrounds()
+        const bgs = await database.getAllBackgrounds()
 
     const userBanners = user.backgroundList
     const equipedBanner = user.background
 
-    const banners = backgrounds.filter((banner) => {
+    const banners = bgs.filter((banner) => {
       if (userBanners.includes(banner.id)) { return banner };
       return null
     })
-    const toReq = banners.map((banner) => {
-      banner.isEnabled = Boolean(equipedBanner === banner.id)
-      return banner
+    const backgrounds = banners.map((banner) => {
+      banner.enabled = Boolean(equipedBanner === banner.id)
     })
-    res.send({ backgrounds: toReq })
+    res.send({ backgrounds })
     }
 
     static async setUserBanner(req, res) {
