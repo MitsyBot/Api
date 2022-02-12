@@ -27,9 +27,11 @@ module.exports = class UserController {
       if (userBanners.includes(banner.id)) { return banner };
       return null
     })
-    const backgrounds = banners.map((banner) => {
-      banner.enabled = Boolean(equipedBanner === banner.id)
-    })
+
+    const backgrounds = await Promise.all(banners.map(async (g) => {
+        g.enabled =  Boolean(equipedBanner === g.id)
+        return g
+      }))
     res.send({ backgrounds })
     }
 
