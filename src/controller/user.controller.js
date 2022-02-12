@@ -16,14 +16,25 @@ module.exports = class UserController {
         res.send({ keys: user.premium.keys })
     }
 
-    static async getUserBanner(req, res) {
+    static async getListWithActiveBanner(req, res) {
         const user = await database.fetchUser(req.user.id);
+        const backgrounds = await database.getAllBackgrounds()
 
-        if(user) {
-        res.status(200).json({ background: user.background })
-        } else {
-            res.status(200).json({ message: 'Usuario não encontrado' })
-        }
+    const userBanners = user.backgroundList
+    const equipedBanner = user.background
+
+    const banners = backgrounds.filter((banner) => {
+      if (userBanners.includes(banner.id)) { return banner };
+      return null
+    })
+
+    const toReq = banners.map((banner) => {
+      const includes = Boolean(equipedBanner.background === banner.id)
+      banner.enabled = includes
+      return banner
+    })
+
+    res.send({ backgrounds: toReq })
     }
 
     static async setUserBanner(req, res) {
