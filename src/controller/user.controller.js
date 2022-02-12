@@ -15,4 +15,23 @@ module.exports = class UserController {
         const user = await database.fetchUser(req.user.id);
         res.send({ keys: user.premium.keys })
     }
+
+    static async getUserBanner(req, res) {
+        const user = await database.fetchUser(req.user.id);
+
+        if(user) {
+        res.status(200).json({ background: user.background })
+        } else {
+            res.status(200).json({ message: 'Usuario não encontrado' })
+        }
+    }
+
+    static async setUserBanner(req, res) {
+        const user = await database.fetchUser(req.user.id);
+
+        user.background = req.body.banner
+        user.save()
+    
+        res.send({ message: "Background definido com sucesso" })
+    }
   }
