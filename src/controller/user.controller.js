@@ -27,14 +27,14 @@ module.exports = class UserController {
       if (userBanners.includes(banner.id)) { return banner };
       return null
     })
-
+    console.log(banners)
     const toReq = banners.map((banner) => {
       const includes = Boolean(equipedBanner.background === banner.id)
       banner.enabled = includes
       return banner
     })
-
-    res.send({ backgrounds: toReq })
+    console.log(toReq)
+    res.send({ backgrounds: toReq.backgrounds })
     }
 
     static async setUserBanner(req, res) {
