@@ -23,15 +23,14 @@ module.exports = class UserController {
     const userBanners = user.backgroundList
     const equipedBanner = user.background
 
-    const banners = bgs.filter((banner) => {
-      if (userBanners.includes(banner.id)) { return banner };
+    const backgrounds = bgs.filter((banner) => {
+      if (userBanners.includes(banner.id)) { 
+        banner.enabled = Boolean(banner.id === equipedBanner)
+        return banner 
+    };
       return null
     })
 
-    const backgrounds = await Promise.all(banners.map(async (g) => {
-        g.enabled = Boolean(g.id === equipedBanner)
-        return g
-      }))
     res.send({ backgrounds })
     }
 
