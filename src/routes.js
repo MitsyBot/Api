@@ -29,7 +29,7 @@ router.put('/activity', isAuth, ActivityController.reset);
 router.delete('/activity', isAuth, ActivityController.clear);
 router.get('/assets/:type', AssetsController.getImageUrl);
 router.post('/suggestion', Oauth.authenticate(false, false), Suggestion.suggest);
-
+router.get('/backgrounds/', Shop.allBackgrounds)
 // Discord auth
 router.get('/user/@me', Oauth.authenticate(false, true), auth.me)
 router.get('/user/login', auth.login)
