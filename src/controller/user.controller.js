@@ -28,9 +28,7 @@ module.exports = class UserController {
       return null
     })
     const toReq = banners.map((banner) => {
-      const includes = Boolean(equipedBanner === banner.id)
-      console.log(includes)
-      banner.enabled = includes
+      banner.isEnabled = Boolean(equipedBanner === banner.id)
       return banner
     })
     res.send({ backgrounds: toReq })
