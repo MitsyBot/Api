@@ -22,7 +22,7 @@ module.exports = class UserController {
 
     const userBanners = user.backgroundList
     const equipedBanner = user.background
-    console.log(userBannners)
+    console.log(userBanners)
     console.log(equipedBanner)
     const banners = backgrounds.filter((banner) => {
       if (userBanners.includes(banner.id)) { return banner };
