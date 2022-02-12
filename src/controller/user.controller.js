@@ -32,7 +32,8 @@ module.exports = class UserController {
       banner.enabled = includes
       return banner
     })
-    res.send({ backgrounds: toReq.backgrounds })
+    console.log(toReq)
+    res.send({ backgrounds: toReq })
     }
 
     static async setUserBanner(req, res) {
