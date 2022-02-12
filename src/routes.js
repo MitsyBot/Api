@@ -36,8 +36,8 @@ router.get('/user/login', auth.login)
 
 // Usuarios para o website e dashboard
 router.get('/user/backgrounds', Oauth.authenticate(false, false), UserController.GetUserBanners);
-router.get('/user/background/enabled', Oauth.authenticate(false, false), UserController.getListWithActiveBanner);
-router.post('/user/background', Oauth.authenticate(false, false), UserController.setUserBanner);
+router.get('/user/backgrounds/enabled', Oauth.authenticate(false, false), UserController.getUserBanner);
+router.post('/user/backgrounds/', Oauth.authenticate(false, false), UserController.setUserBanner);
 router.get('/user/keys', Oauth.authenticate(false, false), UserController.getUserKeys);
 router.post('/user/keys/enable', Oauth.authenticate(false, false), premium.activateKey), 
 router.post('/user/keys/disable', Oauth.authenticate(false, false), premium.deactivateKey), 

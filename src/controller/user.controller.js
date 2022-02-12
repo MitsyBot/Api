@@ -16,22 +16,14 @@ module.exports = class UserController {
         res.send({ keys: user.premium.keys })
     }
 
-    static async getListWithActiveBanner(req, res) {
+    static async getUserBanner(req, res) {
         const user = await database.fetchUser(req.user.id);
-        const bgs = await database.getAllBackgrounds()
 
-    const userBanners = user.backgroundList
-    const equipedBanner = user.background
-
-    const backgrounds = bgs.filter((banner) => {
-      if (userBanners.includes(banner.id)) { 
-        banner.enabled = Boolean(banner.id === equipedBanner)
-        return banner 
-    };
-      return null
-    })
-
-    res.send({ backgrounds })
+        if(user) {
+        res.status(200).json({ background: user.background })
+        } else {
+            res.status(200).json({ message: 'Usuario não encontrado' })
+        }
     }
 
     static async setUserBanner(req, res) {
@@ -39,7 +31,6 @@ module.exports = class UserController {
 
         user.background = req.body.banner
         user.save()
-    
-        res.send({ sucess: true,  message: "Background definido com sucesso" })
+        res.send({ sucess: true, message: "Background definido com sucesso" })
     }
   }
