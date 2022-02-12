@@ -22,22 +22,17 @@ module.exports = class UserController {
 
     const userBanners = user.backgroundList
     const equipedBanner = user.background
-    console.log(userBanners)
-    console.log(equipedBanner)
+
     const banners = backgrounds.filter((banner) => {
       if (userBanners.includes(banner.id)) { return banner };
       return null
     })
-    console.log(banners)
     const toReq = banners.map((banner) => {
-      if(banner.id === equipedBanner) {
-      banner.enabled = true
-      } else {
-        banner.enabled = false
-      }
+      const includes = Boolean(equipedBanner === banner.id)
+      console.log(includes)
+      banner.enabled = includes
       return banner
     })
-    console.log(toReq)
     res.send({ backgrounds: toReq })
     }
 
