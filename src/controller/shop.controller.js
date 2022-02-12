@@ -22,7 +22,7 @@ module.exports = class SimpleShop {
     res.send({ sucess: true, message: 'Background comprado com sucesso' })
   }
   static async allBackgrounds(req, res) {
-    const backgrounds = database.getAllBackgrounds()
+    const backgrounds = await database.getAllBackgrounds()
 
     res.send(backgrounds)
   }
