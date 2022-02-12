@@ -32,6 +32,6 @@ module.exports = class UserController {
         user.background = req.body.banner
         user.save()
     
-        res.send({ message: "Background definido com sucesso" })
+        res.send({ sucess: true,  message: "Background definido com sucesso" })
     }
   }
