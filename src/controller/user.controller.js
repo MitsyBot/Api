@@ -15,7 +15,7 @@ module.exports = class UserController {
         res.send({ sucess: true, message: "Background definido com sucesso" })
     }
 
-    static async getUserInfos(req, res) {
+    static async GetUserInfos(req, res) {
         const user = await database.fetchUser(req.user.id);
 
         const body = {
