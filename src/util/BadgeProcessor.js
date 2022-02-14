@@ -6,7 +6,7 @@ async function getUserBadges (req) {
     const user = await db.fetchUser(req.user.id)
 
     userGuilds.map((guild) => {
-        Promisse.all(badgesFromGuilds.map(async (badge) => {
+        Promise.all(badgesFromGuilds.map(async (badge) => {
             if(badge.id === guild.id) {
                 const dbGuild = await db.fetchGuild(guild.id)
                 if(dbGuild.isPremium) {
