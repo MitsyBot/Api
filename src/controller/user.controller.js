@@ -1,6 +1,5 @@
 const database = require('../database/mongo');
-const fetch = require('node-fetch')
-const badgeProcessor = require('../util/BadgeProcessor')
+
 module.exports = class UserController {
     static async getUserKeys(req, res) {
         const user = await database.fetchUser(req.user.id);
