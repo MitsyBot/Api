@@ -35,7 +35,7 @@ router.get('/user/@me', Oauth.authenticate(false, true), auth.me)
 router.get('/user/login', auth.login)
 
 // Usuarios para o website e dashboard
-router.get('/user/profile', Oauth.authenticate(true, false), UserController.GetUserInfos);
+router.get('/user/profile', Oauth.authenticate(false, true), UserController.GetUserInfos);
 router.post('/user/background/', Oauth.authenticate(false, false), UserController.setUserBanner);
 router.post('/user/aboutme/', Oauth.authenticate(false, false), UserController.setUserAboutme);
 router.get('/user/keys', Oauth.authenticate(false, false), UserController.getUserKeys);
