@@ -40,6 +40,8 @@ const Users = new mongoose.Schema({
 	profileType: { type: String, default: 'default' },
 	backgroundList: { type: Array, default: ['mitsy_1'] },
 	profileList: { type: Array, default: ['default'] },
+	badgeList: { type: Array },
+	badgesEnabled: { type: Array },
 	isPremium: { type: Boolean, default: false },
 	isStaff: { type: Boolean, default: false },
 	staffLevel: { type: Number, default: 0 },
