@@ -77,7 +77,7 @@ module.exports.getAllBackgrounds = async function() {
 module.exports.getGuildBadges = async function() {
 	let badges = await guildBadgeSchema.find();
 
-	if (backgrounds) {
+	if (badges) {
 		return badges;
 	}
 
