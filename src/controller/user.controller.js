@@ -1,6 +1,6 @@
 const database = require('../database/mongo');
 const fetch = require('node-fetch')
-
+const badgeProcessor = require('../util/BadgeProcessor')
 module.exports = class UserController {
     static async getUserKeys(req, res) {
         const user = await database.fetchUser(req.user.id);
@@ -25,8 +25,11 @@ module.exports = class UserController {
 
     static async GetUserInfos(req, res) {
         const user = await database.fetchUser(req.user.id);
+        const userbadges = badgeProcessor.getUserBadges(req)
+
 
         const body = {
+            badges: userbadges,
             background: user.background,
             backgrounds: user.backgroundList,
             aboutme: user.aboutme,

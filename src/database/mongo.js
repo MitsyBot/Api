@@ -2,6 +2,7 @@ const userSchema = require('./schemas/User');
 const guildSchema = require('./schemas/Guild');
 const fanartSchema = require('./schemas/Fanarts');
 const backgroundSchema = require('./schemas/Backgrounds')
+const guildBadgeSchema = require('./schemas/GuildBadges')
 
 module.exports.fetchUser = async function(user) {
 	let member = await userSchema.findOne({ _id: user });
@@ -70,6 +71,18 @@ module.exports.getAllBackgrounds = async function() {
 
 	else {
 		return { message: 'Nenhum background encontrado' }
+	}
+};
+
+module.exports.getGuildBadges = async function() {
+	let badges = await guildBadgeSchema.find();
+
+	if (backgrounds) {
+		return badges;
+	}
+
+	else {
+		return { message: 'Nenhuma badge encontrada' }
 	}
 };
 
