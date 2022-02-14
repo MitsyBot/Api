@@ -25,10 +25,12 @@ module.exports = class UserController {
 
     static async GetUserInfos(req, res) {
         const user = await database.fetchUser(req.user.id);
-        const userbadges = await badgeProcessor.getUserBadges(req)
 
         const body = {
-            badges: userbadges,
+            badges: {
+                all: user.badgeList,
+                enabled: user.badgesEnabled
+            },
             background: user.background,
             backgrounds: user.backgroundList,
             aboutme: user.aboutme,
