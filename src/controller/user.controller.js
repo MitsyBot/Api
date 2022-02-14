@@ -22,6 +22,14 @@ module.exports = class UserController {
         res.send({ sucess: true, message: "Aboutme definido com sucesso" })
     }
 
+    static async setUserBadges(req, res) {
+        const user = await database.fetchUser(req.user.id);
+
+        user.badgesEnabled = req.body.badges
+        user.save()
+        res.send({ sucess: true, message: "As badges foram definidas com sucesso" })
+    }
+
     static async GetUserInfos(req, res) {
         const user = await database.fetchUser(req.user.id);
 

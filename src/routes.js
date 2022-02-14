@@ -38,6 +38,7 @@ router.get('/user/login', auth.login)
 router.get('/user/profile', Oauth.authenticate(false, false), UserController.GetUserInfos);
 router.post('/user/background/', Oauth.authenticate(false, false), UserController.setUserBanner);
 router.post('/user/aboutme/', Oauth.authenticate(false, false), UserController.setUserAboutme);
+router.post('/user/badges/', Oauth.authenticate(false, false), UserController.setUserBadges);
 router.get('/user/keys', Oauth.authenticate(false, false), UserController.getUserKeys);
 router.post('/user/keys/enable', Oauth.authenticate(false, false), premium.activateKey), 
 router.post('/user/keys/disable', Oauth.authenticate(false, false), premium.deactivateKey), 
