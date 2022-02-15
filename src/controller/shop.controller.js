@@ -24,7 +24,7 @@ module.exports = class SimpleShop {
 
   static async getColors(_req, res) {
     const colors = require('../database/colors.json')
-    return res.status(200).json(JSON.stringify(colors));
+    return res.status(200).json(colors);
   }
 
   static async buyColor(req, res) {
