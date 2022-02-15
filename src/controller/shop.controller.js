@@ -30,8 +30,8 @@ module.exports = class SimpleShop {
   static async buyColor(req, res) {
     const { color } = req.body
     const user = await database.fetchUser(req.user.id);
-    const color = await user.colorList
-    if(backgrounds.includes(color.id)) return res.send({ sucess: false, message: 'Você ja tem esta cor' })
+    const colors = await user.colorList
+    if(colors.includes(color.id)) return res.send({ sucess: false, message: 'Você ja tem esta cor' })
     if(user.comets < Number(color.cost)) return res.send({ sucess: false, message: 'Você não tem cometinhas para comprar esta cor'})
     
     user.comets -= color.cost;
