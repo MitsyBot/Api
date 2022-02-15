@@ -38,12 +38,15 @@ module.exports = class UserController {
                 all: user.badgeList,
                 enabled: user.badgesEnabled
             },
+            colors: {
+                list: user.colorList,
+                current: user.profileColor
+            },
             background: user.background,
             backgrounds: user.backgroundList,
             aboutme: user.aboutme,
             layouts: user.profileList,
             layout: user.profileType,
-            color: user.profileColor
         }
 
         res.send(body)

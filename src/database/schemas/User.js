@@ -42,6 +42,7 @@ const Users = new mongoose.Schema({
 	profileList: { type: Array, default: ['default'] },
 	badgeList: { type: Array },
 	badgesEnabled: { type: Array },
+	colorList: { type: Array },
 	isPremium: { type: Boolean, default: false },
 	isStaff: { type: Boolean, default: false },
 	staffLevel: { type: Number, default: 0 },
