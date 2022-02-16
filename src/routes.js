@@ -50,6 +50,7 @@ router.post('/user/get/daily', Oauth.authenticate(false, false), User.postDaily)
 
 // Conexões
 router.get('/user/connections/:connName/callback', Oauth.authenticate(false, false), Connections.connCallback)
+router.get('/user/connections', Oauth.authenticate(false, false), Connections.getAllConnections)
 
 // Daily shop
 router.get('/shop/backgrounds', Shop.getRandomBackgrounds)
