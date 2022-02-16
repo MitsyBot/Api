@@ -4,7 +4,7 @@ module.exports = class FanartController {
     static async connCallback(req, res) {
         const body = {
             userID: req.user.id,
-            code: req.body.code,
+            code: req.query.code,
             connection: req.params.connName
         }
 
