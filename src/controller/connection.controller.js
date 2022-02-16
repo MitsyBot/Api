@@ -14,7 +14,7 @@ module.exports = class FanartController {
         type: 'authorizecon',
         data: body,
       })
-          res.status(200).json(request)
+          res.status(200).json(request.data)
     }
 
     static async getAllConnections(req, res) {
