@@ -8,7 +8,7 @@ module.exports = class FanartController {
             connection: req.params.connName
         }
 
-    console.log(req.query)
+    console.log(req.query.code)
 
     const request = await makeRequest('mitsy', 
       {
