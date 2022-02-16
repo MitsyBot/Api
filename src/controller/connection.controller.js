@@ -8,6 +8,8 @@ module.exports = class FanartController {
             connection: req.params.connName
         }
 
+    console.log(req.query)
+
     const request = await makeRequest('mitsy', 
       {
         id: generateRandomId(),
