@@ -31,4 +31,19 @@ module.exports = class FanartController {
 
       res.status(200).json(request.data.userConnections)
     }
+
+    static async removeConnection(req, res) {
+        const body = {
+            connection: req.params.connection,
+            userID: req.user.id
+        }
+    const request = await makeRequest('mitsy', 
+      {
+        id: generateRandomId(),
+        type: 'removeconn',
+        data: body,
+      })
+
+      res.status(200).json(request.data)
+    }
 }
