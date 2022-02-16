@@ -12,6 +12,8 @@ const User = require('./controller/user/daily.controller')
 const Fanarts = require('./controller/fanart.controller')
 const Ticket = require('./controller/ticket.controller')
 const isAuth = require('./middlewares/isAuth')
+const Connections = require('./controller/connection.controller')
+
 const Shop = require('./controller/shop.controller')
 const auth = require('./controller/auth.controller')
 const premium = require('./controller/premium.controller')
@@ -45,6 +47,9 @@ router.post('/user/keys/enable', Oauth.authenticate(false, false), premium.activ
 router.post('/user/keys/disable', Oauth.authenticate(false, false), premium.deactivateKey), 
 router.get('/user/daily', Oauth.authenticate(false, false), User.getDailyInfos);
 router.post('/user/get/daily', Oauth.authenticate(false, false), User.postDaily)
+
+// Conexões
+router.get('/user/connections/:connName/callback', Oauth.authenticate(false, false), Connections.connCallback)
 
 // Daily shop
 router.get('/shop/backgrounds', Shop.getRandomBackgrounds)
