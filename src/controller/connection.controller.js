@@ -16,4 +16,19 @@ module.exports = class FanartController {
       })
           res.status(200).json(request)
     }
+
+    static async getAllConnections(req, res) {
+        const body = {
+            userID: req.user.id,
+        }
+
+    const request = await makeRequest('mitsy', 
+      {
+        id: generateRandomId(),
+        type: 'getallcons',
+        data: body,
+      })
+
+      res.status(200).json(request)
+    }
 }
