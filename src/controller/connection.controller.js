@@ -44,6 +44,6 @@ module.exports = class FanartController {
         data: body,
       })
 
-      res.status(200).json(request.data)
+      res.status(200).json(request)
     }
 }
