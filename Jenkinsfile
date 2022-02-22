@@ -36,15 +36,14 @@ pipeline {
           steps {
             script {
                   withCredentials([sshUserPrivateKey(credentialsId: 'ssh-credentials-id', keyFileVariable: 'identity', passphraseVariable: 'passWord', usernameVariable: 'userName')]) {
-                               def remote = [:]
-
+            def remote = [:]
             remote.name = 'vps'
             remote.host = '198.12.96.170'
             remote.user = userName
             remote.password = passWord
             remote.allowAnyHosts = true
             sshCommand remote: remote, command: "docker stop Api"
-            sshCommand remote: remote, command: "docker rm Ai"
+            sshCommand remote: remote, command: "docker rm Api"
             sshCommand remote: remote, command: "docker image rm ghcr.io/mitsybot/api:latest"
             sshCommand remote: remote, command: "docker pull ghcr.io/mitsybot/api:latest"
             sshCommand remote: remote, command: "docker run -it -d -e JWT_SECRET='MIGeMA0GCSqGSIb3DQEBAQUAA4GMADCBiAKBgH30UhPNfM2uXyxDFxYD5KbjCb1FeFflzrxTgBxREgJ071694iPeSdi6gJM9z4Mn8BkLXPBtkGI6LMrKg3nGkkrQkE2f1N4td4EfkhWo6OQhdgagYon1HqGfT4azitH4DFd5UEgmtZAWB/YuA3Y5TtoLWHF5MIvxhY57qZF/w8VHAgMBAAE=' -p 1234:1234 --name Api ghcr.io/mitsybot/api:latest"
