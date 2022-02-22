@@ -32,7 +32,7 @@ pipeline {
         sh 'docker push ghcr.io/$IMAGE_NAME:$IMAGE_VERSION'
       }
     }
-  stage('Enviar para a maquina') {
+    stage('Enviar para a maquina') {
           steps {
             script {
                   withCredentials([sshUserPrivateKey(credentialsId: 'ssh-credentials-id', keyFileVariable: 'identity', passphraseVariable: 'passWord', usernameVariable: 'userName')]) {
