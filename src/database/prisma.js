@@ -3,13 +3,13 @@ const prisma = new PrismaClient();
 const ShopController = require('../util/ShopController');
 const DbSet = require('../util/ShopController');
 
-function getConnection() {
+async function getConnection() {
 	prisma.$connect().then(() => {
 		console.info('Conectado a database');
 	}).catch(e => {
 		console.warn(`Não foi possível se conectar a database: ${e}`);
 	});
-	DbSet.getInstance();
+	await new DbSet;
 	ShopController.getInstance().init();
 
 }
