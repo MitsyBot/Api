@@ -1,6 +1,5 @@
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
-const ShopController = require('../util/ShopController');
 const DbSet = require('../util/ShopController');
 
 async function getConnection() {
@@ -9,9 +8,7 @@ async function getConnection() {
 	}).catch(e => {
 		console.warn(`Não foi possível se conectar a database: ${e}`);
 	});
-	await new DbSet;
-	ShopController.getInstance().init();
-
+	await DbSet.getInstance();
 }
 
 module.exports = { getConnection, prisma };
