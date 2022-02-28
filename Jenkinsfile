@@ -8,7 +8,7 @@ pipeline {
   stages {
     stage('get prisma') {
       steps {
-        sh 'git clone https://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@github.com/Poluxtrail/mitsy-prisma prisma'
+        sh 'rm -rf prisma && git clone https://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@github.com/Poluxtrail/mitsy-prisma prisma'
       }
     }
     stage('cleanup') {
