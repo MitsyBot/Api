@@ -1,19 +1,20 @@
-const database = require('../../database/mongo');
+const DbSet = require('../database/DbSet');
+const DAILY_INTERVAL = 24 * 60 * 60 * 1000;
 
 module.exports = class DailyController {
 
 	static async getDailyInfos(req, res) {
-		const user = await database.fetchUser(req.user.id);
+		const user = await DbSet.getInstance().user.ensureUserInfos(req.user.id);
 		res.status(200).json({
-			canDaily: Boolean(parseInt(user.timeDaily) < Date.now()),
-			isPremium: user.isPremium,
+			canDaily: Boolean(Date.now() - user.cooldowns.last_daily < DAILY_INTERVAL),
+			isPremium: false,
 		});
 	}
 
 	static async postDaily(req, res) {
-		const user = await database.fetchUser(req.user.id);
+		const user = await DbSet.getInstance().user.ensureUserInfos(req.user.id);
 
-		if (parseInt(user.timeDaily) > Date.now()) {
+		if (Date.now() - user.cooldowns.last_daily < DAILY_INTERVAL) {
 			return res.status(200).json({
 				canDaily: false,
 			});
@@ -23,7 +24,7 @@ module.exports = class DailyController {
 		let tax = 0.2;
 
 
-		if (user.isPremium) {
+		if (user.premium) {
 			premiumBoost = 0.5 + user.premiumLevel;
 			tax = 1;
 		}
@@ -31,14 +32,22 @@ module.exports = class DailyController {
 		let amount = (Math.floor(Math.random() * 2000) + 2000) * premiumBoost;
 		const taxValue = Math.floor(amount * tax);
 
-		if (user.isPremium === false) {
+		if (!user.premium) {
 			amount = amount - taxValue;
 		}
+
 		amount = Math.floor(amount);
 
-		user.comets += amount;
-		user.timeDaily = 43200000 + Date.now();
-		user.save();
+		await DbSet.getInstance().user.addComets(req.user.id, amount);
+		await DbSet.getInstance().user.cooldowns.update({
+			where: {
+				id: req.user.id,
+			},
+			data: {
+				last_daily: Date.now(),
+			},
+		});
+
 
 		res.status(200).json({
 			received: amount,

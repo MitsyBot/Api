@@ -1,4 +1,4 @@
-const database = require('../database/mongo');
+const DbSet = require('../database/DbSet');
 
 module.exports = class PremiumController {
 	static async createPremium(req, res) {
@@ -17,7 +17,7 @@ module.exports = class PremiumController {
 			ref: req.body.ref,
 		};
 
-		database.createNewPremium(req.body.userid, tier());
+		DbSet.getInstance().premium.createPremiumAndKey(req.body.userid, tier(), req.body.price);
 
 		const request = await makeRequest('mitsy',
 			{
@@ -32,26 +32,16 @@ module.exports = class PremiumController {
 	static async activateKey(req, res) {
 		const { keyid, guildid } = req.body;
 
-		const isUnique = await database.checkIfGuildHaveKey(guildid);
+		const isUnique = await DbSet.getInstance().premium.ensureGuildKey(guildid);
 		if (isUnique) return res.send({ err: true });
 
-		const getKey = await database.getKeyGuild(keyid, req.user.id);
-		getKey.guild.isPremium = true;
-		getKey.guild.premiumLevel = getKey.key.level;
-		getKey.guild.save();
-
-		const mes = database.updateKeyStatus(req, keyid, guildid);
-		res.send({ message: mes });
+		DbSet.getInstance().premium.enableKey(keyid, guildid);
+		res.send({ message: 'Chave ativada com sucesso' });
 	}
 	static async deactivateKey(req, res) {
 		const { keyid } = req.body;
 
-		const getKey = await database.getKeyGuild(keyid, req.user.id);
-		getKey.guild.isPremium = false;
-		getKey.guild.premiumLevel = 0;
-		getKey.guild.save();
-
-		const msg = database.deactivateKey(req, keyid);
-		res.send({ message: msg });
+		DbSet.getInstance().premium.disableKey(keyid);
+		res.send({ message: 'Chave desativada com sucesso' });
 	}
 };

@@ -4,9 +4,8 @@ const rateLimit = require('express-rate-limit');
 const NotFound = require('./middlewares/NotFound');
 const ErrorHandler = require('./middlewares/ErrorHandler');
 const ApiRoutes = require('./routes');
-const { prisma } = require('./database/prisma');
+const prisma = require('./database/prisma');
 const { pingPage, InitializeServer } = require('./util/WebSocket');
-const ShopController = require('./util/ShopController');
 const app = express();
 
 const limiter = rateLimit({
@@ -32,18 +31,12 @@ app.use((_, res, next) => {
 
 
 pingPage(app);
+prisma.getConnection();
 
 app.use('/', limiter, ApiRoutes);
 
 app.use(NotFound);
 app.use(ErrorHandler);
-
-prisma.$connect().then(() => {
-	console.info('Conectado a database');
-	ShopController.getInstance().init();
-}).catch(e => {
-	console.warn(`Não foi possível se conectar a database: ${e}`);
-});
 
 const httpServer = app.listen(process.env.PORT, () => {
 	console.info(`[API] Servidor iniciado na porta ${process.env.PORT}`);

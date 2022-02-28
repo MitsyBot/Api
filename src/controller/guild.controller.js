@@ -1,8 +1,10 @@
-const database = require('../database/mongo');
+const DbSet = require('../database/DbSet');
 const { makeRequest, generateRandomId } = require('../util/WebSocket');
 module.exports = class GuildController {
 	static async GetIndexGuildConfig(req, res) {
-		const guild = await database.fetchGuild(req.headers['guild']);
+		const guild = await DbSet.getInstance().guilds.ensure(req.headers['guild']);
+		const blacklist = await DbSet.getInstance().blacklist.ensureGuildBlacklistInfos(req.headers['guild']);
+
 		const request = await makeRequest('mitsy',
 			{
 				id: generateRandomId(),
@@ -13,25 +15,28 @@ module.exports = class GuildController {
 				},
 			});
 
-		request.data.blacklisted = guild.blacklist;
-		request.data.blacklistReason = guild.blacklistReason;
-		request.data.isPremium = guild.isPremium,
-		request.data.premiumTier = guild.premiumLevel,
+		request.data.blacklist = blacklist;
+		/* request.data.isPremium = guild.isPremium,
+		request.data.premiumTier = guild.premiumLevel, */
 		request.data.locale = guild.lang,
-		request.data.partner = guild.partner,
-		request.data.blacklistedChannels = guild.blacklistedChannels;
+		request.data.blacklistedChannels = guild.blacklisted_channels;
 		res.send(request.data);
 	}
 	static async SetIndexGuildConfig(req, res) {
-		const guild = await database.fetchGuild(req.body.guildid);
-
 		const blacklisted = req.body.blacklisted;
 		const channels = blacklisted.channels.map((channel) => { return channel.id; });
 		blacklisted.channels = [...new Set(channels)];
 
-		guild.blacklistedChannels = blacklisted;
-		guild.lang = req.body.lang;
-		guild.save();
+		await DbSet.getInstance().guild.general.update({
+			where: {
+				id: req.body.guild_id,
+			},
+			data: {
+				blacklisted_channels: blacklisted,
+				lang: req.body.lang,
+			},
+		});
+
 		res.send({ message: 'Configuração salva' });
 	}
 };
