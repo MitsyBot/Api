@@ -22,10 +22,10 @@ module.exports = class UserController {
 
 		await DbSet.getInstance().user.profiles.update({
 			where: {
-				color: req.body.color,
+				id: req.user.id,
 			},
 			data: {
-				active_background: req.body.banner,
+				color: req.body.color,
 			},
 		});
 		res.send({ sucess: true, message: 'Cor definida com sucesso' });
@@ -34,7 +34,7 @@ module.exports = class UserController {
 	static async setUserAboutme(req, res) {
 		await DbSet.getInstance().user.profiles.update({
 			where: {
-				color: req.body.color,
+				id: req.user.id,
 			},
 			data: {
 				aboutme: req.body.aboutme,
@@ -46,7 +46,7 @@ module.exports = class UserController {
 	static async setUserBadges(req, res) {
 		await DbSet.getInstance().user.profiles.update({
 			where: {
-				color: req.body.color,
+				id: req.user.id,
 			},
 			data: {
 				active_badges: req.body.badges,
