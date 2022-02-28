@@ -2,7 +2,7 @@ const DbSet = require('../database/DbSet');
 const { makeRequest, generateRandomId } = require('../util/WebSocket');
 module.exports = class GuildController {
 	static async GetIndexGuildConfig(req, res) {
-		const guild = await DbSet.getInstance().guilds.ensure(req.headers['guild']);
+		const guild = await DbSet.getInstance().guild.ensure(req.headers['guild']);
 		const blacklist = await DbSet.getInstance().blacklist.ensureGuildBlacklistInfos(req.headers['guild']);
 
 		const request = await makeRequest('mitsy',
