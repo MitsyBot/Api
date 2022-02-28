@@ -1,5 +1,5 @@
 const ShopController = require('../util/ShopController');
-const database = require('../database/mongo');
+const DbSet = require('../database/DbSet');
 
 module.exports = class SimpleShop {
 	static async getRandomBackgrounds(_req, res) {
@@ -9,39 +9,54 @@ module.exports = class SimpleShop {
 	}
 	static async buyBackground(req, res) {
 		const { banner } = req.body;
-		const user = await database.fetchUser(req.user.id);
-		const backgrounds = await user.backgroundList;
+		const user = await DbSet.getInstance().user.ensureUserInfos(req.user.id);
+		const backgrounds = await user.profile.backgrounds;
 		if (backgrounds.includes(banner.id)) return res.send({ sucess: false, message: 'Você ja tem este banner' });
-		if (user.comets < Number(banner.cost)) return res.send({ sucess: false, message: 'Você não tem cometinhas para comprar este background' });
+		if (user.profile.comets < Number(banner.cost)) return res.send({ sucess: false, message: 'Você não tem cometinhas para comprar este background' });
 
-		user.comets -= banner.cost;
-		user.backgroundList.push(banner.id);
-		user.save();
-
+		await DbSet.getInstance().user.removeComets(req.user.id, banner.cost);
+		await DbSet.getInstance().user.profile.update({
+			where: {
+				id: req.user.id,
+			},
+			data: {
+				backgrounds: {
+					push: banner.id,
+				},
+			},
+		});
 		res.send({ sucess: true, message: 'Background comprado com sucesso' });
 	}
 
 	static async getColors(_req, res) {
-		const colors = require('../database/colors.json');
+		const colors = ShopController.getInstance().colors.repo.findMany();
 		return res.status(200).json(colors);
 	}
 
 	static async buyColor(req, res) {
 		const { color } = req.body;
-		const user = await database.fetchUser(req.user.id);
-		const colors = await user.colorList;
+		const user = await DbSet.getInstance().user.ensureUserInfos(req.user.id);
+		const colors = await user.profile.active_colors;
 		if (colors.includes(color.id)) return res.send({ sucess: false, message: 'Você ja tem esta cor' });
-		if (user.comets < Number(color.cost)) return res.send({ sucess: false, message: 'Você não tem cometinhas para comprar esta cor' });
+		if (user.profile.comets < Number(color.cost)) return res.send({ sucess: false, message: 'Você não tem cometinhas para comprar esta cor' });
 
-		user.comets -= color.cost;
-		user.colorList.push(color.id);
-		user.save();
+		await DbSet.getInstance().user.removeComets(req.user.id, color.cost);
+		await DbSet.getInstance().user.profile.update({
+			where: {
+				id: req.user.id,
+			},
+			data: {
+				active_colors: {
+					push: color.id,
+				},
+			},
+		});
 
 		res.send({ sucess: true, message: 'Cor comprada com sucesso' });
 	}
 
 	static async allBackgrounds(req, res) {
-		const backgrounds = await database.getAllBackgrounds();
+		const backgrounds = await DbSet.getInstance().backgrounds.bgs.findMany();
 
 		res.send(backgrounds);
 	}

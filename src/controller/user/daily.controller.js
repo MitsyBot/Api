@@ -23,16 +23,17 @@ module.exports = class DailyController {
 		let premiumBoost = 1;
 		let tax = 0.2;
 
+		const premium = DbSet.getInstance().premium.ensureUserPremium(req.user.id);
 
-		if (user.premium) {
-			premiumBoost = 0.5 + user.premiumLevel;
+		if (premium) {
+			premiumBoost = 0.5 + premium.tier;
 			tax = 1;
 		}
 
 		let amount = (Math.floor(Math.random() * 2000) + 2000) * premiumBoost;
 		const taxValue = Math.floor(amount * tax);
 
-		if (!user.premium) {
+		if (!premium) {
 			amount = amount - taxValue;
 		}
 
@@ -52,7 +53,7 @@ module.exports = class DailyController {
 		res.status(200).json({
 			received: amount,
 			notPremiumReceive: amount + taxValue,
-			isPremium: user.isPremium,
+			isPremium: Boolean(premium),
 		});
 	}
 

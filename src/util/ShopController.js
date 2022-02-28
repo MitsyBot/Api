@@ -1,5 +1,5 @@
 const CronJob = require('cron').CronJob;
-const database = require('../database/DbSet');
+const DbSet = require('../database/DbSet');
 
 module.exports = class ShopController {
 
@@ -14,7 +14,7 @@ module.exports = class ShopController {
 	}
 
 	async init() {
-		const dbBackgrounds = await database.getAllBackgrounds();
+		const dbBackgrounds = await DbSet.getInstance().backgrounds.bgs.findMany();
 
 		this.backgrounds = random(dbBackgrounds, 3);
 

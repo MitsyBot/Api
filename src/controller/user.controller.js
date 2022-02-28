@@ -1,60 +1,78 @@
-const database = require('../database/mongo');
+const DbSet = require('../database/DbSet');
 
 module.exports = class UserController {
 	static async getUserKeys(req, res) {
-		const user = await database.fetchUser(req.user.id);
-		res.send({ keys: user.premium.keys });
+		const premium = DbSet.getInstance().premium.keys.findUnique({ where: { user: req.user.id } });
+		res.send({ keys: premium });
 	}
 
 	static async setUserBanner(req, res) {
-		const user = await database.fetchUser(req.user.id);
-
-		user.background = req.body.banner;
-		user.save();
+		await DbSet.getInstance().user.profiles.update({
+			where: {
+				id: req.user.id,
+			},
+			data: {
+				active_background: req.body.banner,
+			},
+		});
 		res.send({ sucess: true, message: 'Background definido com sucesso' });
 	}
 
 	static async setUserColor(req, res) {
-		const user = await database.fetchUser(req.user.id);
 
-		user.profileColor = req.body.color;
-		user.save();
+		await DbSet.getInstance().user.profiles.update({
+			where: {
+				color: req.body.color,
+			},
+			data: {
+				active_background: req.body.banner,
+			},
+		});
 		res.send({ sucess: true, message: 'Cor definida com sucesso' });
 	}
 
 	static async setUserAboutme(req, res) {
-		const user = await database.fetchUser(req.user.id);
-
-		user.aboutme = req.body.aboutme;
-		user.save();
+		await DbSet.getInstance().user.profiles.update({
+			where: {
+				color: req.body.color,
+			},
+			data: {
+				aboutme: req.body.aboutme,
+			},
+		});
 		res.send({ sucess: true, message: 'Aboutme definido com sucesso' });
 	}
 
 	static async setUserBadges(req, res) {
-		const user = await database.fetchUser(req.user.id);
+		await DbSet.getInstance().user.profiles.update({
+			where: {
+				color: req.body.color,
+			},
+			data: {
+				active_badges: req.body.badges,
+			},
+		});
 
-		user.badgesEnabled = req.body.badges;
-		user.save();
 		res.send({ sucess: true, message: 'As badges foram definidas com sucesso' });
 	}
 
 	static async GetUserInfos(req, res) {
-		const user = await database.fetchUser(req.user.id);
+		const user = await DbSet.getInstance().user.ensureUserInfos(req.user.id);
 
 		const body = {
 			badges: {
-				all: user.badgeList,
-				enabled: user.badgesEnabled,
+				all: user.profile.badge_list,
+				enabled: user.profile.active_badges,
 			},
 			colors: {
-				list: user.colorList,
-				current: user.profileColor,
+				list: user.profile.active_colors,
+				current: user.profile.color,
 			},
-			background: user.background,
-			backgrounds: user.backgroundList,
-			aboutme: user.aboutme,
-			layouts: user.profileList,
-			layout: user.profileType,
+			background: user.profile.active_background,
+			backgrounds: user.profile.backgrounds,
+			aboutme: user.profile.aboutme,
+			layouts: user.profile.profiles,
+			layout: user.profile.active_profile_design,
 		};
 
 		res.send(body);

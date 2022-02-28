@@ -3,5 +3,6 @@ module.exports = {
 	GuildRepository: require('./GuildRepository'),
 	FanartRepository: require('./FanartRepository'),
 	BlacklistRepository: require('./BlacklistedRepository'),
+	BackgroundRepository: require('./BackgroundRepository'),
 	PremiumRepository: require('./PremiumRepository'),
 };

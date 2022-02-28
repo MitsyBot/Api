@@ -1,5 +1,5 @@
 const fetch = require('node-fetch');
-const database = require('../database/mongo');
+const DbSet = require('../database/DbSet');
 
 module.exports = class SuggestionController {
 	static async suggest(req, res) {
@@ -35,34 +35,31 @@ module.exports = class SuggestionController {
 			}),
 		});
 
-
-		const user = await database.fetchUser(req.user.id);
+		const premium = DbSet.getInstance().premium.ensureUserPremium(req.user.id);
 
 		let premiumBoost = 1;
 		let tax = 0.2;
 
 
-		if (user.isPremium) {
-			premiumBoost = 0.5 + user.premiumLevel;
+		if (premium) {
+			premiumBoost = 0.5 + premium.tier;
 			tax = 1;
 		}
 
 		let amount = (Math.floor(Math.random() * 1000) + 1000) * premiumBoost;
 		const taxValue = Math.floor(amount * tax);
 
-		if (user.isPremium === false) {
+		if (!premium) {
 			amount = amount - taxValue;
 		}
 		amount = Math.floor(amount);
 
-		user.comets += amount;
-		user.timeDaily = 43200000 + Date.now();
-		user.save();
+		await DbSet.getInstance().user.addComets(req.user.id, amount);
 
 		return res.status(200).json({
 			received: amount,
 			notPremiumReceive: amount + taxValue,
-			isPremium: user.isPremium,
+			isPremium: Boolean(premium),
 		});
 	}
 };
