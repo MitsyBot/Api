@@ -9,8 +9,10 @@ async function getConnection() {
 	}).catch(e => {
 		console.warn(`Não foi possível se conectar a database: ${e}`);
 	});
-	await DbSet.getInstance();
-	await ShopController.getInstance().init();
+	await DbSet.getInstance().then(() => {
+		ShopController.getInstance().init();
+	});
+
 
 }
 
