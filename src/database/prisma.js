@@ -10,7 +10,7 @@ function getConnection() {
 	}).catch(e => {
 		console.warn(`Não foi possível se conectar a database: ${e}`);
 	});
-	DbSet.getInstance(prisma);
+	DbSet.getInstance();
 }
 
-module.exports = { getConnection };
+module.exports = { getConnection, prisma };
