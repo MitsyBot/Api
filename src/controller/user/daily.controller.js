@@ -1,4 +1,4 @@
-const DbSet = require('../database/DbSet');
+const DbSet = require('../../database/DbSet');
 const DAILY_INTERVAL = 24 * 60 * 60 * 1000;
 
 module.exports = class DailyController {
