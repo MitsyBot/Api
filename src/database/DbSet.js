@@ -1,4 +1,4 @@
-const { UserRepository, GuildRepository, BlacklistRepository, FanartRepository, PremiumRepository, BackgroundRepository } = require('./repositories/');
+const { UserRepository, GuildRepository, BlacklistRepository, FanartRepository, PremiumRepository, BackgroundRepository } = require('./Repositories/');
 module.exports = class DbSet {
 	constructor(connection) {
 		this.connection = connection;
