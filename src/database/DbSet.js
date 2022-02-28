@@ -15,7 +15,6 @@ module.exports = class DbSet {
 		if (!this.instance) {
 			this.instance = new DbSet();
 		}
-
 		return this.instance;
 	}
 };
