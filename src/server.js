@@ -7,6 +7,7 @@ const ApiRoutes = require('./routes');
 const prisma = require('./database/prisma');
 const { pingPage, InitializeServer } = require('./util/WebSocket');
 const app = express();
+const ShopController = require('../util/ShopController');
 
 const limiter = rateLimit({
 	windowMs: 5 * 1000,
@@ -34,7 +35,7 @@ pingPage(app);
 prisma.getConnection();
 
 app.use('/', limiter, ApiRoutes);
-
+ShopController.getInstance().init();
 app.use(NotFound);
 app.use(ErrorHandler);
 
