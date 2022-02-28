@@ -1,56 +1,52 @@
-const express = require('express')
-const cors = require('cors')
-const rateLimit = require('express-rate-limit')
-const NotFound = require('./middlewares/NotFound')
-const ErrorHandler = require('./middlewares/ErrorHandler')
-const ApiRoutes = require('./routes')
-const mongoose = require('mongoose');
-const mongourl = process.env.MONGO_URL
-const { pingPage, InitializeServer } = require('./util/WebSocket')
-const ShopController = require('./util/ShopController')
-const app = express()
+const express = require('express');
+const cors = require('cors');
+const rateLimit = require('express-rate-limit');
+const NotFound = require('./middlewares/NotFound');
+const ErrorHandler = require('./middlewares/ErrorHandler');
+const ApiRoutes = require('./routes');
+const { prisma } = require('./database/prisma');
+const { pingPage, InitializeServer } = require('./util/WebSocket');
+const ShopController = require('./util/ShopController');
+const app = express();
 
 const limiter = rateLimit({
-    windowMs: 5 * 1000,
-    max: 15,
-    skip: (req) => req.headers['user-agent'] === process.env.AGENT,
-    handler: (_req, res) => {
-      res.status(429).send({ message: 'Suas ações estão sendo limitadas' });
-    },
+	windowMs: 5 * 1000,
+	max: 15,
+	skip: (req) => req.headers['user-agent'] === process.env.AGENT,
+	handler: (_req, res) => {
+		res.status(429).send({ message: 'Suas ações estão sendo limitadas' });
+	},
 });
 
 
 app.use(cors({
-  origin: "https://mitsy.xyz",
+	origin: 'https://mitsy.xyz',
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.set('trust proxy', 1);
 app.use((_, res, next) => {
-  res.contentType('application/json');
-  return next();
+	res.contentType('application/json');
+	return next();
 });
 
 
-pingPage(app)
+pingPage(app);
 
 app.use('/', limiter, ApiRoutes);
 
 app.use(NotFound);
 app.use(ErrorHandler);
 
-
-mongoose.connect(mongourl, { useNewUrlParser: true, useUnifiedTopology: true }, (err) => {
-  if (err) {
-    return console.warn(`Não foi possível se conectar a database: ${err}`);
-  }
-
-  console.info('Conectado a database');
-  ShopController.getInstance().init();
+prisma.$connect().then(() => {
+	console.info('Conectado a database');
+	ShopController.getInstance().init();
+}).catch(e => {
+	console.warn(`Não foi possível se conectar a database: ${e}`);
 });
 
 const httpServer = app.listen(process.env.PORT, () => {
-  console.info(`[API] Servidor iniciado na porta ${process.env.PORT}`);
+	console.info(`[API] Servidor iniciado na porta ${process.env.PORT}`);
 });
 
-InitializeServer(httpServer)
+InitializeServer(httpServer);

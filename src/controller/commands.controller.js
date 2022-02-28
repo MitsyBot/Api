@@ -1,28 +1,28 @@
 const CommandsManager = require('../util/CommandsManager');
 
 module.exports = class CommandsController {
-  static async getCommands(_req, res) {
-    const commands = CommandsManager.getInstance().getAllCommands();
+	static async getCommands(_req, res) {
+		const commands = CommandsManager.getInstance().getAllCommands();
 
-    return res.status(200).json(commands);
-  }
+		return res.status(200).json(commands);
+	}
 
-  static createCommands(req, res) {
-    const commands = req.body.data.commands;
-    if (!commands) return res.sendStatus(400);
-    CommandsManager.getInstance().postCommands(commands);
+	static createCommands(req, res) {
+		const commands = req.body.data.commands;
+		if (!commands) return res.sendStatus(400);
+		CommandsManager.getInstance().postCommands(commands);
 
-    return res.sendStatus(200);
-  }
+		return res.sendStatus(200);
+	}
 
-  static async editMaintenance(req, res) {
-    const { name } = req.params;
-    const { disabled } = req.body.data;
+	static async editMaintenance(req, res) {
+		const { name } = req.params;
+		const { disabled } = req.body.data;
 
-    if (typeof name === 'undefined' || typeof disabled === 'undefined') return res.sendStatus(400);
+		if (typeof name === 'undefined' || typeof disabled === 'undefined') return res.sendStatus(400);
 
-    CommandsManager.getInstance().editMaintenance(name, disabled);
+		CommandsManager.getInstance().editMaintenance(name, disabled);
 
-    return res.sendStatus(200);
-  }
-}
+		return res.sendStatus(200);
+	}
+};

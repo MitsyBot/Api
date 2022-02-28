@@ -1,28 +1,28 @@
 module.exports = class ShardStatus {
-   
-   constructor() {
-    this.status = new Map();
-  }
 
-   getAllShards() {
-    const ping = Array.from(this.status.values());
+	constructor() {
+		this.status = new Map();
+	}
 
-    return ping.map(a => {
-      return {
-        ...a,
-      };
-    });
-  }
+	getAllShards() {
+		const ping = Array.from(this.status.values());
 
-  putShard(shardId, shardData) {
-    this.status.set(shardId, shardData);
-  }
+		return ping.map(a => {
+			return {
+				...a,
+			};
+		});
+	}
 
-  static getInstance() {
-    if (!this.instance) {
-      this.instance = new ShardStatus();
-    }
+	putShard(shardId, shardData) {
+		this.status.set(shardId, shardData);
+	}
 
-    return this.instance;
-  }
-}
+	static getInstance() {
+		if (!this.instance) {
+			this.instance = new ShardStatus();
+		}
+
+		return this.instance;
+	}
+};

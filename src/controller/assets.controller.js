@@ -1,24 +1,24 @@
 const urls = require('../util/assetsUrl');
 
 module.exports = class AssetsController {
-  static async getImageUrl(req, res) {
-    const { type } = req.params;
+	static async getImageUrl(req, res) {
+		const { type } = req.params;
 
-    if (!type) return res.sendStatus(400);
+		if (!type) return res.sendStatus(400);
 
-    const url = AssetsController.getAssetBasedOnTheType(type);
+		const url = AssetsController.getAssetBasedOnTheType(type);
 
-    if (url === 'NO-LINKS') return res.sendStatus(404);
+		if (url === 'NO-LINKS') return res.sendStatus(404);
 
-    return res.status(200).json({ url });
-  }
+		return res.status(200).json({ url });
+	}
 
-   static getAssetBasedOnTheType(type) {
-    const allLinks = urls[type];
+	static getAssetBasedOnTheType(type) {
+		const allLinks = urls[type];
 
-    if (!allLinks) return 'NO-LINKS';
-    const randomLink = allLinks[Math.floor(Math.random() * allLinks.length)];
+		if (!allLinks) return 'NO-LINKS';
+		const randomLink = allLinks[Math.floor(Math.random() * allLinks.length)];
 
-    return randomLink;
-  }
-}
+		return randomLink;
+	}
+};

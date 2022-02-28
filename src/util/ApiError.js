@@ -1,5 +1,5 @@
 module.exports = class APIError extends Error {
-    constructor(message) {
-      super(message);
-    }
-  }
+	constructor(message) {
+		super(message);
+	}
+};

@@ -1,49 +1,49 @@
-const { makeRequest, generateRandomId } = require('../util/WebSocket')
+const { makeRequest, generateRandomId } = require('../util/WebSocket');
 
 module.exports = class FanartController {
-    static async connCallback(req, res) {
-        const body = {
-            userID: req.user.id,
-            code: req.query.code,
-            connection: req.params.connName
-        }
+	static async connCallback(req, res) {
+		const body = {
+			userID: req.user.id,
+			code: req.query.code,
+			connection: req.params.connName,
+		};
 
-    const request = await makeRequest('mitsy', 
-      {
-        id: generateRandomId(),
-        type: 'authorizecon',
-        data: body,
-      })
-          res.status(200).json(request.data)
-    }
+		const request = await makeRequest('mitsy',
+			{
+				id: generateRandomId(),
+				type: 'authorizecon',
+				data: body,
+			});
+		res.status(200).json(request.data);
+	}
 
-    static async getAllConnections(req, res) {
-        const body = {
-            userID: req.user.id,
-        }
+	static async getAllConnections(req, res) {
+		const body = {
+			userID: req.user.id,
+		};
 
-    const request = await makeRequest('mitsy', 
-      {
-        id: generateRandomId(),
-        type: 'getallcons',
-        data: body,
-      })
+		const request = await makeRequest('mitsy',
+			{
+				id: generateRandomId(),
+				type: 'getallcons',
+				data: body,
+			});
 
-      res.status(200).json(request.data.userConnections)
-    }
+		res.status(200).json(request.data.userConnections);
+	}
 
-    static async removeConnection(req, res) {
-        const body = {
-            connection: req.params.connection,
-            userID: req.user.id
-        }
-    const request = await makeRequest('mitsy', 
-      {
-        id: generateRandomId(),
-        type: 'removeconn',
-        data: body,
-      })
+	static async removeConnection(req, res) {
+		const body = {
+			connection: req.params.connection,
+			userID: req.user.id,
+		};
+		const request = await makeRequest('mitsy',
+			{
+				id: generateRandomId(),
+				type: 'removeconn',
+				data: body,
+			});
 
-      res.status(200).json(request)
-    }
-}
+		res.status(200).json(request);
+	}
+};
