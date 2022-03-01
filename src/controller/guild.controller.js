@@ -36,7 +36,8 @@ module.exports = class GuildController {
 				id: req.body.guild_id,
 			},
 			data: {
-				blacklisted_channels: blacklisted,
+				blacklisted_channels: blacklisted.channels,
+				custom_warn_message: blacklisted.warn,
 				lang: req.body.lang,
 			},
 		});
