@@ -32,7 +32,11 @@ module.exports = class PremiumController {
 	static async activateKey(req, res) {
 		const { keyid, guildid } = req.body;
 
-		const isUnique = await DbSet.getInstance().premium.ensureGuildKey(guildid);
+		const isUnique = await DbSet.getInstance().premium.keys.count({
+			where: {
+				active_in: guildid,
+			},
+		});
 		if (isUnique) return res.send({ err: true });
 
 		DbSet.getInstance().premium.enableKey(keyid, guildid);
