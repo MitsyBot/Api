@@ -3,7 +3,10 @@ const DbSet = require('../database/DbSet');
 module.exports = class UserController {
 	static async getUserKeys(req, res) {
 		const premium = await DbSet.getInstance().premium.keys.findMany({ where: { user: req.user.id } });
-		console.log(premium);
+		if (premium.active_in !== '') premium.enabled = true;
+		if (premium.active_in === '') premium.enabled = false;
+		if (!premium.active_in) premium.enabled = false;
+
 		res.send({ keys: premium });
 	}
 
