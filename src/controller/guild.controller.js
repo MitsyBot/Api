@@ -20,6 +20,7 @@ module.exports = class GuildController {
 		request.data.premiumTier = guild.premiumLevel, */
 		request.data.locale = guild.lang,
 		request.data.blacklistedChannels = guild.blacklisted_channels;
+		console.log(request);
 		res.send(request.data);
 	}
 	static async SetIndexGuildConfig(req, res) {
