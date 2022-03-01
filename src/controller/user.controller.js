@@ -2,7 +2,7 @@ const DbSet = require('../database/DbSet');
 
 module.exports = class UserController {
 	static async getUserKeys(req, res) {
-		const premium = DbSet.getInstance().premium.keys.findMany({ where: { user: req.user.id } });
+		const premium = await DbSet.getInstance().premium.keys.findMany({ where: { user: req.user.id } });
 		console.log(premium);
 		res.send({ keys: premium });
 	}
