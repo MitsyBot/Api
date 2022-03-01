@@ -19,7 +19,10 @@ module.exports = class GuildController {
 		/* request.data.isPremium = guild.isPremium,
 		request.data.premiumTier = guild.premiumLevel, */
 		request.data.locale = guild.lang,
-		request.data.blacklistedChannels = guild.blacklisted_channels;
+		request.data.blacklistedChannels = {
+			channels: guild.blacklisted_channels,
+			warn: guild.custom_warn_message,
+		};
 		console.log(request);
 		res.send(request.data);
 	}
