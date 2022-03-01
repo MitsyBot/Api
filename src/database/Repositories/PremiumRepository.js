@@ -35,7 +35,11 @@ module.exports = class GuildRepository {
 		return { message: 'Key e premium ativados' };
 	}
 	async ensureGuildKey(id) {
-		const previous = await this.keys.findUnique({ where: { active_in: id } });
+		const previous = await this.keys.findUnique({ where: {
+			active_in: {
+				contains: id,
+			},
+		} });
 		return previous;
 	}
 	async enableKey(id, guild) {
