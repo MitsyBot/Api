@@ -25,7 +25,7 @@ module.exports = class DailyController {
 		let premiumBoost = 1;
 		let tax = 0.2;
 
-		const premium = DbSet.getInstance().premium.ensureUserPremium(req.user.id);
+		const premium = await DbSet.getInstance().premium.ensureUserPremium(req.user.id);
 
 		if (premium) {
 			premiumBoost = 0.5 + premium.tier;
@@ -41,7 +41,7 @@ module.exports = class DailyController {
 
 		amount = Math.floor(amount);
 
-		await DbSet.getInstance().user.addComets(req.user.id, amount);
+		await DbSet.getInstance().user.addComets(req.user.id, Number(amount));
 		await DbSet.getInstance().user.cooldowns.update({
 			where: {
 				id: req.user.id,
