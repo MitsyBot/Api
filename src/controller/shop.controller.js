@@ -29,8 +29,8 @@ module.exports = class SimpleShop {
 	}
 
 	static async getColors(_req, res) {
-		const colors = DbSet.getInstance().colors.repo.findMany();
-		return res.status(200).json(colors);
+		const colors = DbSet.getInstance().colors.table.findMany();
+		return res.send(colors);
 	}
 
 	static async buyColor(req, res) {
