@@ -1,10 +1,11 @@
 const CronJob = require('cron').CronJob;
+const DbSet = require('../database/DbSet');
 
 module.exports = class ShopController {
 
-	constructor(prisma) {
+	constructor() {
 		this.backgrounds = [];
-		this.database = prisma.backgrounds.bgs;
+		this.database = DbSet.getInstance().backgrounds.bgs;
 	}
 
 	getBackgrounds() {

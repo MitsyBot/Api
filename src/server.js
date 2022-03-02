@@ -33,15 +33,15 @@ app.use((_, res, next) => {
 
 
 pingPage(app);
+prisma.getConnection();
 app.use('/', limiter, ApiRoutes);
-const dbset = prisma.getConnection();
 
 app.use(NotFound);
 app.use(ErrorHandler);
 
 const httpServer = app.listen(process.env.PORT, () => {
 	console.info(`[API] Servidor iniciado na porta ${process.env.PORT}`);
-	ShopController.getInstance(dbset).init();
+	ShopController.getInstance().init();
 });
 
 InitializeServer(httpServer);
