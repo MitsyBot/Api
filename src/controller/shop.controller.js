@@ -29,7 +29,7 @@ module.exports = class SimpleShop {
 	}
 
 	static async getColors(_req, res) {
-		const colors = DbSet.getInstance().colors.table.findMany();
+		const colors = DbSet.getInstance().colors.findMany();
 		return res.send(colors);
 	}
 
