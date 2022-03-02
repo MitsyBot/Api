@@ -1,11 +1,11 @@
 const auth = require('../util/OAuth');
 const jwt = require('jsonwebtoken');
 const { makeRequest, generateRandomId } = require('../util/WebSocket');
+const { fetchUser } = require('../util/OauthUtils');
 
 module.exports = class ActivityController {
 
 	static async login(req, res) {
-		const agent = req.get('User-Agent');
 		const { code } = req.query;
 		if (code) {
 			try {
@@ -16,21 +16,24 @@ module.exports = class ActivityController {
 					token_type: tokenType,
 					scope,
 				} = await auth.exchangeCode(code);
+				const token = jwt.sign({
+					accessToken,
+					refreshToken,
+					expiresIn,
+					expiresAt: Date.now() + expiresIn * 1000,
+					tokenType,
+					scope,
+				}, process.env.JWT_SECRET);
 
 				res.json({
-					token: jwt.sign({
-						accessToken,
-						refreshToken,
-						expiresIn,
-						expiresAt: Date.now() + expiresIn * 1000,
-						tokenType,
-						scope,
-					}, process.env.JWT_SECRET),
+					token,
 					expires_in: expiresIn,
 				});
+				const discordtoken = jwt.verify(token, process.env.JWT_SECRET);
+				const user = await fetchUser(discordtoken.accessToken);
 				const body = {
-					userid: req.user.id,
-					message: `Um novo login foi realizado no meu website em ${agent} ${req.clientIp}`,
+					userid: user.id,
+					message: `Um novo login foi realizado no meu website em ${req.clientIp}`,
 				};
 
 				await makeRequest('mitsy',
