@@ -35,7 +35,7 @@ module.exports = class SuggestionController {
 			}),
 		});
 
-		const premium = DbSet.getInstance().premium.ensureUserPremium(req.user.id);
+		const premium = await DbSet.getInstance().premium.ensureUserPremium(req.user.id);
 
 		let premiumBoost = 1;
 		let tax = 0.2;
@@ -54,7 +54,7 @@ module.exports = class SuggestionController {
 		}
 		amount = Math.floor(amount);
 
-		await DbSet.getInstance().user.addComets(req.user.id, amount);
+		await DbSet.getInstance().user.addComets(req.user.id, Number(amount));
 
 		return res.status(200).json({
 			received: amount,
