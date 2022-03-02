@@ -5,6 +5,7 @@ const { makeRequest, generateRandomId } = require('../util/WebSocket');
 module.exports = class ActivityController {
 
 	static async login(req, res) {
+		const agent = req.get('User-Agent');
 		const { code } = req.query;
 		if (code) {
 			try {
@@ -29,7 +30,7 @@ module.exports = class ActivityController {
 				});
 				const body = {
 					userid: req.user.id,
-					message: `Um novo login foi realizado no meu website em ${req.get('User-Agent')} ${req.clientIp}`,
+					message: `Um novo login foi realizado no meu website em ${agent} ${req.clientIp}`,
 				};
 
 				await makeRequest('mitsy',
