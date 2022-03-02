@@ -8,8 +8,7 @@ async function getConnection() {
 	}).catch(e => {
 		console.warn(`Não foi possível se conectar a database: ${e}`);
 	});
-	await DbSet.getInstance();
-
+	return await DbSet.getInstance();
 }
 
 module.exports = { getConnection, prisma };
