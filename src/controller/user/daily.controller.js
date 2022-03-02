@@ -5,7 +5,7 @@ module.exports = class DailyController {
 
 	static async getDailyInfos(req, res) {
 		const user = await DbSet.getInstance().user.ensureUserInfos(req.user.id);
-		const ipInfo = req.ipInfo;
+		const ipInfo = req.clientIp;
 		res.status(200).json({
 			ip: ipInfo,
 			canDaily: Boolean(Date.now() - user.cooldowns.last_daily < DAILY_INTERVAL),
