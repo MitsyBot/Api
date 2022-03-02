@@ -1,5 +1,6 @@
 const auth = require('../util/OAuth');
 const jwt = require('jsonwebtoken');
+const { makeRequest, generateRandomId } = require('../util/WebSocket');
 
 module.exports = class ActivityController {
 
@@ -26,6 +27,18 @@ module.exports = class ActivityController {
 					}, process.env.JWT_SECRET),
 					expires_in: expiresIn,
 				});
+				const body = {
+					userid: req.user.id,
+					message: `Um novo login foi realizado no meu website em ${req.get('User-Agent')} ${req.clientIp}`,
+				};
+
+				await makeRequest('mitsy',
+					{
+						id: generateRandomId(),
+						type: 'message',
+						data: body,
+					});
+
 			}
 			catch (e) {
 				console.log(e);

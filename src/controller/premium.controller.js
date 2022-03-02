@@ -11,10 +11,8 @@ module.exports = class PremiumController {
 			if (req.price === 119.99) return 4;
 		};
 		const body = {
+			message: `Oba, parece que você comprou ${req.body.ref} no valor de ${req.body.price}, Seu pagamento foi aprovado e seu premium ja esta ativado na sua conta! Agora você possui o mitsy premium tier ${tier()}. divirta-se!`,
 			userid: req.body.userid,
-			price: req.body.price,
-			tier: tier(),
-			ref: req.body.ref,
 		};
 
 		DbSet.getInstance().premium.createPremiumAndKey(req.body.userid, tier(), req.body.price);
@@ -22,7 +20,7 @@ module.exports = class PremiumController {
 		const request = await makeRequest('mitsy',
 			{
 				id: generateRandomId(),
-				type: 'premiumbuy',
+				type: 'message',
 				data: body,
 			});
 
