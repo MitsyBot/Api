@@ -1,5 +1,5 @@
 const CronJob = require('cron').CronJob;
-const { prisma } = require('../database/prisma');
+const DbSet = require('../database/DbSet');
 
 module.exports = class ShopController {
 
@@ -14,7 +14,7 @@ module.exports = class ShopController {
 	}
 
 	async init() {
-		const dbBackgrounds = await prisma.Background.findMany();
+		const dbBackgrounds = await DbSet.getInstance().backgrounds.bgs.findMany();
 
 		this.backgrounds = random(dbBackgrounds, 3);
 

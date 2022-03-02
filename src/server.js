@@ -8,7 +8,7 @@ const prisma = require('./database/prisma');
 const expressip = require('request-ip');
 const { pingPage, InitializeServer } = require('./util/WebSocket');
 const app = express();
-
+const ShopController = require('./util/ShopController');
 const limiter = rateLimit({
 	windowMs: 5 * 1000,
 	max: 15,
@@ -34,7 +34,6 @@ app.use((_, res, next) => {
 
 pingPage(app);
 prisma.getConnection();
-
 app.use('/', limiter, ApiRoutes);
 
 app.use(NotFound);
@@ -42,6 +41,7 @@ app.use(ErrorHandler);
 
 const httpServer = app.listen(process.env.PORT, () => {
 	console.info(`[API] Servidor iniciado na porta ${process.env.PORT}`);
+	ShopController.getInstance().init();
 });
 
 InitializeServer(httpServer);
