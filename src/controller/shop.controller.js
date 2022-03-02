@@ -30,6 +30,7 @@ module.exports = class SimpleShop {
 
 	static async getColors(_req, res) {
 		const colors = DbSet.getInstance().colors.findMany();
+		console.log(colors);
 		return res.send(colors);
 	}
 
