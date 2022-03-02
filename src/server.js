@@ -5,6 +5,7 @@ const NotFound = require('./middlewares/NotFound');
 const ErrorHandler = require('./middlewares/ErrorHandler');
 const ApiRoutes = require('./routes');
 const prisma = require('./database/prisma');
+const expressip = require('express-ip');
 const { pingPage, InitializeServer } = require('./util/WebSocket');
 const app = express();
 
@@ -21,6 +22,7 @@ const limiter = rateLimit({
 app.use(cors({
 	origin: 'https://mitsy.xyz',
 }));
+app.use(expressip().getIpInfoMiddleware);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.set('trust proxy', 1);
