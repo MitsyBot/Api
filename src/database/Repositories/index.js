@@ -5,5 +5,4 @@ module.exports = {
 	BlacklistRepository: require('./BlacklistedRepository'),
 	BackgroundRepository: require('./BackgroundRepository'),
 	PremiumRepository: require('./PremiumRepository'),
-	ColorRepository: require('./ColorRepository'),
 };
