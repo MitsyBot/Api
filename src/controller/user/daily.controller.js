@@ -8,7 +8,7 @@ module.exports = class DailyController {
 		const ipInfo = req.clientIp;
 		res.status(200).json({
 			ip: ipInfo,
-			canDaily: Boolean(Date.now() - user.cooldowns.last_daily < DAILY_INTERVAL),
+			canDaily: Boolean(Date.now() - user.cooldowns.last_daily > DAILY_INTERVAL),
 			isPremium: false,
 		});
 	}
