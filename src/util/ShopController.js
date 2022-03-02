@@ -5,6 +5,7 @@ module.exports = class ShopController {
 
 	constructor() {
 		this.backgrounds = [];
+		this.database = DbSet.getInstance().backgrounds.bgs;
 	}
 
 	getBackgrounds() {
@@ -14,7 +15,7 @@ module.exports = class ShopController {
 	}
 
 	async init() {
-		const dbBackgrounds = await DbSet.getInstance().backgrounds.bgs.findMany();
+		const dbBackgrounds = await this.database.findMany();
 
 		this.backgrounds = random(dbBackgrounds, 3);
 
