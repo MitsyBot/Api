@@ -33,7 +33,7 @@ module.exports = class ActivityController {
 				const user = await fetchUser(discordtoken.accessToken);
 				const body = {
 					userid: user.id,
-					message: `Um novo login foi realizado no meu website em ${req.clientIp}`,
+					message: `Opa, só pra avisar que um novo login foi realizado em meu website \`\`${req.headers['user-agent']}\`\`\nIp:``${req.clientIp}\`\``,
 				};
 
 				await makeRequest('mitsy',
