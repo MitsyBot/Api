@@ -1,6 +1,6 @@
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
-const DbSet = require('../DbSet');
+const DbSet = require('./DbSet');
 
 async function getConnection() {
 	prisma.$connect().then(() => {
