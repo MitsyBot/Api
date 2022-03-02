@@ -5,9 +5,7 @@ module.exports = class DailyController {
 
 	static async getDailyInfos(req, res) {
 		const user = await DbSet.getInstance().user.ensureUserInfos(req.user.id);
-		const ipInfo = req.clientIp;
 		res.status(200).json({
-			ip: ipInfo,
 			canDaily: Boolean(Date.now() - user.cooldowns.last_daily > DAILY_INTERVAL),
 			isPremium: false,
 		});
@@ -42,6 +40,16 @@ module.exports = class DailyController {
 		amount = Math.floor(amount);
 
 		await DbSet.getInstance().user.addComets(req.user.id, Number(amount));
+		await DbSet.getInstance().user.daily.create({
+			data: {
+				received_by: req.user.id,
+				ip: req.clientIp,
+				received_at: Date.now(),
+				email: req.user.email,
+				user_agent: req.get('User-Agent'),
+			},
+		});
+
 		await DbSet.getInstance().user.cooldowns.update({
 			where: {
 				id: req.user.id,

@@ -4,6 +4,7 @@ module.exports = class UserRepository {
 		this.general = connection.UserGeneralConfig;
 		this.cooldowns = connection.UserCooldowns;
 		this.connections = connection.UserConnections;
+		this.daily = connection.Dailies;
 	}
 	async ensure(id) {
 		const previous = await this.general.findUnique({ where: { id } });
