@@ -38,9 +38,9 @@ module.exports = class SimpleShop {
 		const user = await DbSet.getInstance().user.ensureUserInfos(req.user.id);
 		const colors = await user.profile.active_colors;
 		if (colors.includes(color.id)) return res.send({ sucess: false, message: 'Você ja tem esta cor' });
-		if (user.profile.comets < Number(color.price)) return res.send({ sucess: false, message: 'Você não tem cometinhas para comprar esta cor' });
+		if (user.profile.comets < Number(color.cost)) return res.send({ sucess: false, message: 'Você não tem cometinhas para comprar esta cor' });
 
-		await DbSet.getInstance().user.removeComets(req.user.id, color.price);
+		await DbSet.getInstance().user.removeComets(req.user.id, color.cost);
 		await DbSet.getInstance().user.profiles.update({
 			where: {
 				id: req.user.id,
