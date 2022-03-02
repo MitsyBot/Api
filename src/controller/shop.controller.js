@@ -15,7 +15,7 @@ module.exports = class SimpleShop {
 		if (user.profile.comets < Number(banner.price)) return res.send({ sucess: false, message: 'Você não tem cometinhas para comprar este background' });
 
 		await DbSet.getInstance().user.removeComets(req.user.id, banner.price);
-		await DbSet.getInstance().user.profile.update({
+		await DbSet.getInstance().user.profiles.update({
 			where: {
 				id: req.user.id,
 			},
@@ -41,7 +41,7 @@ module.exports = class SimpleShop {
 		if (user.profile.comets < Number(color.price)) return res.send({ sucess: false, message: 'Você não tem cometinhas para comprar esta cor' });
 
 		await DbSet.getInstance().user.removeComets(req.user.id, color.price);
-		await DbSet.getInstance().user.profile.update({
+		await DbSet.getInstance().user.profiles.update({
 			where: {
 				id: req.user.id,
 			},
