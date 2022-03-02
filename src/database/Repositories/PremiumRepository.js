@@ -5,7 +5,7 @@ module.exports = class GuildRepository {
 		this.keys = connection.DonationKeys;
 	}
 	async ensureUserPremium(id) {
-		const previous = await this.donations.findUnique({ where: { id, expired: false } });
+		const previous = await this.donations.findUnique({ where: { id } });
 		return previous;
 	}
 	async ensureKey(id) {
