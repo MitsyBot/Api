@@ -38,10 +38,9 @@ app.use('/', limiter, ApiRoutes);
 
 app.use(NotFound);
 app.use(ErrorHandler);
-
+ShopController.getInstance().init();
 const httpServer = app.listen(process.env.PORT, () => {
 	console.info(`[API] Servidor iniciado na porta ${process.env.PORT}`);
-	ShopController.getInstance().init();
 });
 
 InitializeServer(httpServer);

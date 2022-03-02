@@ -1,6 +1,5 @@
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
-const DbSet = require('./DbSet');
 
 async function getConnection() {
 	prisma.$connect().then(() => {
@@ -8,8 +7,6 @@ async function getConnection() {
 	}).catch(e => {
 		console.warn(`Não foi possível se conectar a database: ${e}`);
 	});
-	await DbSet.getInstance();
-
 }
 
 module.exports = { getConnection, prisma };
