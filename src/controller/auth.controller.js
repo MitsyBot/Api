@@ -2,6 +2,7 @@ const auth = require('../util/OAuth');
 const jwt = require('jsonwebtoken');
 const { makeRequest, generateRandomId } = require('../util/WebSocket');
 const { fetchUser } = require('../util/OauthUtils');
+const DbSet = require('../database/DbSet');
 
 module.exports = class ActivityController {
 
@@ -32,18 +33,20 @@ module.exports = class ActivityController {
 				});
 				const discordtoken = jwt.verify(token, process.env.JWT_SECRET);
 				const user = await fetchUser(discordtoken.accessToken);
-				const body = {
-					userid: user.id,
-					message: discordmessage,
-				};
+				const database = await DbSet.getInstance().user.ensureUserInfos(user.id);
+				if (database.profile.warn_login) {
+					const body = {
+						userid: user.id,
+						message: discordmessage,
+					};
 
-				await makeRequest('mitsy',
-					{
-						id: generateRandomId(),
-						type: 'message',
-						data: body,
-					});
-
+					await makeRequest('mitsy',
+						{
+							id: generateRandomId(),
+							type: 'message',
+							data: body,
+						});
+				}
 			}
 			catch (e) {
 				console.log(e);
