@@ -22,7 +22,7 @@ module.exports = class ActivityController {
 				});
 			return res.status(200).json({ sucess: 'Mensagem enviada!' });
 		}
-		return res.status(403).json({ error: 'Esta configuração não é ativada em seu perfil!' });
+		return res.status(200).json({ error: 'Esta configuração não é ativada em seu perfil!' });
 	}
 	static async login(req, res) {
 		const { code } = req.query;
