@@ -11,7 +11,7 @@ module.exports = class ActivityController {
 			console.log(agent);
 			const body = {
 				userid: req.user.id,
-				message: 'Opa, só pra avisar que um novo login foi realizado em meu website ``' + await req.get('User-Agent') + '`` Usando o IP ``' + req.clientIp + '``',
+				message: 'Opa, só pra avisar que um novo login foi realizado em meu website ``' + agent + '`` Usando o IP ``' + req.clientIp + '``',
 			};
 
 			await makeRequest('mitsy',
