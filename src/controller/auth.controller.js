@@ -7,6 +7,7 @@ module.exports = class ActivityController {
 
 	static async login(req, res) {
 		const { code } = req.query;
+		const discordmessage = 'Opa, só pra avisar que um novo login foi realizado em meu website ````' + req.headers['user-agent'] + '``Ip:``' + req.clientIp + '``';
 		if (code) {
 			const {
 				access_token: accessToken,
@@ -32,7 +33,7 @@ module.exports = class ActivityController {
 			const user = await fetchUser(discordtoken.accessToken);
 			const body = {
 				userid: user.id,
-				message: `Opa, só pra avisar que um novo login foi realizado em meu website \`\`${req.headers['user-agent']}\`\`\nIp:``${req.clientIp}\`\``,
+				message: discordmessage,
 			};
 
 			await makeRequest('mitsy',
