@@ -6,7 +6,7 @@ const DbSet = require('../database/DbSet');
 module.exports = class ActivityController {
 
 	static async loginMessage(req, res) {
-		const discordmessage = 'Opa, só pra avisar que um novo login foi realizado em meu website ``' + req.headers['user-agent'] + '`` Usando o IP ``' + req.clientIp + '``';
+		const discordmessage = 'Opa, só pra avisar que um novo login foi realizado em meu website ``' + req.get('User-Agent') + '`` Usando o IP ``' + req.clientIp + '``';
 
 		const database = await DbSet.getInstance().user.ensureUserInfos(req.user.id);
 		if (database.profile.warn_login) {
