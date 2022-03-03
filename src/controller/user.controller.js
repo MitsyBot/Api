@@ -44,6 +44,18 @@ module.exports = class UserController {
 		res.send({ sucess: true, message: 'Aboutme definido com sucesso' });
 	}
 
+	static async setUserConfigs(req, res) {
+		await DbSet.getInstance().user.profiles.update({
+			where: {
+				id: req.user.id,
+			},
+			data: {
+				warn_login: req.body.warn_login,
+			},
+		});
+		res.send({ sucess: true, message: 'Configurações salvas com sucesso' });
+	}
+
 	static async setUserBadges(req, res) {
 		await DbSet.getInstance().user.profiles.update({
 			where: {
@@ -68,6 +80,9 @@ module.exports = class UserController {
 			colors: {
 				list: user.profile.active_colors,
 				current: user.profile.color,
+			},
+			configs: {
+				warnLogin: user.profile.warn_login,
 			},
 			background: user.profile.active_background,
 			backgrounds: user.profile.backgrounds,
