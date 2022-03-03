@@ -35,7 +35,7 @@ router.get('/backgrounds/', Shop.allBackgrounds);
 // Discord auth
 router.get('/user/@me', Oauth.authenticate(false, true), auth.me);
 router.get('/user/login', auth.login);
-router.post('/user/login/new', auth.loginMessage);
+router.post('/user/login/new', Oauth.authenticate(false, false), auth.loginMessage);
 
 // Usuarios para o website e dashboard
 router.get('/user/profile', Oauth.authenticate(false, false), UserController.GetUserInfos);
