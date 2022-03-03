@@ -8,10 +8,10 @@ module.exports = class ActivityController {
 		const database = await DbSet.getInstance().user.ensureUserInfos(req.user.id);
 		if (database.profile.warn_login) {
 			const agent = req.get('User-Agent');
-			console.log(agent);
+			const message = 'Opa, só pra avisar que um novo login foi realizado em meu website ``' + agent + '`` Usando o IP ``' + req.clientIp + '``';
 			const body = {
 				userid: req.user.id,
-				message: 'Opa, só pra avisar que um novo login foi realizado em meu website ``' + agent + '`` Usando o IP ``' + req.clientIp + '``',
+				message,
 			};
 
 			await makeRequest('mitsy',
