@@ -1,14 +1,32 @@
 const auth = require('../util/OAuth');
 const jwt = require('jsonwebtoken');
 const { makeRequest, generateRandomId } = require('../util/WebSocket');
-const { fetchUser } = require('../util/OauthUtils');
 const DbSet = require('../database/DbSet');
 
 module.exports = class ActivityController {
 
+	static async loginMessage(req, res) {
+		const discordmessage = 'Opa, só pra avisar que um novo login foi realizado em meu website ``' + req.headers['user-agent'] + '`` Usando o IP ``' + req.clientIp + '``';
+
+		const database = await DbSet.getInstance().user.ensureUserInfos(req.user.id);
+		if (database.profile.warn_login) {
+			const body = {
+				userid: req.user.id,
+				message: discordmessage,
+			};
+
+			await makeRequest('mitsy',
+				{
+					id: generateRandomId(),
+					type: 'message',
+					data: body,
+				});
+			res.status(200).json({ sucess: 'Mensagem enviada!' });
+		}
+		res.status(403).json({ error: 'Esta configuração não é ativada em seu perfil!' });
+	}
 	static async login(req, res) {
 		const { code } = req.query;
-		const discordmessage = 'Opa, só pra avisar que um novo login foi realizado em meu website ``' + req.headers['user-agent'] + '`` Usando o IP ``' + req.clientIp + '``';
 		if (code) {
 			try {
 				const {
@@ -31,22 +49,6 @@ module.exports = class ActivityController {
 					token,
 					expires_in: expiresIn,
 				});
-				const discordtoken = jwt.verify(token, process.env.JWT_SECRET);
-				const user = await fetchUser(discordtoken.accessToken);
-				const database = await DbSet.getInstance().user.ensureUserInfos(user.id);
-				if (database.profile.warn_login) {
-					const body = {
-						userid: user.id,
-						message: discordmessage,
-					};
-
-					await makeRequest('mitsy',
-						{
-							id: generateRandomId(),
-							type: 'message',
-							data: body,
-						});
-				}
 			}
 			catch (e) {
 				console.log(e);
