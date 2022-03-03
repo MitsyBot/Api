@@ -4,15 +4,14 @@ const { makeRequest, generateRandomId } = require('../util/WebSocket');
 const DbSet = require('../database/DbSet');
 
 module.exports = class ActivityController {
-
 	static async loginMessage(req, res) {
-		const discordmessage = 'Opa, só pra avisar que um novo login foi realizado em meu website ``' + req.get('User-Agent') + '`` Usando o IP ``' + req.clientIp + '``';
-
 		const database = await DbSet.getInstance().user.ensureUserInfos(req.user.id);
 		if (database.profile.warn_login) {
+			const agent = req.get('User-Agent');
+			console.log(agent);
 			const body = {
 				userid: req.user.id,
-				message: discordmessage,
+				message: 'Opa, só pra avisar que um novo login foi realizado em meu website ``' + await req.get('User-Agent') + '`` Usando o IP ``' + req.clientIp + '``',
 			};
 
 			await makeRequest('mitsy',
