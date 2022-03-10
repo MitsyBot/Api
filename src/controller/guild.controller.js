@@ -23,7 +23,6 @@ module.exports = class GuildController {
 			channels: guild.blacklisted_channels,
 			warn: guild.custom_warn_message,
 		};
-		console.log(request);
 		res.send(request.data);
 	}
 	static async SetIndexGuildConfig(req, res) {
