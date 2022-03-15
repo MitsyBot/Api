@@ -4,7 +4,9 @@
   "description": "Mitsybot rest/ws/grpc api",
   "main": "src/server.js",
   "scripts": {
-    "start": "node -r dotenv/config ."
+    "start": "node -r dotenv/config .",
+    "dev": "nodemon --exec node -r dotenv/config ."
+
   },
   "author": "Duuuuardo",
   "dependencies": {
