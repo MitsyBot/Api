@@ -91,7 +91,7 @@ module.exports = class SimpleShop {
 				id,
 				collection,
 				title: name,
-				rarity,
+				rarity: Number(rarity),
 				authorId: from,
 				price,
 			},
