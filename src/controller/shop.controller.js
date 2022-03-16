@@ -86,7 +86,7 @@ module.exports = class SimpleShop {
 		const { id, name, collection, rarity, from } = req.body;
 
 		const price = Number(rarity) * 7000;
-		const aa = DbSet.getInstance().backgrounds.bgs.create({
+		const aa = await DbSet.getInstance().backgrounds.bgs.create({
 			data: {
 				id,
 				collection,
