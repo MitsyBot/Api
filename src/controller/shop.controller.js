@@ -81,4 +81,18 @@ module.exports = class SimpleShop {
 
 		res.send({ sucess: true, message: 'O background foi enviado para a equipe' });
 	}
+
+	static async createBackground(req, res) {
+		const { id, name, collection, rarity, from } = req.body;
+		DbSet.getInstance().backgrounds.bgs.create({
+			data: {
+				id,
+				collection,
+				title: name,
+				rarity,
+				from,
+			},
+		});
+		res.send({ sucess: true, message: 'O background foi enviado para a database' });
+	}
 };
