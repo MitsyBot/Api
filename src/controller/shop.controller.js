@@ -64,9 +64,7 @@ module.exports = class SimpleShop {
 
 
 	static async sendBackground(req, res) {
-		const { background, url } = req.body;
-		const user = req.user;
-
+		const { background, url, user } = req.body;
 
 		const body = {
 			background,
