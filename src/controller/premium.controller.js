@@ -1,8 +1,8 @@
 const DbSet = require('../database/DbSet');
+const { makeRequest, generateRandomId } = require('../util/WebSocket');
 
 module.exports = class PremiumController {
 	static async createPremium(req, res) {
-		const { makeRequest, generateRandomId } = require('../util/WebSocket');
 
 		const tier = () => {
 			if (req.price === 19.99) return 1;
