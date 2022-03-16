@@ -84,13 +84,16 @@ module.exports = class SimpleShop {
 
 	static async createBackground(req, res) {
 		const { id, name, collection, rarity, from } = req.body;
+
+		const price = Number(rarity) * 7000;
 		const aa = DbSet.getInstance().backgrounds.bgs.create({
 			data: {
 				id,
 				collection,
 				title: name,
 				rarity,
-				from,
+				authorId: from,
+				price,
 			},
 		});
 		console.log(aa);
