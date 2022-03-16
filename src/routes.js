@@ -60,7 +60,7 @@ router.get('/shop/backgrounds', Shop.getRandomBackgrounds);
 router.post('/shop/background/buy', Oauth.authenticate(false, false), Shop.buyBackground);
 router.post('/shop/color/buy', Oauth.authenticate(false, false), Shop.buyColor);
 router.get('/shop/colors', Shop.getColors);
-router.poost('/shop/suggest/background', Shop.sendBackground);
+router.post('/shop/suggest/background', Shop.sendBackground);
 // Ticket
 router.post('/ticket/create', Oauth.authenticate(false, false), Ticket.open);
 
