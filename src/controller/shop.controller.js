@@ -1,5 +1,6 @@
 const ShopController = require('../util/ShopController');
 const DbSet = require('../database/DbSet');
+const { makeRequest, generateRandomId } = require('../util/WebSocket');
 
 module.exports = class SimpleShop {
 	static async getRandomBackgrounds(_req, res) {
@@ -59,5 +60,27 @@ module.exports = class SimpleShop {
 		const backgrounds = await DbSet.getInstance().backgrounds.bgs.findMany();
 
 		res.send(backgrounds);
+	}
+
+
+	static async sendBackground(req, res) {
+		const { background, url } = req.body;
+		const user = req.user;
+
+
+		const body = {
+			background,
+			url,
+			user,
+		};
+
+		await makeRequest('helper',
+			{
+				id: generateRandomId(),
+				type: 'background',
+				data: body,
+			});
+
+		res.send({ sucess: true, message: 'O background foi enviado para a equipe' });
 	}
 };
