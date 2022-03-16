@@ -84,7 +84,7 @@ module.exports = class SimpleShop {
 
 	static async createBackground(req, res) {
 		const { id, name, collection, rarity, from } = req.body;
-		DbSet.getInstance().backgrounds.bgs.create({
+		const aa = DbSet.getInstance().backgrounds.bgs.create({
 			data: {
 				id,
 				collection,
@@ -93,6 +93,7 @@ module.exports = class SimpleShop {
 				from,
 			},
 		});
+		console.log(aa);
 		res.send({ sucess: true, message: 'O background foi enviado para a database' });
 	}
 };
