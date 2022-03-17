@@ -22,7 +22,7 @@ module.exports = class ShopController {
 		moment.locale('pt-br');
 		const data = moment().format('L');
 		console.log(data);
-		const previous = await prisma.DailyShops.findUnique({ where: { data } });
+		const previous = await prisma.DailyShops.findUnique({ where: { day: data } });
 		console.log(previous);
 
 		if (previous) {
