@@ -1,5 +1,4 @@
 const DbSet = require('../database/DbSet');
-const { makeRequest, generateRandomId } = require('../util/WebSocket');
 
 module.exports = class UserController {
 	static async getUserKeys(req, res) {
@@ -18,23 +17,6 @@ module.exports = class UserController {
 			},
 		});
 		res.send({ sucess: true, message: 'Background definido com sucesso' });
-	}
-
-	static async getUserNameById(req, res) {
-		const request = await makeRequest('mitsy',
-			{
-				id: generateRandomId(),
-				type: 'background',
-				data: {
-					user: req.body.user,
-				},
-			});
-		const body = {
-			username: request.data.username,
-			avatar: request.data.avatar,
-			id: request.data.id,
-		};
-		res.send({ sucess: true, body });
 	}
 
 	static async setUserColor(req, res) {

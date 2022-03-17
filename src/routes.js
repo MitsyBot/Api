@@ -45,7 +45,6 @@ router.post('/user/aboutme/', Oauth.authenticate(false, false), UserController.s
 router.post('/user/others/', Oauth.authenticate(false, false), UserController.setUserConfigs);
 router.post('/user/badges/', Oauth.authenticate(false, false), UserController.setUserBadges);
 router.get('/user/keys', Oauth.authenticate(false, false), UserController.getUserKeys);
-router.post('/get/user/username', UserController.getUserNameById);
 router.post('/user/keys/enable', Oauth.authenticate(false, false), premium.activateKey),
 router.post('/user/keys/disable', Oauth.authenticate(false, false), premium.deactivateKey),
 router.get('/user/daily', Oauth.authenticate(false, false), User.getDailyInfos);
