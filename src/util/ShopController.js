@@ -1,5 +1,7 @@
 const CronJob = require('cron').CronJob;
 const { prisma } = require('../database/prisma');
+const moment = require('moment');
+// const { MessageEmbed } = require('discord.js');
 
 module.exports = class ShopController {
 
@@ -17,11 +19,38 @@ module.exports = class ShopController {
 	async init() {
 		const dbBackgrounds = await prisma.Background.findMany();
 
-		this.backgrounds = random(dbBackgrounds, 3);
+		moment.locale('pt-br');
+		const data = moment().format('L');
+		console.log(data);
+		const previous = await prisma.DailyShops.findUnique({ where: { data } });
+		console.log(previous);
+
+		if (previous) {
+			this.backgrounds = previous.items;
+		}
+		else {
+			this.backgrounds = random(dbBackgrounds, 8);
+
+			await prisma.DailyShops.create({
+				data: {
+					day: data,
+					items: this.backgrounds,
+				},
+			});
+
+
+		}
+
 
 		const job = new CronJob('0 */24 * * *', async () => {
 
-			this.backgrounds = random(dbBackgrounds, 3);
+			this.backgrounds = random(dbBackgrounds, 8);
+			await prisma.DailyShops.create({
+				data: {
+					day: data,
+					items: this.backgrounds,
+				},
+			});
 
 		}, null, true, 'America/Sao_Paulo');
 
