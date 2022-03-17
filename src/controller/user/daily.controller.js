@@ -73,7 +73,6 @@ module.exports = class DailyController {
 		console.log(transaction);
 		const embed = new MessageEmbed()
 			.setColor('#F895FB')
-
 			.setTitle(`<:Mitsy_Rica:872870327049396274> **${amount} for DAILY**`)
 			.addFields(
 				{ name: '**💵 Quem recebeu**', value: `<@${req.user.id}>\n \`\`${req.user.username}#${req.user.discriminator}\`\`` },
