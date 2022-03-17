@@ -2,7 +2,8 @@ const CronJob = require('cron').CronJob;
 const { prisma } = require('../database/prisma');
 const moment = require('moment');
 // const { MessageEmbed } = require('discord.js');
-const fetch = require('node-fetch');
+const axios = require('axios');
+
 
 module.exports = class ShopController {
 
@@ -37,16 +38,13 @@ module.exports = class ShopController {
 				},
 			});
 
-			await fetch(process.env.BACKGROUNDS_WEBHOOK, {
-				method: 'post',
-				headers: {
-					'Content-Type': 'application/json',
-				},
-				body: JSON.stringify({
-					username: 'DailyShop',
-					content: '<:Mitsy_omg:873019423886282812>, Uma nova loja diaria foi gerada por que aparentemente nenhuma existia!',
-				}),
-			});
+			const request = {
+				'content' : '<:Mitsy_omg:873019423886282812>, A loja diaria foi reiniciada!',
+				'username': 'DailyShop',
+			};
+			await axios.post(process.env.BACKGROUNDS_WEBHOOK, request);
+
+
 		}
 
 
@@ -60,16 +58,13 @@ module.exports = class ShopController {
 				},
 			});
 
-			await fetch(process.env.BACKGROUNDS_WEBHOOK, {
-				method: 'post',
-				headers: {
-					'Content-Type': 'application/json',
-				},
-				body: JSON.stringify({
-					username: 'DailyShop',
-					content: '<:Mitsy_omg:873019423886282812>, A loja diaria foi reiniciada!',
-				}),
-			});
+
+			const request = {
+				'content' : '<:Mitsy_omg:873019423886282812>, A loja diaria foi reiniciada!',
+				'username': 'DailyShop',
+			};
+			await axios.post(process.env.BACKGROUNDS_WEBHOOK, request);
+
 
 		}, null, true, 'America/Sao_Paulo');
 
