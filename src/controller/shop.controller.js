@@ -40,7 +40,7 @@ module.exports = class SimpleShop {
 
 		const embed = {
 			color: 0xF895FB,
-			title: `<:Mitsy_Rica:872870327049396274> **${banner.cost} for BACKGROUND**`,
+			title: `<:Mitsy_Rica:872870327049396274> **${banner.price} for BACKGROUND**`,
 			fields: [
 				{
 					name: '**💸 Quem pagou**',
