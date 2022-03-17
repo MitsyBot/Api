@@ -2,6 +2,7 @@ const CronJob = require('cron').CronJob;
 const { prisma } = require('../database/prisma');
 const moment = require('moment');
 // const { MessageEmbed } = require('discord.js');
+const fetch = require('node-fetch');
 
 module.exports = class ShopController {
 
@@ -21,9 +22,7 @@ module.exports = class ShopController {
 
 		moment.locale('pt-br');
 		const data = moment().format('L');
-		console.log(data);
 		const previous = await prisma.DailyShops.findUnique({ where: { day: data } });
-		console.log(previous);
 
 		if (previous) {
 			this.backgrounds = previous.items;
@@ -38,7 +37,16 @@ module.exports = class ShopController {
 				},
 			});
 
-
+			fetch(`${process.env.BACKGROUNDS_WEBHOOK}`, {
+				method: 'post',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({
+					username: 'DailyShop',
+					content: '<:Mitsy_omg:873019423886282812>, Uma nova loja diaria foi gerada por que aparentemente nenhuma existia!',
+				}),
+			});
 		}
 
 
@@ -50,6 +58,17 @@ module.exports = class ShopController {
 					day: data,
 					items: this.backgrounds,
 				},
+			});
+
+			fetch(`${process.env.BACKGROUNDS_WEBHOOK}`, {
+				method: 'post',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({
+					username: 'DailyShop',
+					content: '<:Mitsy_omg:873019423886282812>, A loja diaria foi reiniciada!',
+				}),
 			});
 
 		}, null, true, 'America/Sao_Paulo');
