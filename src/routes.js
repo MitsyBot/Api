@@ -62,6 +62,7 @@ router.post('/shop/color/buy', Oauth.authenticate(false, false), Shop.buyColor);
 router.get('/shop/colors', Shop.getColors);
 router.post('/shop/suggest/background', Oauth.authenticate(false, false), Shop.sendBackground);
 router.post('/shop/background/create', isAuth, Shop.createBackground);
+router.post('/get/user/username', Shop.getUserNameById);
 
 // Ticket
 router.post('/ticket/create', Oauth.authenticate(false, false), Ticket.open);
