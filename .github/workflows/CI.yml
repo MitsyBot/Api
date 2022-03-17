@@ -51,6 +51,7 @@ jobs:
             -e PORT='1234' -e JWT_SECRET='${{ secrets.JWT_TOKEN }}' \
             -e API_TOKEN='${{ secrets.API_TOKEN }}' \
             -e AGENT='${{ secrets.AGENT }}' \
+            -e STARTRACKER_WEBHOOK='${{ secrets.STARTRACKER_WEBHOOK }}' \
             -e BACKGROUNDS_WEBHOOK='${{ secrets.BACKGROUNDS_WEBHOOK }}' \
             -e SUGGESTION_WEBHOOK_URL='${{ secrets.SUGGESTION_WEBHOOK_URL }}' \
             -e CDN_URL='${{ secrets.CDN_URL }}' \

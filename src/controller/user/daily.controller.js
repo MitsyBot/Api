@@ -84,7 +84,7 @@ module.exports = class DailyController {
 			'username': 'StarTracker',
 			'embeds': [embed],
 		};
-		await axios.post(process.env.BACKGROUNDS_WEBHOOK, request);
+		await axios.post(process.env.STARTRACKER_WEBHOOK, request);
 
 		res.status(200).json({
 			received: amount,
