@@ -72,7 +72,7 @@ module.exports = class DailyController {
 		});
 
 		const embed = {
-			color: '#F895FB',
+			color: 0xF895FB,
 			title: `<:Mitsy_Rica:872870327049396274> **${amount} for DAILY**`,
 			fields: [
 				{
