@@ -15,13 +15,11 @@ module.exports = class FanartController {
 						user: arts.artist,
 					},
 				});
-			console.log(request);
 			const artist = {
 				username: request.data.username,
 				avatar: request.data.avatar,
 				id: request.data.id,
 			};
-			console.log(artist);
 			return { artist, title: arts.title, description: arts.description, link: `${process.env.CDN_URL}/fanart/${arts.artist}/${arts.file}` };
 		}));
 
