@@ -72,13 +72,15 @@ module.exports = class DailyController {
 		});
 		console.log(transaction);
 		const embed = new MessageEmbed()
+			.setColor('#F895FB')
+
 			.setTitle(`<:Mitsy_Rica:872870327049396274> **${amount} for DAILY**`)
 			.addFields(
 				{ name: '**💵 Quem recebeu**', value: `<@${req.user.id}>\n \`\`${req.user.username}#${req.user.discriminator}\`\`` },
 			)
-			.setFooter({ text: `Transação ${transaction.id}`, iconURL: 'https://cdn.discordapp.com/emojis/873019423827587132.webp' })
-			.setColor('#F895FB')
-			.setTimestamp();
+			.setTimestamp()
+			.setFooter({ text: `Transação ${transaction.id}`, iconURL: 'https://cdn.discordapp.com/emojis/873019423827587132.webp' });
+
 
 		const request = {
 			'username': 'StarTracker',
