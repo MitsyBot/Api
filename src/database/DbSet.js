@@ -8,6 +8,7 @@ module.exports = class DbSet {
 		this.user = new UserRepository(prisma);
 		this.guild = new GuildRepository(prisma);
 		this.blacklist = new BlacklistRepository(prisma);
+		this.transactions = prisma.CometTransaction;
 		this.premium = new PremiumRepository(prisma);
 		this.backgrounds = new BackgroundRepository(prisma);
 	}
