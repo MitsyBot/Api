@@ -5,7 +5,7 @@ module.exports = class FanartController {
 	static async getArts(_req, res) {
 		const fanarts = await DbSet.getInstance().fanarts.arts.findMany();
 		if (!fanarts) res.status(200).json({ message: 'nenhuma fanart registrada' });
-
+		console.log(fanarts);
 		const all = await fanarts.map(async (arts) => {
 
 			const request = await makeRequest('mitsy',
@@ -25,6 +25,7 @@ module.exports = class FanartController {
 
 			return { artist: body, title: arts.title, description: arts.description, link: `${process.env.CDN_URL}/fanart/${arts.artist}/${arts.file}` };
 		});
+		console.log(all);
 
 		res.status(200).json(all);
 	}
