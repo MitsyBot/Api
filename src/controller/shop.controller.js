@@ -64,11 +64,11 @@ module.exports = class SimpleShop {
 
 
 	static async sendBackground(req, res) {
-		const { background, image } = req.body;
+		const { background, file } = req.body;
 		const user = req.user;
 		const body = {
 			background,
-			image,
+			file,
 			user,
 		};
 
