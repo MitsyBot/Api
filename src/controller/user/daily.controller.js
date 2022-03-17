@@ -72,7 +72,7 @@ module.exports = class DailyController {
 		});
 
 		const embed = new MessageEmbed()
-			.setTitle(`<:Mitsy_Rica:872870327049396274> **${amount} for PAYMENT**`)
+			.setTitle(`<:Mitsy_Rica:872870327049396274> **${amount} for DAILY**`)
 			.addFields(
 				{ name: '**💵 Quem recebeu**', value: `<@${req.user.id}>\n \`\`${req.user.username}#${req.user.discriminator}\`\`` },
 			)
