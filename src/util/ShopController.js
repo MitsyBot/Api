@@ -37,7 +37,7 @@ module.exports = class ShopController {
 				},
 			});
 
-			fetch(`${process.env.BACKGROUNDS_WEBHOOK}`, {
+			await fetch(process.env.BACKGROUNDS_WEBHOOK, {
 				method: 'post',
 				headers: {
 					'Content-Type': 'application/json',
@@ -60,7 +60,7 @@ module.exports = class ShopController {
 				},
 			});
 
-			fetch(`${process.env.BACKGROUNDS_WEBHOOK}`, {
+			await fetch(process.env.BACKGROUNDS_WEBHOOK, {
 				method: 'post',
 				headers: {
 					'Content-Type': 'application/json',
