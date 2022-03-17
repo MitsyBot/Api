@@ -1,6 +1,7 @@
 const ShopController = require('../util/ShopController');
 const DbSet = require('../database/DbSet');
 const { makeRequest, generateRandomId } = require('../util/WebSocket');
+const axios = require('axios');
 
 module.exports = class SimpleShop {
 	static async getRandomBackgrounds(_req, res) {
@@ -26,6 +27,40 @@ module.exports = class SimpleShop {
 				},
 			},
 		});
+
+		const transaction = await DbSet.getInstance().transactions.create({
+			data: {
+				reason: 'BACKGROUND',
+				given_by: 'SHOP',
+				received_by: req.user.id,
+				quantity: banner.price,
+				given_at: Date.now(),
+			},
+		});
+
+		const embed = {
+			color: 0xF895FB,
+			title: `<:Mitsy_Rica:872870327049396274> **${banner.cost} for BACKGROUND**`,
+			fields: [
+				{
+					name: '**💸 Quem pagou**',
+					value: `<@${req.user.id}>\n \`\`${req.user.username}#${req.user.discriminator}\`\``,
+				},
+			],
+			timestamp: new Date(),
+			footer: {
+				text: `Transação ${transaction.id}`,
+				icon_url: 'https://cdn.discordapp.com/emojis/873019423827587132.webp',
+			},
+		};
+
+		const request = {
+			'username': 'StarTracker',
+			'embeds': [embed],
+		};
+		await axios.post(process.env.STARTRACKER_WEBHOOK, request);
+
+
 		res.send({ sucess: true, message: 'Background comprado com sucesso' });
 	}
 
@@ -52,6 +87,38 @@ module.exports = class SimpleShop {
 				},
 			},
 		});
+
+		const transaction = await DbSet.getInstance().transactions.create({
+			data: {
+				reason: 'COLOR',
+				given_by: 'SHOP',
+				received_by: req.user.id,
+				quantity: color.cost,
+				given_at: Date.now(),
+			},
+		});
+
+		const embed = {
+			color: 0xF895FB,
+			title: `<:Mitsy_Rica:872870327049396274> **${color.cost} for COLOR**`,
+			fields: [
+				{
+					name: '**💸 Quem pagou**',
+					value: `<@${req.user.id}>\n \`\`${req.user.username}#${req.user.discriminator}\`\``,
+				},
+			],
+			timestamp: new Date(),
+			footer: {
+				text: `Transação ${transaction.id}`,
+				icon_url: 'https://cdn.discordapp.com/emojis/873019423827587132.webp',
+			},
+		};
+
+		const request = {
+			'username': 'StarTracker',
+			'embeds': [embed],
+		};
+		await axios.post(process.env.STARTRACKER_WEBHOOK, request);
 
 		res.send({ sucess: true, message: 'Cor comprada com sucesso' });
 	}
