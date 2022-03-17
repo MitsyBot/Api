@@ -1,6 +1,5 @@
 const DbSet = require('../../database/DbSet');
 const DAILY_INTERVAL = 24 * 60 * 60 * 1000;
-const { MessageEmbed } = require('discord.js');
 const axios = require('axios');
 
 module.exports = class DailyController {
