@@ -70,7 +70,7 @@ module.exports = class DailyController {
 				given_at: Date.now(),
 			},
 		});
-
+		console.log(transaction);
 		const embed = new MessageEmbed()
 			.setTitle(`<:Mitsy_Rica:872870327049396274> **${amount} for DAILY**`)
 			.addFields(
