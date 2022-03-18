@@ -48,6 +48,7 @@ module.exports = class FanartController {
 
 	static async aproveArt(req, res) {
 		const { artist, art, file } = req.body;
+		console.log('🚀 ~ file: fanart.controller.js ~ line 51 ~ FanartController ~ aproveArt ~ artist', artist);
 		await DbSet.getInstance().fanarts.arts.create({
 			data: {
 				artist,
