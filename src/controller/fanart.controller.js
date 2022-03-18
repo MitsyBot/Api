@@ -110,6 +110,7 @@ module.exports = class FanartController {
 			avatar: `${process.env.CDN_URL}/fanarts/${randomActivity.artist}/${randomActivity.file}`,
 			activity: { name: `Fanart por ${user.username} | Shard ${shard}`, type: 'PLAYING' },
 		};
+		console.log(body);
 		res.send(body);
 	}
 };
