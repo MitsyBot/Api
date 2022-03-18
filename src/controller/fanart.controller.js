@@ -95,8 +95,10 @@ module.exports = class FanartController {
 
 		const fanarts = await DbSet.getInstance().fanarts.arts.findMany();
 
-		const randomActivity = fanarts[Math.floor(Math.random() * fanarts.length)];
+		console.log(fanarts);
 
+		const randomActivity = fanarts[Math.floor(Math.random() * fanarts.length)];
+		console.log(randomActivity);
 		const user = await makeRequest('mitsy',
 			{
 				id: generateRandomId(),
