@@ -93,7 +93,7 @@ module.exports = class FanartController {
 		const fanarts = await DbSet.getInstance().fanarts.arts.findMany();
 		if (!fanarts) res.status(200).json({ message: 'nenhuma fanart registrada' });
 
-		// const randomActivity = fanarts[Math.floor(Math.random() * fanarts.length)];
+		const randomActivity = fanarts[Math.floor(Math.random() * fanarts.length)];
 		// console.log(randomActivity);
 		// const user = await makeRequest('mitsy',
 		// 	{
@@ -109,6 +109,6 @@ module.exports = class FanartController {
 		// 	activity: { name: `Fanart por ${user.username} | Shard ${shard}`, type: 'PLAYING' },
 		// };
 
-		res.status(200).json(fanarts);
+		res.status(200).json(randomActivity);
 	}
 };
