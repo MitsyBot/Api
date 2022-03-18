@@ -27,7 +27,8 @@ module.exports = class FanartController {
 			};
 
 
-			return body;
+			arts = body;
+			return arts;
 		}));
 
 		res.status(200).json(all);
