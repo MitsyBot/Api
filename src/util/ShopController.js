@@ -3,7 +3,8 @@ const { prisma } = require('../database/prisma');
 const moment = require('moment');
 // const { MessageEmbed } = require('discord.js');
 const axios = require('axios');
-
+moment.locale('pt-br');
+const date = moment().format('L');
 
 module.exports = class ShopController {
 
@@ -21,9 +22,8 @@ module.exports = class ShopController {
 	async init() {
 		const dbBackgrounds = await prisma.Background.findMany();
 
-		moment.locale('pt-br');
-		const data = moment().format('L');
-		const previous = await prisma.DailyShops.findUnique({ where: { day: data } });
+
+		const previous = await prisma.DailyShops.findUnique({ where: { day: date } });
 
 		if (previous) {
 			this.backgrounds = previous.items;
@@ -33,13 +33,13 @@ module.exports = class ShopController {
 
 			await prisma.DailyShops.create({
 				data: {
-					day: data,
+					day: date,
 					items: this.backgrounds,
 				},
 			});
 
 			const request = {
-				'content' : '<:Mitsy_omg:873019423886282812>, A loja diaria foi reiniciada!',
+				'content' : '<:Mitsy_omg:873019423886282812>, A loja diária foi reiniciada!',
 				'username': 'DailyShop',
 			};
 			await axios.post(process.env.BACKGROUNDS_WEBHOOK, request);
@@ -53,14 +53,14 @@ module.exports = class ShopController {
 			this.backgrounds = random(dbBackgrounds, 8);
 			await prisma.DailyShops.create({
 				data: {
-					day: data,
+					day: date,
 					items: this.backgrounds,
 				},
 			});
 
 
 			const request = {
-				'content' : '<:Mitsy_omg:873019423886282812>, A loja diaria foi reiniciada!',
+				'content' : '<:Mitsy_omg:873019423886282812>, A loja diária foi reiniciada!',
 				'username': 'DailyShop',
 			};
 			await axios.post(process.env.BACKGROUNDS_WEBHOOK, request);
