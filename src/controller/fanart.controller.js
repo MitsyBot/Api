@@ -25,10 +25,9 @@ module.exports = class FanartController {
 				description: arts.description,
 				link: `${process.env.CDN_URL}/fanarts/${arts.artist}/${arts.file}`,
 			};
-
-
-			arts = body;
-			return arts;
+			console.log(arts);
+			console.log(body);
+			return body;
 		}));
 
 		res.status(200).json(all);
