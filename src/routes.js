@@ -68,10 +68,10 @@ router.post('/ticket/create', Oauth.authenticate(false, false), Ticket.open);
 
 // Fanarts
 router.get('/fanarts/getAll', Fanarts.getArts);
+router.get('/fanarts/activity', Fanarts.getDay);
 router.post('/fanarts/send', Oauth.authenticate(false, false), Fanarts.sendArt);
 router.post('/fanarts/create', isAuth, Fanarts.aproveArt);
 router.get('/fanarts/:user', Fanarts.getUserArts);
-router.get('/fanarts/activity', Fanarts.fanartDay);
 
 // Servidor para dashboard
 router.get('/configure/guild', Oauth.authenticate(false, false), GuildController.GetIndexGuildConfig);
