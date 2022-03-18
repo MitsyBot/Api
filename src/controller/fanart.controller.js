@@ -20,7 +20,7 @@ module.exports = class FanartController {
 				avatar: request.data.avatar,
 				id: request.data.id,
 			};
-			return { artist, title: arts.title, description: arts.description, link: `${process.env.CDN_URL}/fanarts/${arts.artist}/${arts.file}` };
+			return { artist, title: arts.title, description: arts.description, link: `${process.env.CDN_URL}/community/attachments/${arts.artist}/${arts.file}` };
 		}));
 
 		res.status(200).json(all);
