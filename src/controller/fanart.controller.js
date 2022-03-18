@@ -92,9 +92,6 @@ module.exports = class FanartController {
 	static async fanartDay(req, res) {
 		let { shard } = req.body;
 		if (!shard) shard = 0;
-
-		const fanarts = await DbSet.getInstance().fanarts.arts.findMany();
-
 		// const randomActivity = fanarts[Math.floor(Math.random() * fanarts.length)];
 		// console.log(randomActivity);
 		// const user = await makeRequest('mitsy',
@@ -111,6 +108,26 @@ module.exports = class FanartController {
 		// 	activity: { name: `Fanart por ${user.username} | Shard ${shard}`, type: 'PLAYING' },
 		// };
 
-		res.send(fanarts);
+		const fanarts = await DbSet.getInstance().fanarts.arts.findMany();
+		if (!fanarts) res.status(200).json({ message: 'nenhuma fanart registrada' });
+		const all = await Promise.all(fanarts.map(async (arts) => {
+
+			const request = await makeRequest('mitsy',
+				{
+					id: generateRandomId(),
+					type: 'getUser',
+					data: {
+						user: arts.artist,
+					},
+				});
+			const artist = {
+				username: request.data.username,
+				avatar: request.data.avatar,
+				id: request.data.id,
+			};
+			return { artist, title: arts.title, description: arts.description, link: `${process.env.CDN_URL}/fanarts/${arts.artist}/${arts.file}` };
+		}));
+
+		res.status(200).json(all);
 	}
 };
