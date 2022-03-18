@@ -96,7 +96,6 @@ module.exports = class FanartController {
 		if (!fanarts) res.status(200).json({ message: 'nenhuma fanart registrada' });
 
 		const randomActivity = fanarts[Math.floor(Math.random() * fanarts.length)];
-		console.log('🚀 ~ file: fanart.controller.js ~ line 99 ~ FanartController ~ getDay ~ randomActivity', randomActivity);
 		const user = await makeRequest('mitsy',
 			{
 				id: generateRandomId(),
@@ -105,11 +104,10 @@ module.exports = class FanartController {
 					user: randomActivity.artist,
 				},
 			});
-		console.log('🚀 ~ file: fanart.controller.js ~ line 110 ~ FanartController ~ getDay ~ user', user);
 
 		const body = {
 			avatar: `${process.env.CDN_URL}/fanarts/${randomActivity.artist}/${randomActivity.file}`,
-			activity: { name: `Fanart por ${user.username} | Shard ${shard}`, type: 'PLAYING' },
+			activity: { name: `Fanart por ${user.data.username}#${user.data.discriminator} | Shard ${shard}`, type: 'PLAYING' },
 		};
 
 		res.status(200).json(body);
