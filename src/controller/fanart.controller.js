@@ -45,4 +45,17 @@ module.exports = class FanartController {
 
 		res.send({ sucess: true, message: 'A fanart foi enviada para aprovação' });
 	}
+
+	static async aproveArt(req, res) {
+		const { user, art, file } = req.body;
+		await DbSet.getInstance().fanarts.arts.create({
+			data: {
+				artist: user.id,
+				description: art.description,
+				file,
+				title: art.title,
+			},
+		});
+		res.send({ sucess: true, message: 'A fanart foi aprovada' });
+	}
 };
