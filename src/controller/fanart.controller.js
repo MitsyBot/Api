@@ -25,4 +25,24 @@ module.exports = class FanartController {
 
 		res.status(200).json(all);
 	}
+
+	static async sendArt(req, res) {
+		const user = req.user;
+		const { file, art } = req.body;
+
+		const body = {
+			file,
+			art,
+			user,
+		};
+
+		await makeRequest('helper',
+			{
+				id: generateRandomId(),
+				type: 'fanart',
+				data: body,
+			});
+
+		res.send({ sucess: true, message: 'A fanart foi enviada para aprovação' });
+	}
 };
