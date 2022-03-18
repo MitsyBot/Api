@@ -88,4 +88,28 @@ module.exports = class FanartController {
 		});
 		res.send({ sucess: true, message: 'A fanart foi aprovada' });
 	}
+
+	static async fanartDay(req, res) {
+		let { shard } = req.body;
+		if (!shard) shard = 0;
+
+		const fanarts = await DbSet.getInstance().fanarts.arts.findMany();
+
+		const randomActivity = fanarts[Math.floor(Math.random() * fanarts.length)];
+
+		const user = await makeRequest('mitsy',
+			{
+				id: generateRandomId(),
+				type: 'getUser',
+				data: {
+					user: randomActivity.artist,
+				},
+			});
+
+		const body = {
+			avatar: `${process.env.CDN_URL}/fanarts/${randomActivity.artist}/${randomActivity.file}`,
+			activity: { name: `Fanart por ${user.username} | Shard ${shard}`, type: 'PLAYING' },
+		};
+		res.send(body);
+	}
 };
