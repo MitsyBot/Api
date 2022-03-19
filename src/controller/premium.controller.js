@@ -5,10 +5,10 @@ module.exports = class PremiumController {
 	static async createPremium(req, res) {
 
 		const tier = () => {
-			if (req.price === 19.99) return 1;
-			if (req.price === 39.99) return 2;
-			if (req.price === 89.99) return 3;
-			if (req.price === 119.99) return 4;
+			if (req.body.price === 19.99) return 1;
+			if (req.body.price === 39.99) return 2;
+			if (req.body.price === 89.99) return 3;
+			if (req.body.price === 119.99) return 4;
 		};
 		const body = {
 			message: `Oba, parece que você comprou ${req.body.ref} no valor de ${req.body.price}, Seu pagamento foi aprovado e seu premium ja esta ativado na sua conta! Agora você possui o mitsy premium tier ${tier()}. divirta-se!`,
