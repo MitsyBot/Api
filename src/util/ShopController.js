@@ -49,11 +49,12 @@ module.exports = class ShopController {
 
 
 		const job = new CronJob('0 */24 * * *', async () => {
+			const today = moment().format('L');
 
 			this.backgrounds = random(dbBackgrounds, 8);
 			await prisma.DailyShops.create({
 				data: {
-					day: date,
+					day: today,
 					items: this.backgrounds,
 				},
 			});
