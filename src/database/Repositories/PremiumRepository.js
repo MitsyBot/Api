@@ -17,7 +17,7 @@ module.exports = class GuildRepository {
 		await this.donations.create({
 			data: {
 				id,
-				expires_at: Date.now() + 1000 * 60 * 60 * 24 * 30,
+				expire_at: Date.now() + 1000 * 60 * 60 * 24 * 30,
 				enabled_at: Date.now(),
 				tier: tier,
 			},
