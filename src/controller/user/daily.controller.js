@@ -1,6 +1,7 @@
 const DbSet = require('../../database/DbSet');
 const DAILY_INTERVAL = 24 * 60 * 60 * 1000;
 const axios = require('axios');
+const moment = require('moment');
 
 module.exports = class DailyController {
 
@@ -66,7 +67,7 @@ module.exports = class DailyController {
 				given_by: 'DAILY',
 				received_by: req.user.id,
 				quantity: amount,
-				given_at: Date.now(),
+				given_at: moment().format('DD-MM-YYYY hh:mm'),
 			},
 		});
 
