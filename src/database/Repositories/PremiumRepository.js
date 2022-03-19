@@ -14,6 +14,15 @@ module.exports = class GuildRepository {
 	}
 	async createPremiumAndKey(id, tier, price) {
 		const key_id = `MITSY-PREMIUM-KEY-${Math.floor(Math.random() * 10000000000)}`;
+		await this.donations.create({
+			data: {
+				id,
+				expires_at: Date.now() + 1000 * 60 * 60 * 24 * 30,
+				enabled_at: Date.now(),
+				tier: tier,
+			},
+		});
+
 		await this.keys.create({
 			data: {
 				id: key_id,
@@ -24,14 +33,7 @@ module.exports = class GuildRepository {
 				metadata: {},
 			},
 		});
-		await this.donations.create({
-			data: {
-				id,
-				expires_at: Date.now() + 1000 * 60 * 60 * 24 * 30,
-				enabled_at: Date.now(),
-				tier: tier,
-			},
-		});
+
 		return { message: 'Key e premium ativados' };
 	}
 	async ensureGuildKey(id) {
