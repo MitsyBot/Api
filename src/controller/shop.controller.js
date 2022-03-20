@@ -2,7 +2,7 @@ const ShopController = require('../util/ShopController');
 const DbSet = require('../database/DbSet');
 const { makeRequest, generateRandomId } = require('../util/WebSocket');
 const axios = require('axios');
-const moment = require('moment')
+const moment = require('moment');
 
 module.exports = class SimpleShop {
 	static async getRandomBackgrounds(_req, res) {
@@ -35,7 +35,7 @@ module.exports = class SimpleShop {
 				given_by: req.user.id,
 				received_by: 'SHOP',
 				quantity: banner.price,
-				given_at: moment().format('DD-MM-YYYY hh:mm'),
+				given_at: moment().format('YYYY-MM-DD, HH:mm'),
 			},
 		});
 
@@ -95,7 +95,7 @@ module.exports = class SimpleShop {
 				given_by: req.user.id,
 				received_by: 'SHOP',
 				quantity: color.cost,
-				given_at: moment().format('DD-MM-YYYY hh:mm'),
+				given_at: moment().format('YYYY-MM-DD, HH:mm'),
 			},
 		});
 

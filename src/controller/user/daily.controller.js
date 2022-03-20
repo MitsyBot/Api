@@ -67,7 +67,7 @@ module.exports = class DailyController {
 				given_by: 'DAILY',
 				received_by: req.user.id,
 				quantity: amount,
-				given_at: moment().format('DD-MM-YYYY hh:mm'),
+				given_at: moment().format('YYYY-MM-DD, HH:mm'),
 			},
 		});
 
