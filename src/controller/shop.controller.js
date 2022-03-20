@@ -35,7 +35,7 @@ module.exports = class SimpleShop {
 				given_by: req.user.id,
 				received_by: 'SHOP',
 				quantity: banner.price,
-				given_at: moment().format('DD/MM/YYYY HH:mm'),
+				given_at: moment().format('MM DD YYYY, h:mm:ss'),
 			},
 		});
 
@@ -95,7 +95,7 @@ module.exports = class SimpleShop {
 				given_by: req.user.id,
 				received_by: 'SHOP',
 				quantity: color.cost,
-				given_at: moment().format('DD/MM/YYYY HH:mm'),
+				given_at: moment().format('MM DD YYYY, h:mm:ss'),
 			},
 		});
 
