@@ -60,6 +60,7 @@ module.exports = class DailyController {
 				last_daily: Date.now(),
 			},
 		});
+		const date = `${moment().format('DD/MM/YYYY HH:mm')}`;
 
 		const transaction = await DbSet.getInstance().transactions.create({
 			data: {
@@ -67,7 +68,7 @@ module.exports = class DailyController {
 				given_by: 'DAILY',
 				received_by: req.user.id,
 				quantity: amount,
-				given_at: moment().format('MM DD YYYY, h:mm:ss'),
+				given_at: date,
 			},
 		});
 
