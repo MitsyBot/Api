@@ -48,7 +48,7 @@ module.exports = class ShopController {
 		}
 
 
-		const job = new CronJob('0 */24 * * *', async () => {
+		const job = new CronJob('0 */01 * * *', async () => {
 			const today = moment().format('L');
 
 			this.backgrounds = random(dbBackgrounds, 8);
