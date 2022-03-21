@@ -50,11 +50,11 @@ module.exports = class ShopController {
 
 		const job = new CronJob('0 */01 * * *', async () => {
 			moment.locale('pt-br');
-			const date = moment().format('L');
+			const timeNow = moment().format('L');
 			this.backgrounds = random(dbBackgrounds, 8);
 			await prisma.DailyShops.create({
 				data: {
-					day: date,
+					day: timeNow,
 					items: this.backgrounds,
 				},
 			});
