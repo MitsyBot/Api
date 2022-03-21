@@ -20,7 +20,8 @@ module.exports = class ShopController {
 
 	async init() {
 		const dbBackgrounds = await prisma.Background.findMany();
-
+		moment.locale('pt-br');
+		const date = moment().format('L');
 
 		const previous = await prisma.DailyShops.findUnique({ where: { day: date } });
 
@@ -30,7 +31,6 @@ module.exports = class ShopController {
 		else {
 			this.backgrounds = random(dbBackgrounds, 8);
 			moment.locale('pt-br');
-			const date = moment().format('L');
 			await prisma.DailyShops.create({
 				data: {
 					day: date,
