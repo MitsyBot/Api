@@ -3,8 +3,7 @@ const { prisma } = require('../database/prisma');
 const moment = require('moment');
 // const { MessageEmbed } = require('discord.js');
 const axios = require('axios');
-moment.locale('pt-br');
-const date = moment().format('L');
+
 
 module.exports = class ShopController {
 
@@ -30,7 +29,8 @@ module.exports = class ShopController {
 		}
 		else {
 			this.backgrounds = random(dbBackgrounds, 8);
-
+			moment.locale('pt-br');
+			const date = moment().format('L');
 			await prisma.DailyShops.create({
 				data: {
 					day: date,
@@ -49,12 +49,12 @@ module.exports = class ShopController {
 
 
 		const job = new CronJob('0 */01 * * *', async () => {
-			const today = moment().format('L');
-
+			moment.locale('pt-br');
+			const date = moment().format('L');
 			this.backgrounds = random(dbBackgrounds, 8);
 			await prisma.DailyShops.create({
 				data: {
-					day: today,
+					day: date,
 					items: this.backgrounds,
 				},
 			});
