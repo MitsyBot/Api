@@ -26,6 +26,8 @@ module.exports = class ActivityController {
 	}
 	static async login(req, res) {
 		const { code } = req.query;
+		const url = req.get('origin');
+		console.log(url);
 		if (code) {
 			try {
 				const {
@@ -34,7 +36,8 @@ module.exports = class ActivityController {
 					refresh_token: refreshToken,
 					token_type: tokenType,
 					scope,
-				} = await auth.exchangeCode(code, req.get('origin'));
+				} = await auth.exchangeCode(code, url);
+
 				const token = jwt.sign({
 					accessToken,
 					refreshToken,
@@ -43,7 +46,7 @@ module.exports = class ActivityController {
 					tokenType,
 					scope,
 				}, process.env.JWT_SECRET);
-
+				console.log(token, expiresIn);
 				res.json({
 					token,
 					expires_in: expiresIn,
