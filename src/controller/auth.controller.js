@@ -34,7 +34,7 @@ module.exports = class ActivityController {
 					refresh_token: refreshToken,
 					token_type: tokenType,
 					scope,
-				} = await auth.exchangeCode(code);
+				} = await auth.exchangeCode(code, req.get('origin'));
 				const token = jwt.sign({
 					accessToken,
 					refreshToken,
