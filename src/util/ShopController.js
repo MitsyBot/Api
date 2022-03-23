@@ -22,7 +22,7 @@ module.exports = class ShopController {
 		const dbBackgrounds = await prisma.Background.findMany();
 		moment.locale('pt-br');
 		const date = moment().format('L');
-		console.log(date)
+		console.log(date);
 		const previous = await prisma.DailyShops.findUnique({ where: { day: date } });
 
 		if (previous) {

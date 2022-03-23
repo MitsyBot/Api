@@ -19,9 +19,7 @@ const limiter = rateLimit({
 });
 
 
-app.use(cors({
-	origin: 'https://mitsy.xyz',
-}));
+app.use(cors());
 app.use(expressip.mw());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
