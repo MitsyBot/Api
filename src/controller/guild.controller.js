@@ -18,10 +18,23 @@ module.exports = class GuildController {
 		request.data.blacklist = blacklist;
 		/* request.data.isPremium = guild.isPremium,
 		request.data.premiumTier = guild.premiumLevel, */
-		request.data.locale = guild.lang,
+		request.data.locale = guild.general.lang,
 		request.data.blacklistedChannels = {
-			channels: guild.blacklisted_channels,
-			warn: guild.custom_warn_message,
+			channels: guild.general.blacklisted_channels,
+			warn: guild.general.custom_warn_message,
+		};
+		request.data.eventLog = {
+			enabled: guild.event_log.enabled,
+			event_log_channel: guild.event_log.event_log_channel,
+			ignore_bots: guild.event_log.ignore_bots,
+			member_banned: guild.event_log.member_banned,
+			member_unbanned: guild.event_log.member_unbanned,
+			message_edited: guild.event_log.message_edited,
+			message_deleted: guild.event_log.message_deleted,
+			nickname_changes: guild.event_log.nickname_changes,
+			voice_channel_joins: guild.event_log.voice_channel_joins,
+			voice_channel_leaves: guild.event_log.voice_channel_leaves,
+			avatar_changes: guild.event_log.avatar_changes,
 		};
 		res.send(request.data);
 	}
@@ -43,5 +56,42 @@ module.exports = class GuildController {
 		});
 
 		res.send({ message: 'Configuração salva' });
+	}
+
+	static async setEventLogConfig(req, res) {
+		const {
+			enabled,
+			event_log_channel,
+			ignore_bots,
+			member_banned,
+			member_unbanned,
+			message_edited,
+			message_deleted,
+			nickname_changes,
+			voice_channel_joins,
+			voice_channel_leaves,
+			avatar_changes,
+		} = req.body;
+
+		DbSet.getInstance().guild.event_log.update({
+			where: {
+				id: req.body.guild_id,
+			},
+			data: {
+				enabled,
+				event_log_channel,
+				ignore_bots,
+				member_banned,
+				member_unbanned,
+				message_edited,
+				message_deleted,
+				nickname_changes,
+				voice_channel_joins,
+				voice_channel_leaves,
+				avatar_changes,
+			},
+		});
+
+		res.send({ sucess: true, message: 'Configuração salva com sucesso' });
 	}
 };

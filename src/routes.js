@@ -78,6 +78,7 @@ router.get('/configure/guild', Oauth.authenticate(false, false), GuildController
 
 // Definir config
 router.post('/configure/guild/index', Oauth.authenticate(false, false), GuildController.SetIndexGuildConfig);
+router.post('/configure/guild/log', Oauth.authenticate(false, false), GuildController.setEventLogConfig);
 
 // Premium
 router.post('/premium/buy', isAuth, premium.createPremium);
