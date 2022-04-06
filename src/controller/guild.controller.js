@@ -72,8 +72,7 @@ module.exports = class GuildController {
 			voice_channel_leaves,
 			avatar_changes,
 		} = req.body;
-		console.log(req.body);
-		const value = await DbSet.getInstance().guild.event_log.update({
+		await DbSet.getInstance().guild.event_log.update({
 			where: {
 				id: req.params.id,
 			},
@@ -91,7 +90,6 @@ module.exports = class GuildController {
 				avatar_changes,
 			},
 		});
-		console.log(value);
 		res.send({ sucess: true, message: 'Configuração salva com sucesso' });
 	}
 };
