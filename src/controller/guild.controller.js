@@ -36,6 +36,14 @@ module.exports = class GuildController {
 			voice_channel_leaves: guild.event_log.voice_channel_leaves,
 			avatar_changes: guild.event_log.avatar_changes,
 		};
+		request.data.inviteblock = {
+			enabled: guild.invite_blocker.enabled,
+			whitelisted_channels: guild.invite_blocker.whitelisted_channels,
+			whitelist_server_invites: guild.invite_blocker.whitelist_server_invites,
+			delete_message: guild.invite_blocker.delete_message,
+			tell_user: guild.invite_blocker.tell_user,
+			warn_message: guild.invite_blocker.warn_message,
+		};
 		res.send(request.data);
 	}
 	static async SetIndexGuildConfig(req, res) {
@@ -88,6 +96,31 @@ module.exports = class GuildController {
 				voice_channel_joins,
 				voice_channel_leaves,
 				avatar_changes,
+			},
+		});
+		res.send({ sucess: true, message: 'Configuração salva com sucesso' });
+	}
+
+	static async setInviteBlockerConfig(req, res) {
+		const {
+			enabled,
+			whitelisted_channels,
+			whitelist_server_invites,
+			delete_message,
+			tell_user,
+			warn_message,
+		} = req.body;
+		await DbSet.getInstance().guild.invite_blocker.update({
+			where: {
+				id: req.params.id,
+			},
+			data: {
+				enabled,
+				whitelisted_channels,
+				whitelist_server_invites,
+				delete_message,
+				tell_user,
+				warn_message,
 			},
 		});
 		res.send({ sucess: true, message: 'Configuração salva com sucesso' });
