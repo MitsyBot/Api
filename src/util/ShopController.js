@@ -21,8 +21,7 @@ module.exports = class ShopController {
 	async init() {
 		const dbBackgrounds = await prisma.Background.findMany();
 		moment.locale('pt-br');
-		const date = moment().format('L');
-		console.log(date);
+		let date = moment().format('L');
 		const previous = await prisma.DailyShops.findUnique({ where: { day: date } });
 
 		if (previous) {
@@ -50,11 +49,11 @@ module.exports = class ShopController {
 
 		const job = new CronJob('0 */24 * * *', async () => {
 			moment.locale('pt-br');
-			const timeNow = moment().format('L');
+			date = moment().format('L');
 			this.backgrounds = random(dbBackgrounds, 8);
 			await prisma.DailyShops.create({
 				data: {
-					day: timeNow,
+					day: date,
 					items: this.backgrounds,
 				},
 			});
