@@ -73,7 +73,7 @@ module.exports = class GuildController {
 			avatar_changes,
 		} = req.body;
 		console.log(req.body);
-		const value = DbSet.getInstance().guild.event_log.update({
+		const value = await DbSet.getInstance().guild.event_log.update({
 			where: {
 				id: req.body.guild_id,
 			},
