@@ -72,7 +72,7 @@ module.exports = class GuildController {
 			voice_channel_leaves,
 			avatar_changes,
 		} = req.body;
-
+		console.log(req.body);
 		DbSet.getInstance().guild.event_log.update({
 			where: {
 				id: req.body.guild_id,
