@@ -75,7 +75,7 @@ module.exports = class GuildController {
 		console.log(req.body);
 		const value = await DbSet.getInstance().guild.event_log.update({
 			where: {
-				id: req.body.guild_id,
+				id: req.params.id,
 			},
 			data: {
 				enabled,
