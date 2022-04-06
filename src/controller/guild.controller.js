@@ -73,7 +73,7 @@ module.exports = class GuildController {
 			avatar_changes,
 		} = req.body;
 		console.log(req.body);
-		DbSet.getInstance().guild.event_log.update({
+		const value = DbSet.getInstance().guild.event_log.update({
 			where: {
 				id: req.body.guild_id,
 			},
@@ -91,7 +91,7 @@ module.exports = class GuildController {
 				avatar_changes,
 			},
 		});
-
+		console.log(value);
 		res.send({ sucess: true, message: 'Configuração salva com sucesso' });
 	}
 };
