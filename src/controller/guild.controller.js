@@ -22,6 +22,7 @@ module.exports = class GuildController {
 		request.data.blacklistedChannels = {
 			channels: guild.general.blacklisted_channels,
 			warn: guild.general.custom_warn_message,
+			message: guild.general.blacklisted_warning,
 		};
 		request.data.eventLog = {
 			enabled: guild.event_log.enabled,
