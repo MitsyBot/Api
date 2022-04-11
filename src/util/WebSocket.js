@@ -13,7 +13,6 @@ function InitializeServer(httpServer) {
 	startTime = Date.now();
 
 	ws = new Server({ server: httpServer });
-	ws.setMaxListeners();
 	// eslint-disable-next-line no-unused-vars
 	ws.on('connection', (socket, _req) => {
 		console.log('Um novo cliente se conectou');
