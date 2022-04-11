@@ -105,12 +105,16 @@ module.exports = class GuildController {
 	static async setInviteBlockerConfig(req, res) {
 		const {
 			enabled,
-			whitelisted_channels,
 			whitelist_server_invites,
 			delete_message,
 			tell_user,
 			warn_message,
 		} = req.body;
+
+		let { whitelisted_channels } = req.body;
+
+		whitelisted_channels = whitelisted_channels.map((channel) => { return channel.id; });
+
 		await DbSet.getInstance().guild.invite_blocker.update({
 			where: {
 				id: req.params.id,
