@@ -32,13 +32,16 @@ module.exports = class UserController {
 		res.send({ sucess: true, message: 'Cor definida com sucesso' });
 	}
 
-	static async setUserAboutme(req, res) {
+	static async setUserExtras(req, res) {
+		const { aboutme, birthday } = req.body;
+
 		await DbSet.getInstance().user.profiles.update({
 			where: {
 				id: req.user.id,
 			},
 			data: {
-				aboutme: req.body.aboutme,
+				aboutme,
+				birthday,
 			},
 		});
 		res.send({ sucess: true, message: 'Aboutme definido com sucesso' });
@@ -86,7 +89,10 @@ module.exports = class UserController {
 			},
 			background: user.profile.active_background,
 			backgrounds: user.profile.backgrounds,
-			aboutme: user.profile.aboutme,
+			extras: {
+				aboutme: user.profile.aboutme,
+				birthday: user.profile.birthday,
+			},
 			layouts: user.profile.profiles,
 			layout: user.profile.active_profile_design,
 		};
