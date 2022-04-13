@@ -37,6 +37,11 @@ module.exports = class GuildController {
 			voice_channel_leaves: guild.event_log.voice_channel_leaves,
 			avatar_changes: guild.event_log.avatar_changes,
 		};
+		request.data.birthday = {
+			enabled: guild.birthday.enabled,
+			channel: guild.birthday.channel,
+			message: guild.birthday.message,
+		};
 		request.data.inviteblock = {
 			enabled: guild.invite_blocker.enabled,
 			whitelisted_channels: guild.invite_blocker.whitelisted_channels,
@@ -104,6 +109,28 @@ module.exports = class GuildController {
 		});
 		res.send({ sucess: true, message: 'Configuração salva com sucesso' });
 	}
+
+	static async setBirthdayConfig(req, res) {
+		const {
+			enabled,
+			channel,
+			message,
+		} = req.body;
+		message.embeds = [message.embed];
+		delete message.embed;
+		await DbSet.getInstance().guild.birthday.update({
+			where: {
+				id: req.params.id,
+			},
+			data: {
+				enabled,
+				channel,
+				message,
+			},
+		});
+		res.send({ sucess: true, message: 'Configuração salva com sucesso' });
+	}
+
 
 	static async setInviteBlockerConfig(req, res) {
 		const {

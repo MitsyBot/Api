@@ -80,6 +80,7 @@ router.get('/configure/guild', Oauth.authenticate(false, false), GuildController
 router.post('/configure/guild/index', Oauth.authenticate(false, false), GuildController.SetIndexGuildConfig);
 router.post('/configure/guild/:id/log', Oauth.authenticate(false, false), GuildController.setEventLogConfig);
 router.post('/configure/guild/:id/invite', Oauth.authenticate(false, false), GuildController.setInviteBlockerConfig);
+router.post('/configure/guild/:id/birthday', Oauth.authenticate(false, false), GuildController.setBirthdayConfig);
 
 // Premium
 router.post('/premium/buy', isAuth, premium.createPremium);
