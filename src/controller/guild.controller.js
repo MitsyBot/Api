@@ -52,6 +52,9 @@ module.exports = class GuildController {
 		const channels = blacklisted.channels.map((channel) => { return channel.id; });
 		blacklisted.channels = [...new Set(channels)];
 
+		blacklisted.warnMessage.embeds = [blacklisted.warnMessage.embed];
+		delete blacklisted.warnMessage.embed;
+
 		await DbSet.getInstance().guild.general.update({
 			where: {
 				id: req.body.guild_id,
@@ -110,6 +113,8 @@ module.exports = class GuildController {
 			tell_user,
 			warn_message,
 		} = req.body;
+		warn_message.embeds = [warn_message.embed];
+		delete warn_message.embed;
 
 		let { whitelisted_channels } = req.body;
 		console.log(whitelisted_channels);
