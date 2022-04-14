@@ -26,7 +26,6 @@ module.exports = class ActivityController {
 	}
 	static async login(req, res) {
 		const { code } = req.query;
-		console.log(code);
 		if (code) {
 			try {
 				const {
@@ -45,7 +44,6 @@ module.exports = class ActivityController {
 					tokenType,
 					scope,
 				}, process.env.JWT_SECRET);
-				console.log(token, expiresIn);
 				res.json({
 					token,
 					expires_in: expiresIn,

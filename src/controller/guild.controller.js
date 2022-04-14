@@ -144,9 +144,7 @@ module.exports = class GuildController {
 		delete warn_message.embed;
 
 		let { whitelisted_channels } = req.body;
-		console.log(whitelisted_channels);
 		whitelisted_channels = whitelisted_channels.map((channel) => { return channel.id; });
-		console.log(whitelisted_channels);
 
 		await DbSet.getInstance().guild.invite_blocker.update({
 			where: {
