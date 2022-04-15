@@ -3,8 +3,7 @@ FROM node:16-alpine as builder
 RUN mkdir -p /usr/src/api
 WORKDIR /usr/src/api
 
-ENV TZ=America/Sao_Paulo
-RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+RUN apk add --no-cache tzdata && cp -r -f /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime
 
 RUN apk update && apk upgrade
 RUN apk add git
