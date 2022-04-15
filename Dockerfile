@@ -3,6 +3,9 @@ FROM node:16-alpine as builder
 RUN mkdir -p /usr/src/api
 WORKDIR /usr/src/api
 
+RUN echo "America/Sao_Paulo" > /etc/timezone
+RUN dpkg-reconfigure -f noninteractive tzdata
+
 RUN apk update && apk upgrade
 RUN apk add git
 
