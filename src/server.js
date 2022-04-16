@@ -17,7 +17,6 @@ const limiter = rateLimit({
 		res.status(429).send({ message: 'Suas ações estão sendo limitadas' });
 	},
 });
-const grpcClient = require('./gRPC/client.js');
 
 app.use(cors());
 app.use(expressip.mw());
@@ -29,7 +28,30 @@ app.use((_, res, next) => {
 	return next();
 });
 
-grpcClient.getCommon();
+const grpc = require('@grpc/grpc-js');
+const protoLoader = require('@grpc/proto-loader');
+const PROTO_PATH = './protos/discord.proto';
+
+const options = {
+	keepCase: true,
+	longs: String,
+	enums: String,
+	defaults: true,
+	oneofs: true,
+};
+
+const packageDefinition = protoLoader.loadSync(PROTO_PATH, options);
+
+const GuildService = grpc.loadPackageDefinition(packageDefinition).GuildService;
+
+const client = new GuildService(
+	'localhost:50051',
+	grpc.credentials.createInsecure(),
+);
+client.checkCommon({ guild: '762067337913565204' }, (error, common) => {
+	if (!error) throw error;
+	console.log(common);
+});
 
 
 pingPage(app);
