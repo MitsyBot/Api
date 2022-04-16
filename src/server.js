@@ -45,7 +45,7 @@ const packageDefinition = protoLoader.loadSync(PROTO_PATH, options);
 const GuildService = grpc.loadPackageDefinition(packageDefinition).GuildService;
 
 const client = new GuildService(
-	'localhost:50051',
+	'198.12.96.170:50051',
 	grpc.credentials.createInsecure(),
 );
 
