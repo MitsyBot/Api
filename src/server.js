@@ -48,11 +48,18 @@ const client = new GuildService(
 	'198.12.96.170:50051',
 	grpc.credentials.createInsecure(),
 );
-
+const param = {
+	guild: '762067337913565204',
+};
 console.log(client);
-client.checkCommon({ guild: '762067337913565204' }, (error, common) => {
-	if (!error) throw error;
-	console.log(common);
+client.checkCommon(param, (err, res) => {
+	if (err) {
+		return console.error('healthCheck:', err);
+	}
+
+	const { status } = res;
+
+	console.info('healthCheck:', status);
 });
 
 
