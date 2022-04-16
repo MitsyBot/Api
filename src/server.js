@@ -49,7 +49,7 @@ const client = new GuildService(
 	grpc.credentials.createInsecure(),
 );
 const param = {
-	guild: '762067337913565204',
+	common: '762067337913565204',
 };
 console.log(client);
 client.checkCommon(param, (err, res) => {
