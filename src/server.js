@@ -48,6 +48,8 @@ const client = new GuildService(
 	'localhost:50051',
 	grpc.credentials.createInsecure(),
 );
+
+console.log(client);
 client.checkCommon({ guild: '762067337913565204' }, (error, common) => {
 	if (!error) throw error;
 	console.log(common);
