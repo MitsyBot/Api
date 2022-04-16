@@ -24,7 +24,8 @@ async function fetchGuilds(token) {
 	}));
 	const manageableGuilds = parentGuild.filter(guilds => guilds.permissions & 0x0000000020);
 	const commons = await Promise.all(manageableGuilds.map(async (g) => {
-		const request = await gRPC.getInstance().guild.checkCommon(g.id);
+		const request = await gRPC.getInstance().guild.checkCommon(g.id.toString());
+		console.log(request);
 		g.common = request.common;
 		return g;
 	}));
