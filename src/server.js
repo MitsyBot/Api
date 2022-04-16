@@ -57,9 +57,7 @@ client.checkCommon(param, (err, res) => {
 		return console.error('healthCheck:', err);
 	}
 
-	const { status } = res;
-
-	console.info('healthCheck:', status);
+	console.info('response:', res);
 });
 
 
