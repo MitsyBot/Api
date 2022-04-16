@@ -26,14 +26,17 @@ module.exports = class GuildService {
 			guild: guild,
 		};
 
+		let response;
+
 		const request = this.client.checkCommon(param, (err, res) => {
 			if (err) {
 				console.error('checkCommon:', err);
-				return { err: true, message: err.message };
+				return response = { err: true, message: err.message };
 			}
-			return res;
+			return response = res;
 		});
-		console.log(request);
-		return request;
+		console.log(request.res);
+		console.log(request.response);
+		return response;
 	}
 };
