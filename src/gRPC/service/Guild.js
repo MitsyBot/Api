@@ -36,7 +36,7 @@ module.exports = class GuildService {
 			return response = res;
 		});
 		console.log(request.res);
-		console.log(request.response);
+		console.log(response);
 		return response;
 	}
 };
