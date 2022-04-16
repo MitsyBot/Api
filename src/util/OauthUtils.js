@@ -1,6 +1,6 @@
 const axios = require('axios');
 const API_URL = 'https://discordapp.com/api';
-const { makeRequest, generateRandomId } = require('./WebSocket');
+const gRPC = require('../gRPC/Client');
 
 async function fetchUser(token) {
 	const res = await axios.get(`${API_URL}/users/@me`, {
@@ -24,15 +24,8 @@ async function fetchGuilds(token) {
 	}));
 	const manageableGuilds = parentGuild.filter(guilds => guilds.permissions & 0x0000000020);
 	const commons = await Promise.all(manageableGuilds.map(async (g) => {
-		const common = await makeRequest('mitsy',
-			{
-				id: generateRandomId(),
-				type: 'common',
-				data: {
-					guild: g.id,
-				},
-			});
-		g.common = common.data.common;
+		const request = await gRPC.getInstance().guild.checkCommon(g.id);
+		g.common = request.common;
 		return g;
 	}));
 	return commons;

@@ -9,6 +9,9 @@ const expressip = require('request-ip');
 const { pingPage, InitializeServer } = require('./util/WebSocket');
 const app = express();
 const ShopController = require('./util/ShopController');
+
+const gRPC = require('./gRPC/Client');
+
 const limiter = rateLimit({
 	windowMs: 5 * 1000,
 	max: 15,
@@ -28,45 +31,15 @@ app.use((_, res, next) => {
 	return next();
 });
 
-const grpc = require('@grpc/grpc-js');
-const protoLoader = require('@grpc/proto-loader');
-const PROTO_PATH = './protos/discord.proto';
-
-const options = {
-	keepCase: true,
-	longs: String,
-	enums: String,
-	defaults: true,
-	oneofs: true,
-};
-
-const packageDefinition = protoLoader.loadSync(PROTO_PATH, options);
-
-const GuildService = grpc.loadPackageDefinition(packageDefinition).GuildService;
-
-const client = new GuildService(
-	'198.12.96.170:50051',
-	grpc.credentials.createInsecure(),
-);
-const param = {
-	guild: '762067337913565204',
-};
-console.log(client);
-client.checkCommon(param, (err, res) => {
-	if (err) {
-		return console.error('healthCheck:', err);
-	}
-
-	console.info('response:', res);
-});
-
-
 pingPage(app);
 prisma.getConnection();
 app.use('/', limiter, ApiRoutes);
 
 app.use(NotFound);
 app.use(ErrorHandler);
+
+gRPC.getInstance().init();
+
 ShopController.getInstance().init();
 const httpServer = app.listen(process.env.PORT, () => {
 	console.info(`[API] Servidor iniciado na porta ${process.env.PORT}`);
