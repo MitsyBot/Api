@@ -17,7 +17,7 @@ const limiter = rateLimit({
 		res.status(429).send({ message: 'Suas ações estão sendo limitadas' });
 	},
 });
-
+const grpcClient = require('./gRPC/client');
 
 app.use(cors());
 app.use(expressip.mw());
@@ -28,6 +28,8 @@ app.use((_, res, next) => {
 	res.contentType('application/json');
 	return next();
 });
+
+grpcClient.getCommon();
 
 
 pingPage(app);
