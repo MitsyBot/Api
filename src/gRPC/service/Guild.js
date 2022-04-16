@@ -31,7 +31,7 @@ module.exports = class GuildService {
 				console.error('checkCommon:', err);
 				return { err: true, message: err.message };
 			}
-
+			console.log(res);
 			return res;
 		});
 
