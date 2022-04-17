@@ -23,11 +23,32 @@ module.exports = class GuildService {
 
 	async checkCommon(guild) {
 		const param = {
-			guild: guild,
+			guild,
 		};
 
 		const request = await new Promise((resolve, reject) => {
 			this.client.checkCommon(param, (err, res) => {
+				if (err) {
+					console.log(err);
+					reject({ err: true, message: err.message });
+					return;
+				}
+
+				resolve(res);
+			});
+		});
+
+		return request;
+	}
+
+	async getFlattenGuild(id) {
+
+		const param = {
+			id,
+		};
+
+		const request = await new Promise((resolve, reject) => {
+			this.client.getFlattenGuild(param, (err, res) => {
 				if (err) {
 					console.log(err);
 					reject({ err: true, message: err.message });

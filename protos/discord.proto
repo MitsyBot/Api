@@ -2,7 +2,7 @@ syntax = "proto3";
 
 service GuildService {
     rpc checkCommon (CommonGuildRequest) returns (CommonGuildResponse) {}
-    rpc getGuild (Guild) returns (Guild) {}
+    rpc getFlattenGuild (GuildRequest) returns (GuildResponse) {}
 }
 
 service UserService {
@@ -13,8 +13,69 @@ message User {
     required string id = 1;
 }
 
-message Guild {
+message GuildRequest {
     required string id = 1;
+}
+
+message GuildResponse {
+    string afkChannelId = 1;
+	number afkTimeout = 2;
+	string applicationId = 3;
+	number approximateMemberCount = 4;
+	number approximatePresenceCount = 5;
+	boolean available = 6;
+	string banner = 7;
+	repeated TextChannels channels = 8; 
+	string defaultMessageNotifications = 9;
+	string description = 10;
+	boolean widgetEnabled = 11;
+	string explicitContentFilter = 12;
+	repeated string features = 13;
+	string icon = 14;
+	string id = 15;
+	number joinedTimestamp = 16;
+	string mfaLevel = 17;
+	string name = 18;
+	string ownerId = 19;
+	boolean partnered = 20;
+	string preferredLocale = 21;
+	number premiumSubscriptionCount = 22;
+	string premiumTier = 23;
+	repeated GuildRoles roles = 24;
+	string splash = 26;
+	string systemChannelId = 27;
+	string vanityURLCode = 28;
+	string verificationLevel = 29;
+	boolean verified = 30;
+}
+
+message GuildRoles {
+	number color = 1;
+	string guildId = 2;
+	boolean hoist = 3; 
+	string id = 4;
+	boolean managed = 5;
+	boolean mentionable = 6;
+	string name = 7;
+	string permissions = 8;
+	number rawPosition = 9;
+}
+
+message TextChannels {
+    string id = 1;
+    string type = 2;
+    string guildId = 3;
+    string name = 4;
+    number rawPosition = 5;
+    string parentId = 6; 
+    string topic  = 9;
+    boolean nsfw = 10;
+    number rateLimitPerUser = 11;
+    number createdTimestamp = 12;
+}
+
+message Permissions {
+
 }
 
 message CommonGuildRequest {

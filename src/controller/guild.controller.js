@@ -10,7 +10,7 @@ module.exports = class GuildController {
 				id: generateRandomId(),
 				type: 'guild',
 				data: {
-					guildId: guild.general.id,
+					guildId: guild.general.guildId,
 					userId: req.user.id,
 				},
 			});
