@@ -23,12 +23,12 @@ message GuildResponse {
 	string applicationId = 3;
 	int32 approximateMemberCount = 4;
 	int32 approximatePresenceCount = 5;
-	boolean available = 6;
+	bool available = 6;
 	string banner = 7;
 	repeated TextChannels channels = 8; 
 	string defaultMessageNotifications = 9;
 	string description = 10;
-	boolean widgetEnabled = 11;
+	bool widgetEnabled = 11;
 	string explicitContentFilter = 12;
 	repeated string features = 13;
 	string icon = 14;
@@ -37,7 +37,7 @@ message GuildResponse {
 	string mfaLevel = 17;
 	string name = 18;
 	string ownerId = 19;
-	boolean partnered = 20;
+	bool partnered = 20;
 	string preferredLocale = 21;
 	int32 premiumSubscriptionCount = 22;
 	string premiumTier = 23;
@@ -46,16 +46,16 @@ message GuildResponse {
 	string systemChannelId = 27;
 	string vanityURLCode = 28;
 	string verificationLevel = 29;
-	boolean verified = 30;
+	bool verified = 30;
 }
 
 message GuildRoles {
 	int32 color = 1;
 	string guildId = 2;
-	boolean hoist = 3; 
+	bool hoist = 3; 
 	string id = 4;
-	boolean managed = 5;
-	boolean mentionable = 6;
+	bool managed = 5;
+	bool mentionable = 6;
 	string name = 7;
 	string permissions = 8;
 	int32 rawPosition = 9;
@@ -69,7 +69,7 @@ message TextChannels {
     int32 rawPosition = 5;
     string parentId = 6; 
     string topic  = 9;
-    boolean nsfw = 10;
+    bool nsfw = 10;
     int32 rateLimitPerUser = 11;
     int32 createdTimestamp = 12;
 }
