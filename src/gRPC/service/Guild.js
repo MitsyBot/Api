@@ -21,17 +21,22 @@ module.exports = class GuildService {
 		);
 	}
 
-	checkCommon(guild) {
+	async checkCommon(guild) {
 		const param = {
 			guild: guild,
 		};
 
-		const request = this.client.checkCommon(param, (err, res) => {
-			if (err) {
-				console.error('checkCommon:', err);
-				return { err: true, message: err.message };
-			}
-		}).then(req => { return req.res; });
+		const request = await new Promise((resolve, reject) => {
+			this.client.checkCommon(param, (err, res) => {
+				if (err) {
+					console.log(err);
+					reject({ err: true, message: err.message });
+					return;
+				}
+
+				resolve(res);
+			});
+		});
 
 		return request;
 	}
