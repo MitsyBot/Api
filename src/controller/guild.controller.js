@@ -212,7 +212,7 @@ module.exports = class GuildController {
 			delete join_private_message.embed;
 		}
 
-		await DbSet.getInstance().guild.invite_blocker.update({
+		await DbSet.getInstance().guild.welcomer.update({
 			where: {
 				id: req.params.id,
 			},
