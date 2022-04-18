@@ -50,6 +50,19 @@ module.exports = class GuildController {
 			tell_user: guild.invite_blocker.tell_user,
 			warn_message: guild.invite_blocker.warn_message,
 		};
+		request.data.welcomer = {
+			enabled: guild.welcomer.enabled,
+			tell_on_join: guild.welcomer.tell_on_join,
+			channel_join: guild.welcomer.channel_join,
+			join_message: guild.welcomer.join_message,
+			delete_join_messages_after: guild.welcomer.delete_join_messages_after,
+			tell_on_remove: guild.welcomer.tell_on_remove,
+			channel_remove: guild.welcomer.channel_remove,
+			remove_message: guild.welcomer.remove_message,
+			delete_remove_messages_after: guild.welcomer.delete_remove_messages_after,
+			tell_on_private_join: guild.welcomer.tell_on_private_join,
+			join_private_message: guild.welcomer.join_private_message,
+		};
 		res.send(request.data);
 	}
 	static async SetIndexGuildConfig(req, res) {
