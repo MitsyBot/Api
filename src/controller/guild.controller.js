@@ -181,4 +181,55 @@ module.exports = class GuildController {
 		});
 		res.send({ sucess: true, message: 'Configuração salva com sucesso' });
 	}
+
+	static async setWelcomerConfig(req, res) {
+		const {
+			enabled,
+			tell_on_join,
+			channel_join,
+			join_message,
+			delete_join_messages_after,
+			tell_on_remove,
+			channel_remove,
+			remove_message,
+			delete_remove_messages_after,
+			tell_on_private_join,
+			join_private_message,
+		} = req.body;
+
+		if (join_message.embed) {
+			join_message.embeds = [join_message.embed];
+			delete join_message.embed;
+		}
+
+		if (remove_message.embed) {
+			remove_message.embeds = [remove_message.embed];
+			delete remove_message.embed;
+		}
+
+		if (join_private_message.embed) {
+			join_private_message.embeds = [join_private_message.embed];
+			delete join_private_message.embed;
+		}
+
+		await DbSet.getInstance().guild.invite_blocker.update({
+			where: {
+				id: req.params.id,
+			},
+			data: {
+				enabled,
+				tell_on_join,
+				channel_join,
+				join_message,
+				delete_join_messages_after,
+				tell_on_remove,
+				channel_remove,
+				remove_message,
+				delete_remove_messages_after,
+				tell_on_private_join,
+				join_private_message,
+			},
+		});
+		res.send({ sucess: true, message: 'Configuração salva com sucesso' });
+	}
 };

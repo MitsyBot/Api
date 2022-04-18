@@ -81,6 +81,7 @@ router.post('/configure/guild/index', Oauth.authenticate(false, false), GuildCon
 router.post('/configure/guild/:id/log', Oauth.authenticate(false, false), GuildController.setEventLogConfig);
 router.post('/configure/guild/:id/invite', Oauth.authenticate(false, false), GuildController.setInviteBlockerConfig);
 router.post('/configure/guild/:id/birthday', Oauth.authenticate(false, false), GuildController.setBirthdayConfig);
+router.post('/configure/guild/:id/welcomer', Oauth.authenticate(false, false), GuildController.setWelcomerConfig);
 
 // Premium
 router.post('/premium/buy', isAuth, premium.createPremium);
