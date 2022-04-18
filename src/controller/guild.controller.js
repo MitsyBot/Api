@@ -188,13 +188,17 @@ module.exports = class GuildController {
 			tell_on_join,
 			channel_join,
 			join_message,
-			delete_join_messages_after,
 			tell_on_remove,
 			channel_remove,
 			remove_message,
-			delete_remove_messages_after,
 			tell_on_private_join,
 			join_private_message,
+		} = req.body;
+
+
+		let {
+			delete_join_messages_after,
+			delete_remove_messages_after,
 		} = req.body;
 
 		if (join_message.embed) {
@@ -211,6 +215,10 @@ module.exports = class GuildController {
 			join_private_message.embeds = [join_private_message.embed];
 			delete join_private_message.embed;
 		}
+
+		if (delete_remove_messages_after < 0) delete_remove_messages_after = 0;
+
+		if (delete_join_messages_after < 0) delete_join_messages_after = 0;
 
 		await DbSet.getInstance().guild.welcomer.update({
 			where: {
