@@ -9,6 +9,7 @@ const expressip = require('request-ip');
 const { pingPage, InitializeServer } = require('./util/WebSocket');
 const app = express();
 const ShopController = require('./util/ShopController');
+const PremiumController = require('./util/PremiumController');
 
 const gRPC = require('./gRPC/Client');
 
@@ -39,8 +40,9 @@ app.use(NotFound);
 app.use(ErrorHandler);
 
 gRPC.getInstance().init();
-
 ShopController.getInstance().init();
+PremiumController.getInstance().init();
+
 const httpServer = app.listen(process.env.PORT, () => {
 	console.info(`[API] Servidor iniciado na porta ${process.env.PORT}`);
 });
