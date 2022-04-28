@@ -102,6 +102,31 @@ module.exports = class GuildController {
 		res.send({ message: 'Configuração salva' });
 	}
 
+	static async SetAutoroleConfig(req, res) {
+		const new_roles = req.body.roles.map((role) => { return role.id; });
+		req.body.roles = [...new Set(new_roles)];
+
+		const {
+			enabled,
+			roles,
+			give_after,
+			give_after_message,
+		} = req.body;
+
+		await DbSet.getInstance().guild.autorole.update({
+			where: {
+				id: req.params.id,
+			},
+			data: {
+				enabled,
+				roles,
+				give_after,
+				give_after_message,
+			},
+		});
+
+		res.send({ message: 'Configuração salva' });
+	}
 	static async setEventLogConfig(req, res) {
 		const {
 			enabled,
