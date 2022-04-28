@@ -6,17 +6,21 @@ module.exports = class GuildRepository {
 		this.invite_blocker = connection.InviteBlockerConfigs;
 		this.keys = connection.DonationKeys;
 		this.birthday = connection.BirthdayConfigs;
+		this.starboard = connection.StarboardConfigs;
 		this.welcomer = connection.WelcomerConfig;
+		this.autorole = connection.AutoroleConfigs;
 	}
 	async ensure(id) {
-
 		const general = await this.ensureGeneral(id);
 		const key = await this.getGuildKeys(id);
 		const event_log = await this.ensureLogConfigs(id);
 		const invite_blocker = await this.ensureInviteConfigs(id);
 		const birthday = await this.ensureBirthday(id);
 		const welcomer = await this.ensureWelcomer(id);
-		return { general, welcomer, birthday, key, event_log, invite_blocker };
+		const starboard = await this.ensureStarboard(id);
+		const autorole = await this.ensureAutoRole(id);
+
+		return { general, autorole, welcomer, birthday, key, starboard, event_log, invite_blocker };
 	}
 
 
@@ -36,6 +40,16 @@ module.exports = class GuildRepository {
 		return data;
 	}
 
+	async ensureAutoRole(id) {
+		const previous = await this.autorole.findUnique({ where: { id } });
+		if (previous) return previous;
+		const data = await this.autorole.create({ data: {
+			id,
+		},
+		});
+		return data;
+	}
+
 	async ensureWelcomer(id) {
 		const previous = await this.welcomer.findUnique({ where: { id } });
 		if (previous) return previous;
@@ -44,6 +58,15 @@ module.exports = class GuildRepository {
 			id,
 		},
 		});
+		return data;
+	}
+
+	async ensureStarboard(id) {
+		const previous = await this.starboard.findUnique({ where: { id } });
+		if (previous) return previous;
+
+
+		const data = await this.starboard.create({ data: { id } });
 		return data;
 	}
 

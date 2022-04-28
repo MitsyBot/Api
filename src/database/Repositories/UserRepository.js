@@ -4,7 +4,7 @@ module.exports = class UserRepository {
 		this.general = connection.UserGeneralConfig;
 		this.cooldowns = connection.UserCooldowns;
 		this.connections = connection.UserConnections;
-		this.daily = connection.Dailies;
+		this.donations = connection.UserDonations;
 	}
 	async ensure(id) {
 		const previous = await this.general.findUnique({ where: { id } });
@@ -15,6 +15,18 @@ module.exports = class UserRepository {
 		dados.profile = data;
 		return dados;
 	}
+
+	async getTodayBirthdays(date) {
+		const birthdays = await this.profiles.findMany({
+			where: {
+				birthday: date,
+			},
+		});
+		// Exclamação faz o if considerar se o valor for negativo
+		// No caso se não tiver nada no banco ele retorna um array vazio
+		return birthdays;
+	}
+
 
 	async ensureProfile(id) {
 
@@ -71,11 +83,21 @@ module.exports = class UserRepository {
 		return dados;
 	}
 
+	async ensurePremium(id) {
+		const previous = await this.donations.findUnique({
+			where: {
+				id,
+			},
+		});
+		return previous;
+	}
+
 	async ensureUserInfos(id) {
 		const general = await this.ensure(id);
 		const cooldowns = await this.ensureCooldowns(id);
 		const profile = await this.ensureProfile(id);
-		return { general, cooldowns: cooldowns.cooldowns, profile: profile.profile };
+		const premium = await this.ensurePremium(id);
+		return { general, cooldowns: cooldowns.cooldowns, profile: profile.profile, premium };
 	}
 
 	async addComets(id, amount) {

@@ -50,6 +50,18 @@ module.exports = class GuildController {
 			tell_user: guild.invite_blocker.tell_user,
 			warn_message: guild.invite_blocker.warn_message,
 		};
+		request.data.starboard = {
+			enabled: guild.starboard.enabled,
+			starboard_channel: guild.starboard.starboard_channel,
+			required_stars: guild.starboard.required_stars,
+			emoji: guild.starboard.emoji,
+		};
+		request.data.autorole = {
+			enabled: guild.autorole.enabled,
+			roles: guild.autorole.roles,
+			give_after: guild.autorole.give_after,
+			give_after_message: guild.autorole.give_after_message,
+		};
 		request.data.welcomer = {
 			enabled: guild.welcomer.enabled,
 			tell_on_join: guild.welcomer.tell_on_join,
