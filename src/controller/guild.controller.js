@@ -16,7 +16,7 @@ module.exports = class GuildController {
 			});
 
 		request.data.blacklist = blacklist;
-		request.data.roles.filter((role) => {
+		request.data.roles = request.data.roles.filter((role) => {
 			return !role.name.includes('@everyone');
 		});
 		/* request.data.isPremium = guild.isPremium,
