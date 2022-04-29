@@ -24,8 +24,11 @@ module.exports = class GuildController {
 		if (guild.key) {
 			tier = guild.key.tier || 0;
 		}
-		/* request.data.isPremium = guild.isPremium,
-		request.data.premiumTier = guild.premiumLevel, */
+		request.data.emojis.push({
+			name: '⭐',
+			id: '⭐',
+			url: 'https://twemoji.maxcdn.com/v/latest/svg/2b50.svg',
+		});
 		request.data.premium = {
 			isPremium: Boolean(guild.key),
 			tier,
