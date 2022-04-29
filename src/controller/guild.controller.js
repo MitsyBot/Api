@@ -207,13 +207,21 @@ module.exports = class GuildController {
 			enabled,
 			starboard_channel,
 			required_stars,
+			emoji,
 		} = req.body;
+
+
+		if (req.body.emoji) {
+			const guild = await DbSet.getInstance().guild.ensure(req.params.id);
+			if (!guild.key && guild.starboard.emoji !== req.body.emoji) return res.send({ sucess: false, message: 'Seu servidor não tem premium' });
+		}
 
 		await DbSet.getInstance().guild.starboard.update({
 			where: {
 				id: req.params.id,
 			},
 			data: {
+				emoji,
 				enabled,
 				starboard_channel,
 				required_stars,
