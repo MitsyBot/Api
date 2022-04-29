@@ -108,6 +108,7 @@ module.exports = class GuildController {
 	static async SetAutoroleConfig(req, res) {
 		const new_roles = req.body.roles.map((role) => { return role.id; });
 		req.body.roles = [...new Set(new_roles)];
+		if (req.body.give_after < 0) req.body.give_after = 0;
 
 		const {
 			enabled,
