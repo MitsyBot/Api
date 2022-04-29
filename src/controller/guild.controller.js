@@ -190,6 +190,25 @@ module.exports = class GuildController {
 		res.send({ sucess: true, message: 'Configuração salva com sucesso' });
 	}
 
+	static async setStarboardConfig(req, res) {
+		const {
+			enabled,
+			starboard_channel,
+			required_stars,
+		} = req.body;
+
+		await DbSet.getInstance().guild.starboard.update({
+			where: {
+				id: req.params.id,
+			},
+			data: {
+				enabled,
+				starboard_channel,
+				required_stars,
+			},
+		});
+		res.send({ sucess: true, message: 'Configuração salva com sucesso' });
+	}
 
 	static async setInviteBlockerConfig(req, res) {
 		const {
