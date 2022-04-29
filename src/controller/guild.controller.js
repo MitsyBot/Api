@@ -19,11 +19,16 @@ module.exports = class GuildController {
 		request.data.roles = request.data.roles.filter((role) => {
 			return !role.name.includes('@everyone');
 		});
+
+		let tier;
+		if (guild.key) {
+			tier = guild.key.tier || 0;
+		}
 		/* request.data.isPremium = guild.isPremium,
 		request.data.premiumTier = guild.premiumLevel, */
 		request.data.premium = {
 			isPremium: Boolean(guild.key),
-			tier: guild.key.tier || 0,
+			tier,
 		};
 		request.data.locale = guild.general.lang,
 		request.data.blacklistedChannels = {
