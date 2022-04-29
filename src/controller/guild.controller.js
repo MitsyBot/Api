@@ -21,6 +21,10 @@ module.exports = class GuildController {
 		});
 		/* request.data.isPremium = guild.isPremium,
 		request.data.premiumTier = guild.premiumLevel, */
+		request.data.premium = {
+			isPremium: Boolean(guild.key),
+			tier: guild.key.tier || 0,
+		};
 		request.data.locale = guild.general.lang,
 		request.data.blacklistedChannels = {
 			channels: guild.general.blacklisted_channels,
