@@ -9,7 +9,7 @@ module.exports = class UserController {
 	}
 
 	static async getUserReps(req, res) {
-		const user = await DbSet.getInstance().user.profiles.findOne({ where: { id: req.params.id } });
+		const user = await DbSet.getInstance().user.profiles.findUnique({ where: { id: req.params.id } });
 
 		const request = await makeRequest('mitsy',
 			{
