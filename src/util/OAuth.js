@@ -6,7 +6,8 @@ function exchangeCode(code) {
 }
 
 async function tokenRequest(code) {
-	console.log(code);
+	console.log(process.env.CLIENT_ID);
+	console.log(process.env.CLIENT_SECRET);
 	const data = new FormData();
 	data.append('client_id', process.env.CLIENT_ID);
 	data.append('client_secret', process.env.CLIENT_SECRET);
@@ -18,7 +19,7 @@ async function tokenRequest(code) {
 		method: 'POST',
 		body: data,
 	})).json();
-	console.log(json);
+
 	return json;
 }
 
