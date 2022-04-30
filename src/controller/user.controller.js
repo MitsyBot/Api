@@ -41,8 +41,12 @@ module.exports = class UserController {
 	}
 
 	static async giveRep(req, res) {
-		const user = await DbSet.getInstance().user.ensureUserInfos(req.params.id);
+		const REP_INTERVAL = 12 * 60 * 60 * 1000;
 
+		const user = await DbSet.getInstance().user.ensureUserInfos(req.params.id);
+		const giver = await DbSet.getInstance().user.ensureUserInfos(req.user.id);
+
+		if (Date.now() - giver.cooldowns.last_rep < REP_INTERVAL) return res.send({ err: true, message: 'Você já deu uma reputação hoje, tente novamente em menos de 12 horas' });
 		if (req.user.id === user.general.id) return req.send({ err:true, message: 'Você não pode dar uma reputação para você mesmo' });
 
 
@@ -56,6 +60,27 @@ module.exports = class UserController {
 		});
 
 		res.send({ success: true });
+
+		await DbSet.getInstance().user.reps.create({
+			data: {
+				given_by: req.user.id,
+				given_by_ip: req.clientIp,
+				received_at: Date.now(),
+				given_by_email: req.user.email,
+				received_by: user.general.id,
+				content: req.body.reason,
+			},
+		});
+
+		await DbSet.getInstance().user.cooldowns.update({
+			where: {
+				id: req.user.id,
+			},
+			data: {
+				last_rep: Date.now(),
+			},
+		});
+
 		await makeRequest('mitsy',
 			{
 				id: generateRandomId(),
