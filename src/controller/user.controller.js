@@ -8,7 +8,7 @@ module.exports = class UserController {
 		res.send({ keys: premium });
 	}
 
-	async getUserReps(req, res) {
+	static async getUserReps(req, res) {
 		const user = await DbSet.getInstance().user.profiles.findOne({ where: { id: req.params.id } });
 
 		const request = await makeRequest('mitsy',
