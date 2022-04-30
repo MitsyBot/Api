@@ -18,7 +18,7 @@ async function tokenRequest(code) {
 		method: 'POST',
 		body: data,
 	})).json();
-
+	console.log(json);
 	return json;
 }
 
