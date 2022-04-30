@@ -45,7 +45,7 @@ module.exports = class UserController {
 
 		if (req.user.id === user.general.id) return req.send({ err:true, message: 'Você não pode dar uma reputação para você mesmo' });
 
-		await makeRequest('mitsy',
+		makeRequest('mitsy',
 			{
 				id: generateRandomId(),
 				type: 'giveRep',
