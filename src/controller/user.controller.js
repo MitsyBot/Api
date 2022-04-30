@@ -15,13 +15,14 @@ module.exports = class UserController {
 			{
 				id: generateRandomId(),
 				type: 'getUser',
-				data: { id: user.id },
+				data: { user: user.id },
 			});
 
-		console.log(request);
 		const body = {
 			reps: user.total_reps,
+			username: request.data.username,
 			id: user.id,
+			avatar: request.data.avatar,
 		};
 
 		res.send(body);
