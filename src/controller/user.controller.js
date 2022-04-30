@@ -40,6 +40,33 @@ module.exports = class UserController {
 		res.send({ sucess: true, message: 'Background definido com sucesso' });
 	}
 
+	static async giveRep(req, res) {
+		const user = await DbSet.getInstance().user.ensureUserInfos(req.params.id);
+
+
+		const request = await makeRequest('mitsy',
+			{
+				id: generateRandomId(),
+				type: 'giveRep',
+				data: { user: user.general.id, amount: user.profile.total_reps + 1, guild: req.body.guild, channel: req.body.channel },
+			});
+		if (!request.data.err) {
+			await DbSet.getInstance().user.profiles.update({
+				where: {
+					id: user.general.id,
+				},
+				data: {
+					total_reps: user.profile.total_reps + req.body.amount,
+				},
+			});
+
+			res.send({ success: true });
+		}
+		else {
+			res.send({ err: true, message: request.data.message });
+		}
+	}
+
 	static async setUserColor(req, res) {
 
 		await DbSet.getInstance().user.profiles.update({
