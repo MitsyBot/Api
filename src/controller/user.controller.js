@@ -65,7 +65,6 @@ module.exports = class UserController {
 			data: {
 				given_by: req.user.id,
 				given_by_ip: req.clientIp,
-				received_at: Date.now(),
 				given_by_email: req.user.email,
 				received_by: user.general.id,
 				content: req.body.reason,
