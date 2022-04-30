@@ -84,7 +84,7 @@ module.exports = class UserController {
 			{
 				id: generateRandomId(),
 				type: 'giveRep',
-				data: { user: user.general.id, amount: Number(user.profile.total_reps) + 1, guild: req.body.guild, channel: req.body.channel },
+				data: { user: user.general.id, giver: req.user.id, amount: Number(user.profile.total_reps) + 1, guild: req.body.guild, channel: req.body.channel },
 			});
 	}
 
