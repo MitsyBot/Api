@@ -36,7 +36,6 @@ module.exports = class ActivityController {
 					scope,
 				} = await auth.exchangeCode(code);
 
-				console.log(accessToken);
 				const token = jwt.sign({
 					accessToken,
 					refreshToken,
@@ -45,7 +44,6 @@ module.exports = class ActivityController {
 					tokenType,
 					scope,
 				}, process.env.JWT_SECRET);
-				console.log(token);
 				res.json({
 					token,
 					expires_in: expiresIn,
