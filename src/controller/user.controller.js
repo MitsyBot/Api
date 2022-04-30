@@ -18,12 +18,10 @@ module.exports = class UserController {
 				data: { id: user.id },
 			});
 
-
+		console.log(request);
 		const body = {
 			reps: user.total_reps,
-			username: request.data.username,
 			id: user.id,
-			avatar: request.data.avatar,
 		};
 
 		res.send(body);
