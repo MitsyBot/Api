@@ -54,7 +54,7 @@ router.post('/user/get/daily', Oauth.authenticate(false, false), User.postDaily)
 router.get('/user/connections/:connName/callback', Oauth.authenticate(false, false), Connections.connCallback);
 router.get('/user/connections', Oauth.authenticate(false, false), Connections.getAllConnections);
 router.delete('/users/connections/:connection', Oauth.authenticate(false, false), Connections.removeConnection);
-
+router.get('/user/reps/:id', UserController.getUserReps);
 // Daily shop
 router.get('/shop/backgrounds', Shop.getRandomBackgrounds);
 router.post('/shop/background/buy', Oauth.authenticate(false, false), Shop.buyBackground);
