@@ -57,7 +57,7 @@ module.exports = class UserController {
 				id: user.general.id,
 			},
 			data: {
-				total_reps: user.profile.total_reps + req.body.amount,
+				total_reps: user.profile.total_reps + 1,
 			},
 		});
 
