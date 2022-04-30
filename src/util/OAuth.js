@@ -6,7 +6,7 @@ function exchangeCode(code) {
 }
 
 async function tokenRequest(code) {
-
+	console.log(code);
 	const data = new FormData();
 	data.append('client_id', process.env.CLIENT_ID);
 	data.append('client_secret', process.env.CLIENT_SECRET);
