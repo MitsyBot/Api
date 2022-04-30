@@ -1,10 +1,32 @@
 const DbSet = require('../database/DbSet');
+const { makeRequest, generateRandomId } = require('../util/WebSocket');
 
 module.exports = class UserController {
 	static async getUserKeys(req, res) {
 		const premium = await DbSet.getInstance().premium.keys.findMany({ where: { user: req.user.id } });
 
 		res.send({ keys: premium });
+	}
+
+	async getUserReps(req, res) {
+		const user = await DbSet.getInstance().user.profiles.findOne({ where: { id: req.params.id } });
+
+		const request = await makeRequest('mitsy',
+			{
+				id: generateRandomId(),
+				type: 'getUser',
+				data: { id: user.id },
+			});
+
+
+		const body = {
+			reps: user.total_reps,
+			username: request.data.username,
+			id: user.id,
+			avatar: request.data.avatar,
+		};
+
+		res.send(body);
 	}
 
 	static async setUserBanner(req, res) {
