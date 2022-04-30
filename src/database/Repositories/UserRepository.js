@@ -6,6 +6,7 @@ module.exports = class UserRepository {
 		this.connections = connection.UserConnections;
 		this.donations = connection.UserDonations;
 		this.daily = connection.Dailies;
+		this.reps = connection.Reputations;
 	}
 	async ensure(id) {
 		const previous = await this.general.findUnique({ where: { id } });
