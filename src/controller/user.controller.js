@@ -45,12 +45,6 @@ module.exports = class UserController {
 
 		if (req.user.id === user.general.id) return req.send({ err:true, message: 'Você não pode dar uma reputação para você mesmo' });
 
-		makeRequest('mitsy',
-			{
-				id: generateRandomId(),
-				type: 'giveRep',
-				data: { user: user.general.id, amount: Number(user.profile.total_reps) + 1, guild: req.body.guild, channel: req.body.channel },
-			});
 
 		await DbSet.getInstance().user.profiles.update({
 			where: {
@@ -62,6 +56,12 @@ module.exports = class UserController {
 		});
 
 		res.send({ success: true });
+		await makeRequest('mitsy',
+			{
+				id: generateRandomId(),
+				type: 'giveRep',
+				data: { user: user.general.id, amount: Number(user.profile.total_reps) + 1, guild: req.body.guild, channel: req.body.channel },
+			});
 	}
 
 	static async setUserColor(req, res) {
