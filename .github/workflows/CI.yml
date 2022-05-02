@@ -47,7 +47,7 @@ jobs:
             docker rm API
             docker image rm ghcr.io/mitsybot/api:latest
             docker pull ghcr.io/mitsybot/api:latest
-            docker run -it -d -p 1234:1234 \
+            docker run -it -d -p 1234:1234 --restart=always \
             -e PORT='1234' -e JWT_SECRET='${{ secrets.JWT_TOKEN }}' \
             -e API_TOKEN='${{ secrets.API_TOKEN }}' \
             -e AGENT='${{ secrets.AGENT }}' \
