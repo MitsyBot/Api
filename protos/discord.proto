@@ -6,11 +6,16 @@ service GuildService {
 }
 
 service UserService {
-    rpc getUser (User) returns (User) {}
+    rpc send (UserMessageRequest) returns (UserMessageResponse) {}
 }
 
-message User {
+message UserMessageRequest {
     required string id = 1;
+	required string message = 2;
+}
+
+message UserMessageResponse {
+    required bool sucess = 1;
 }
 
 message GuildRequest {
