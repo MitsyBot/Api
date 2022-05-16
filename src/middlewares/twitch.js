@@ -45,7 +45,7 @@ module.exports = (req, res, next) => {
 };
 
 function getSecret() {
-	return '127381273981jdbhj1hdjasdqjhwqiwdq';
+	return 'q8gk6sxxfb7moqta5hgoyuipjm5i0b';
 }
 
 function getHmacMessage(request) {
