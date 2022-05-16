@@ -15,7 +15,7 @@ module.exports = (req, res, next) => {
 	if (Challenge) {
 		return res.send(req.body.challenge);
 	}
-	const secret = process.env.API_TOKEN;
+	const secret = process.env.TWITCH_SECRET;
 	const message = getHmacMessage(req);
 	const hmac = HMAC_PREFIX + getHmac(secret, message);
 	console.log(hmac);
