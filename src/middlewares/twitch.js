@@ -16,6 +16,12 @@ module.exports = (req, res, next) => {
 	const message = getHmacMessage(req);
 	const hmac = HMAC_PREFIX + getHmac(secret, message);
 
+
+	console.log(secret);
+	console.log(message);
+	console.log(hmac);
+	console.log(req.headers[TWITCH_MESSAGE_SIGNATURE]);
+	console.log(verifyMessage(hmac, req.headers[TWITCH_MESSAGE_SIGNATURE]));
 	if (verifyMessage(hmac, req.headers[TWITCH_MESSAGE_SIGNATURE]) === true) {
 		console.log('signatures match');
 		const notification = JSON.parse(req.body);
