@@ -39,7 +39,7 @@ app.use('/', limiter, ApiRoutes);
 app.use(NotFound);
 app.use(ErrorHandler);
 
-app.use('/webhooks/', Webhooks);
+app.use('/webhooks', Webhooks);
 
 gRPC.getInstance().init();
 ShopController.getInstance().init();
