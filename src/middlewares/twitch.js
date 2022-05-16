@@ -1,6 +1,8 @@
 module.exports = (req, res, next) => {
-	const typeRequest = req.get('Twitch-Eventsub-Message-Type');
-	const isTest = typeRequest === 'webhook_callback_verification';
+	const typeRequest = req.get('twitch-eventsub-message-type');
+	const isTest = Boolean(typeRequest === 'webhook_callback_verification');
+	console.log(typeRequest);
+	console.log(isTest);
 	if (isTest) {
 		const test = {
 			'challenge': 'pogchamp-kappa-360noscope-vohiyo',
@@ -20,6 +22,7 @@ module.exports = (req, res, next) => {
 				'created_at': '2019-11-16T10:11:12.123Z',
 			},
 		};
+
 		return res.send(test);
 	}
 
