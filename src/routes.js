@@ -16,7 +16,7 @@ const dblAuth = require('./middlewares/dblAuth');
 const Connections = require('./controller/connection.controller');
 const dblHook = require('./webhooks/topgg.webhook');
 const TwitchHook = require('./webhooks/twitch.webhook');
-
+const twitch = require('./middlewares/twitch');
 const Shop = require('./controller/shop.controller');
 const auth = require('./controller/auth.controller');
 const premium = require('./controller/premium.controller');
@@ -94,7 +94,7 @@ router.post('/premium/buy', isAuth, premium.createPremium);
 
 // Webhooks
 router.post('/webhooks/dbl/', dblAuth, dblHook.register);
-router.post('/webhooks/twitch/online', TwitchHook.online);
-router.post('/webhooks/twitch/game', TwitchHook.gameChange);
+router.post('/webhooks/twitch/online', twitch, TwitchHook.online);
+router.post('/webhooks/twitch/game', twitch, TwitchHook.gameChange);
 
 module.exports = router;
