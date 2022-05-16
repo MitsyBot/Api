@@ -12,8 +12,10 @@ const User = require('./controller/user/daily.controller');
 const Fanarts = require('./controller/fanart.controller');
 const Ticket = require('./controller/ticket.controller');
 const isAuth = require('./middlewares/isAuth');
+const dblAuth = require('./middlewares/dblAuth');
 const Connections = require('./controller/connection.controller');
-
+const dblHook = require('./webhooks/topgg.webhook');
+const TwitchHook = require('./webhooks/twitch.webhook');
 
 const Shop = require('./controller/shop.controller');
 const auth = require('./controller/auth.controller');
@@ -89,5 +91,10 @@ router.post('/configure/guild/:id/starboard', Oauth.authenticate(false, false), 
 
 // Premium
 router.post('/premium/buy', isAuth, premium.createPremium);
+
+// Webhooks
+router.post('/webhooks/dbl/', dblAuth, dblHook.register);
+router.post('/webhooks/twitch/online', dblAuth, TwitchHook.online);
+router.post('/webhooks/twitch/game', dblAuth, TwitchHook.gameChange);
 
 module.exports = router;
