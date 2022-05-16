@@ -8,11 +8,10 @@ module.exports = class DblWebhook {
 
 	static async register(req, res) {
 		try {
-			console.log(req.body);
 			let premiumBoost = 1;
 			let tax = 0.2;
 
-			const premium = await DbSet.getInstance().premium.ensureUserPremium(req.user);
+			const premium = await DbSet.getInstance().premium.ensureUserPremium(req.body.user);
 
 			if (premium) {
 				premiumBoost = 0.5 + premium.tier;
@@ -28,8 +27,8 @@ module.exports = class DblWebhook {
 
 			amount = Math.floor(amount);
 
-			await DbSet.getInstance().user.addComets(req.user, Number(amount));
-			await gRPC.getInstance().user.send(req.user, `**Obrigado por votar em mim no TopGG!** Voce recebeu **${amount} Cometinhas** como agradecimento.`);
+			await DbSet.getInstance().user.addComets(req.body.user, Number(amount));
+			await gRPC.getInstance().user.send(req.body.user, `**Obrigado por votar em mim no TopGG!** Voce recebeu **${amount} Cometinhas** como agradecimento.`);
 
 			const date = `${moment().format('DD/MM/YYYY HH:mm')}`;
 
@@ -37,7 +36,7 @@ module.exports = class DblWebhook {
 				data: {
 					reason: 'TOPGG',
 					given_by: 'TOPGG',
-					received_by: req.user,
+					received_by: req.body.user,
 					quantity: amount,
 					given_at: date,
 				},
@@ -47,16 +46,15 @@ module.exports = class DblWebhook {
 				{
 					id: generateRandomId(),
 					type: 'getUser',
-					data: { user: req.user },
+					data: { user: req.body.user },
 				});
-			console.log(websocket);
 			const embed = {
 				color: 0xF895FB,
 				title: `<:Mitsy_Rica:872870327049396274> **${amount} for TOPGG**`,
 				fields: [
 					{
 						name: '**💵 Quem recebeu**',
-						value: `<@${req.user}>\n \`\`${websocket.username}#${websocket.discriminator}\`\``,
+						value: `<@${req.body.user}>\n \`\`${websocket.username}#${websocket.discriminator}\`\``,
 					},
 				],
 				timestamp: new Date(),
