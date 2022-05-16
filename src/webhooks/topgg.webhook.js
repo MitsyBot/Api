@@ -48,6 +48,7 @@ module.exports = class DblWebhook {
 					type: 'getUser',
 					data: { user: req.body.user },
 				});
+			console.log(websocket);
 			const embed = {
 				color: 0xF895FB,
 				title: `<:Mitsy_Rica:872870327049396274> **${amount} for TOPGG**`,
