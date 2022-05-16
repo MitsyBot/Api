@@ -28,23 +28,22 @@ module.exports = (req, res, next) => {
 		else if (MESSAGE_TYPE_REVOCATION === req.headers[MESSAGE_TYPE]) {
 			res.sendStatus(204);
 
-			console.log(`${notification.subscription.type} notifications revoked!`);
-			console.log(`reason: ${notification.subscription.status}`);
-			console.log(`condition: ${JSON.stringify(notification.subscription.condition, null, 4)}`);
+			console.log(`${notification.subscription.type} notificações revogadas!`);
+			console.log(`motivo: ${notification.subscription.status}`);
+			console.log(`condições: ${JSON.stringify(notification.subscription.condition, null, 4)}`);
 		}
 		else {
 			res.sendStatus(204);
-			console.log(`Unknown message type: ${req.headers[MESSAGE_TYPE]}`);
+			console.log(`Tipo desconhecido: ${req.headers[MESSAGE_TYPE]}`);
 		}
 	}
 	else {
-		console.log('403');
 		res.sendStatus(403);
 	}
 };
 
 function getSecret() {
-	return 'q8gk6sxxfb7moqta5hgoyuipjm5i0b';
+	return process.env.TWITCH_SECRET;
 }
 
 function getHmacMessage(request) {
