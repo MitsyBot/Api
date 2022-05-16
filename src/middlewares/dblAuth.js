@@ -1,11 +1,8 @@
 module.exports = (req, res, next) => {
-	const authorization = req.get('Authorization');
-	if (authorization && authorization === process.env.DBL_WEBHOOK_SECRET) {
-		const payload = req.body;
-		if (payload !== {}) {
-			next();
-		}
-		else {return res.status(400).json({ error: 'No body' });}
+	const { authorization } = req.headers;
+	if (!authorization || authorization !== process.env.DBL_WEBHOOK_SECRET) {
+		return res.status(401).send({ message: 'Apenas o topgg pode acessar isto' });
 	}
-	else {return res.status(401).json({ error: 'Invalid Authorization header' });}
+
+	return next();
 };

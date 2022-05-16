@@ -8,6 +8,7 @@ module.exports = class DblWebhook {
 
 	static async register(req, res) {
 		try {
+			console.log(req.body);
 			let premiumBoost = 1;
 			let tax = 0.2;
 
@@ -48,7 +49,7 @@ module.exports = class DblWebhook {
 					type: 'getUser',
 					data: { user: req.user },
 				});
-
+			console.log(websocket);
 			const embed = {
 				color: 0xF895FB,
 				title: `<:Mitsy_Rica:872870327049396274> **${amount} for TOPGG**`,
