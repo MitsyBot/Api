@@ -82,6 +82,9 @@ module.exports = class DblWebhook {
 				return res.status(400).json({ error: 'Bonus already claimed' });
 			case 'NOT_VOTED':
 				return res.status(400).json({ error: 'User hasn\'t voted yet' });
+			default:
+				console.log(e);
+				return res.status(500).json({ error: 'Internal server error' });
 			}
 		}
 
