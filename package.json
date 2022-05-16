@@ -24,7 +24,7 @@
     "form-data": "^4.0.0",
     "joi": "^17.6.0",
     "jsonwebtoken": "^8.5.1",
-    "moment": "^2.29.1",
+    "moment": "^2.29.2",
     "node-cron": "^3.0.0",
     "node-fetch": "^2.6.1",
     "request-ip": "^2.1.3"
