@@ -54,6 +54,7 @@ jobs:
             -e DISCORD_GRPC_SERVER='${{ secrets.DISCORD_GRPC_SERVER }}' \
             -e STARTRACKER_WEBHOOK='${{ secrets.STARTRACKER_WEBHOOK }}' \
             -e BACKGROUNDS_WEBHOOK='${{ secrets.BACKGROUNDS_WEBHOOK }}' \
+            -e DBL_WEBHOOK_SECRET='${{ secrets.DBL_WEBHOOK_SECRET }}' \
             -e SUGGESTION_WEBHOOK_URL='${{ secrets.SUGGESTION_WEBHOOK_URL }}' \
             -e CDN_URL='${{ secrets.CDN_URL }}' \
             -e DATABASE_URL='${{ secrets.DATABASE_URL }}' \

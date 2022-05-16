@@ -12,8 +12,9 @@ const User = require('./controller/user/daily.controller');
 const Fanarts = require('./controller/fanart.controller');
 const Ticket = require('./controller/ticket.controller');
 const isAuth = require('./middlewares/isAuth');
+const dblAuth = require('./middlewares/dblAuth');
 const Connections = require('./controller/connection.controller');
-
+const webhooks = require('./webhooks/topgg.webhook');
 const Shop = require('./controller/shop.controller');
 const auth = require('./controller/auth.controller');
 const premium = require('./controller/premium.controller');
@@ -36,6 +37,7 @@ router.get('/backgrounds/', Shop.allBackgrounds);
 router.get('/user/@me', Oauth.authenticate(false, true), auth.me);
 router.get('/user/login', auth.login);
 router.post('/user/login/new', Oauth.authenticate(false, false), auth.loginMessage);
+router.post('/webhooks/dbl/', dblAuth, webhooks.register);
 
 // Usuarios para o website e dashboard
 router.get('/user/profile', Oauth.authenticate(false, false), UserController.GetUserInfos);
