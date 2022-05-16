@@ -1,4 +1,4 @@
-const DbSet = require('../../database/DbSet');
+const DbSet = require('../database/DbSet');
 const gRPC = require('../gRPC/Client');
 const axios = require('axios');
 const moment = require('moment');
