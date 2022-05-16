@@ -6,9 +6,9 @@ const TWITCH_MESSAGE_SIGNATURE = 'Twitch-Eventsub-Message-Signature'.toLowerCase
 const HMAC_PREFIX = 'sha256=';
 
 module.exports = (req, res, next) => {
-	if (!req.headers[TWITCH_MESSAGE_SIGNATURE]) return res.sendStatus(500);
-	if (!req.headers[TWITCH_MESSAGE_TIMESTAMP]) return res.sendStatus(500);
-	if (!req.headers[TWITCH_MESSAGE_ID]) return res.sendStatus(500);
+	if (!req.headers[TWITCH_MESSAGE_SIGNATURE]) return res.sendStatus(403);
+	if (!req.headers[TWITCH_MESSAGE_TIMESTAMP]) return res.sendStatus(403);
+	if (!req.headers[TWITCH_MESSAGE_ID]) return res.sendStatus(403);
 
 	const typeRequest = req.get('twitch-eventsub-message-type');
 	const Challenge = Boolean(typeRequest === 'webhook_callback_verification');
