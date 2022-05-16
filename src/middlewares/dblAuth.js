@@ -1,5 +1,3 @@
-const Joi = require('joi');
-
 module.exports = (req, res, next) => {
 	const authorization = req.get('Authorization');
 	if (authorization && authorization === process.env.DBL_WEBHOOK_SECRET) {
