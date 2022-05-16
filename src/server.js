@@ -10,7 +10,7 @@ const { pingPage, InitializeServer } = require('./util/WebSocket');
 const app = express();
 const ShopController = require('./util/ShopController');
 const PremiumController = require('./util/PremiumController');
-
+const Webhooks = require('./webhooks');
 const gRPC = require('./gRPC/Client');
 
 const limiter = rateLimit({
@@ -38,6 +38,8 @@ app.use('/', limiter, ApiRoutes);
 
 app.use(NotFound);
 app.use(ErrorHandler);
+
+app.use('/webhooks/', Webhooks);
 
 gRPC.getInstance().init();
 ShopController.getInstance().init();
