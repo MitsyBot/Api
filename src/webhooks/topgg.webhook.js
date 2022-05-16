@@ -48,14 +48,13 @@ module.exports = class DblWebhook {
 					type: 'getUser',
 					data: { user: req.body.user },
 				});
-			console.log(websocket);
 			const embed = {
 				color: 0xF895FB,
 				title: `<:Mitsy_Rica:872870327049396274> **${amount} for TOPGG**`,
 				fields: [
 					{
 						name: '**💵 Quem recebeu**',
-						value: `<@${req.body.user}>\n \`\`${websocket.username}#${websocket.discriminator}\`\``,
+						value: `<@${req.body.user}>\n \`\`${websocket.data.username}#${websocket.data.discriminator}\`\``,
 					},
 				],
 				timestamp: new Date(),
