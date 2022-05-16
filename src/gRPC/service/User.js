@@ -21,9 +21,10 @@ module.exports = class UserService {
 		);
 	}
 
-	async send(guild) {
+	async send(id, message) {
 		const param = {
-			guild,
+			id,
+			message,
 		};
 
 		const request = await new Promise((resolve, reject) => {
