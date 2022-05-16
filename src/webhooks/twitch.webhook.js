@@ -3,6 +3,7 @@ module.exports = class TwitchWebhook {
 	static async online(req, res) {
 		try {
 			const { event } = req.body;
+			// Terminar de implementar
 			console.log(event.broadcaster_user_login);
 
 			return res.status(200).json({ message: 'OK' });
