@@ -94,7 +94,7 @@ router.post('/premium/buy', isAuth, premium.createPremium);
 
 // Webhooks
 router.post('/webhooks/dbl/', dblAuth, dblHook.register);
-router.post('/webhooks/twitch/online.', dblAuth, TwitchHook.online);
-router.post('/webhooks/twitch/game.', dblAuth, TwitchHook.gameChange);
+router.post('/webhooks/twitch/online', dblAuth, TwitchHook.online);
+router.post('/webhooks/twitch/game', dblAuth, TwitchHook.gameChange);
 
 module.exports = router;
