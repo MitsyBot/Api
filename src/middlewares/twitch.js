@@ -18,10 +18,14 @@ module.exports = (req, res, next) => {
 	const secret = process.env.TWITCH_SECRET;
 	const message = getHmacMessage(req);
 	const hmac = HMAC_PREFIX + getHmac(secret, message);
+	console.log(hmac);
+	console.log(req.headers[TWITCH_MESSAGE_SIGNATURE]);
+	console.log(verifyMessage(hmac, req.headers[TWITCH_MESSAGE_SIGNATURE]));
 	if (verifyMessage(hmac, req.headers[TWITCH_MESSAGE_SIGNATURE]) === true) {
 		return next();
 	}
 	else {
+		console.log('nem passou');
 		res.sendStatus(403);
 	}
 };
