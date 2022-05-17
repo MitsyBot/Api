@@ -11,6 +11,9 @@ module.exports = class DbSet {
 		this.transactions = prisma.CometTransaction;
 		this.premium = new PremiumRepository(prisma);
 		this.backgrounds = new BackgroundRepository(prisma);
+		this.twitchNotify = prisma.TwitchNotify;
+		this.client = prisma.Client;
+		this.twitchGuildConfigs = prisma.TwitchGuildConfigs;
 	}
 
 	static getInstance() {

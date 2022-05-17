@@ -15,10 +15,8 @@ module.exports = class TwitchWebhook {
 
 	static async gameChange(req, res) {
 		try {
-			const { event, subscription } = req.body;
-			console.log(event);
-			console.log(subscription);
-			console.log(req.headers);
+			const { event } = req.body;
+			console.log(event.category_name);
 
 			return res.status(200).json({ message: 'OK' });
 		}

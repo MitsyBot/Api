@@ -20,6 +20,7 @@ const twitch = require('./middlewares/twitch');
 const Shop = require('./controller/shop.controller');
 const auth = require('./controller/auth.controller');
 const premium = require('./controller/premium.controller');
+const twitchController = require('./controller/twitch.controller');
 const router = Router();
 
 router.get('/status/shards', ShardController.getShardStatus);
@@ -52,6 +53,7 @@ router.post('/user/keys/enable', Oauth.authenticate(false, false), premium.activ
 router.post('/user/keys/disable', Oauth.authenticate(false, false), premium.deactivateKey),
 router.get('/user/daily', Oauth.authenticate(false, false), User.getDailyInfos);
 router.post('/user/get/daily', Oauth.authenticate(false, false), User.postDaily);
+router.get('/twitch/username/:username', twitchController.getTwitchUserByName);
 
 // Conexões
 router.get('/user/connections/:connName/callback', Oauth.authenticate(false, false), Connections.connCallback);
@@ -76,6 +78,9 @@ router.get('/fanarts/activity', Fanarts.getDay);
 router.post('/fanarts/send', Oauth.authenticate(false, false), Fanarts.sendArt);
 router.post('/fanarts/create', isAuth, Fanarts.aproveArt);
 router.get('/fanarts/:user', Fanarts.getUserArts);
+
+// Twitch notify
+router.post('/configure/guild/:id/twitch', twitchController.createEventHook);
 
 // Servidor para dashboard
 router.get('/configure/guild', Oauth.authenticate(false, false), GuildController.GetIndexGuildConfig);

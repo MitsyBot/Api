@@ -56,6 +56,7 @@ jobs:
             -e BACKGROUNDS_WEBHOOK='${{ secrets.BACKGROUNDS_WEBHOOK }}' \
             -e DBL_WEBHOOK_SECRET='${{ secrets.DBL_WEBHOOK_SECRET }}' \
             -e TWITCH_SECRET='${{ secrets.TWITCH_SECRET }}' \
+            -e TWITCH_CLIENT_ID='${{ secrets.TWITCH_CLIENT_ID }}' \
             -e SUGGESTION_WEBHOOK_URL='${{ secrets.SUGGESTION_WEBHOOK_URL }}' \
             -e CDN_URL='${{ secrets.CDN_URL }}' \
             -e DATABASE_URL='${{ secrets.DATABASE_URL }}' \
